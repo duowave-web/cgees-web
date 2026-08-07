@@ -136,19 +136,25 @@ window.CGE_CONTENIDO = {
   ],
 
   /* ======================================================================
-     B) REPERTORIO DE ASOCIACIONES REGISTRADAS
+     B) REPERTORIO DE ENTIDADES GUINEANAS
      ----------------------------------------------------------------------
-     Se muestran en la página «Asociaciones», en el orden de esta lista.
+     Se muestran en la página «Entidades», en el orden de esta lista.
      Mientras la lista esté vacía se muestra un aviso de «en construcción».
 
        sigla     → 2-7 letras para el cuadrado azul. Si lo dejas vacío,
                    se generan solas a partir del nombre.
        nombre    → denominación completa
+       tipo      → 'Asociación' | 'Federación' | 'ONG' | 'Fundación' |
+                   'Cooperativa' | 'Consejo'…  (texto libre; si lo dejas
+                   vacío no se muestra la etiqueta)
        ciudad    → localidad (opcional)
        provincia → provincia o territorio
        desde     → año de constitución (opcional)
-       ambito    → área de trabajo (opcional)
-       email     → correo de la asociación, o '' para no publicarlo
+       ambito    → ámbito de actuación: 'Cultura', 'Educación',
+                   'Solidaridad', 'Cooperación', 'Deporte', 'Mujer',
+                   'Juventud'… Se pueden encadenar separados por comas y
+                   cada uno sale como una etiqueta independiente.
+       email     → correo de la entidad, o '' para no publicarlo
        web       → URL o '' (opcional)
 
      ⚠ PROTECCIÓN DE DATOS
@@ -161,43 +167,53 @@ window.CGE_CONTENIDO = {
 
   asociaciones: [
     { sigla: 'AGCO',    nombre: 'Asociación Guineana de Conakry y Originarios',
+      tipo: 'Asociación',
       ciudad: 'Granollers', provincia: 'Barcelona', desde: '2003',
-      ambito: 'Cultura y cooperación', email: 'asociacionguineana@gmail.com', web: '' },
+      ambito: 'Cultura, Cooperación', email: 'asociacionguineana@gmail.com', web: '' },
 
     { sigla: 'ASEGORC', nombre: 'Asociación de Emigrantes Guineanos y Originarios Residentes en Catalunya',
+      tipo: 'Asociación',
       ciudad: 'Santa Coloma de Gramenet', provincia: 'Barcelona', desde: '2004',
       ambito: '', email: '', web: '' },
 
     { sigla: 'AMD',     nombre: 'Associació Manden Dekuru (Unió Mandig)',
+      tipo: 'Asociación',
       ciudad: 'Sabadell', provincia: 'Barcelona', desde: '2009',
       ambito: 'Cultura', email: '', web: '' },
 
     { sigla: '',        nombre: 'Asociación Djigui de Guinea (Esperança)',
+      tipo: 'Asociación',
       ciudad: 'Salt', provincia: 'Girona', desde: '2010',
-      ambito: 'Social y cultura', email: 'djiguigirona@gmail.com', web: '' },
+      ambito: 'Solidaridad, Cultura', email: 'djiguigirona@gmail.com', web: '' },
 
     { sigla: 'AKAGE',   nombre: 'Association Konia et Amis Guinéens en Espagne',
+      tipo: 'Asociación',
       ciudad: 'Lleida', provincia: 'Lleida', desde: '2010',
-      ambito: 'Social y cultura', email: 'akage2010konia@hotmail.com', web: '' },
+      ambito: 'Solidaridad, Cultura', email: 'akage2010konia@hotmail.com', web: '' },
 
     { sigla: 'CSDBGE',  nombre: 'Consejo Superior de la Diáspora de la Baja Guinea',
+      tipo: '',                                   // PENDIENTE de confirmar
       ciudad: 'Barcelona', provincia: 'Barcelona', desde: '2020',
-      ambito: 'Cultura y cooperación', email: 'bassecote.espagne@gmail.com', web: '' },
+      ambito: 'Cultura, Cooperación', email: 'bassecote.espagne@gmail.com', web: '' },
 
     { sigla: '',        nombre: 'Femmes Battantes de Barcelone',
+      tipo: '',                                   // PENDIENTE de confirmar
       ciudad: 'Barcelona', provincia: 'Barcelona', desde: '',
       ambito: '', email: '', web: '' },
 
     { sigla: '',        nombre: 'Fasso Balandou de Sabadell',
+      tipo: '',                                   // PENDIENTE de confirmar
       ciudad: 'Sabadell', provincia: 'Barcelona', desde: '',
       ambito: '', email: '', web: '' },
 
     { sigla: '',        nombre: 'Manding de Mataró',
+      tipo: '',                                   // PENDIENTE de confirmar
       ciudad: 'Mataró', provincia: 'Barcelona', desde: '',
       ambito: '', email: '', web: '' },
 
     { sigla: '',        nombre: 'Association des Femmes Guinéennes à Catalunya',
+      tipo: 'Asociación',
       ciudad: '', provincia: 'Cataluña', desde: '',
-      ambito: '', email: '', web: '' }
+      ambito: 'Mujer', email: '', web: '' }
   ]
 };

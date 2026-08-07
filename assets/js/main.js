@@ -318,10 +318,17 @@
       var lugar = [a.ciudad, a.provincia].filter(Boolean);
       if (lugar.length === 2 && lugar[0] === lugar[1]) lugar = [lugar[0]];
       var meta = [
+        a.tipo || '',
         lugar.join(' (') + (lugar.length === 2 ? ')' : ''),
-        a.desde ? (traducir('asoc.dir.desde') || 'Desde') + ' ' + a.desde : '',
-        a.ambito || ''
+        a.desde ? (traducir('asoc.dir.desde') || 'Desde') + ' ' + a.desde : ''
       ].filter(Boolean).join(' · ');
+
+      /* El ámbito puede llevar varios valores separados por comas */
+      var ambitos = (a.ambito || '').split(',')
+        .map(function (s) { return s.trim(); })
+        .filter(Boolean)
+        .map(function (s) { return '<span class="etiqueta etiqueta--oro">' + s + '</span>'; })
+        .join('');
 
       var accion;
       if (a.web) {
@@ -341,6 +348,7 @@
         '<span class="directorio__sigla">' + sigla + '</span>' +
         '<span><span class="directorio__nombre">' + a.nombre + '</span>' +
           (meta ? '<span class="directorio__meta" style="display:block">' + meta + '</span>' : '') +
+          (ambitos ? '<span class="directorio__ambitos">' + ambitos + '</span>' : '') +
         '</span>' +
         accion +
       '</div>';

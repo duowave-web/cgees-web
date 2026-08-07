@@ -97,7 +97,7 @@
           dkey: 'nav.sub.registro.d', d: 'Inscripción, NIF y sede social' }
       ]
     },
-    { href: 'asociaciones.html', key: 'nav.asociaciones', txt: 'Asociaciones' },
+    { href: 'asociaciones.html', key: 'nav.asociaciones', txt: 'Entidades' },
     {
       href: 'servicios.html', key: 'nav.servicios', txt: 'Servicios',
       sub: [
@@ -261,8 +261,8 @@
                 '<li><a href="quienes-somos.html#origen"' + i18n('pie.origen', 'Origen y mandato') + '</a></li>' +
                 '<li><a href="quienes-somos.html#organos"' + i18n('pie.organos', 'Junta Directiva') + '</a></li>' +
                 '<li><a href="quienes-somos.html#registro"' + i18n('pie.acred', 'Datos registrales') + '</a></li>' +
-                '<li><a href="asociaciones.html"' + i18n('pie.asoc', 'Asociaciones registradas') + '</a></li>' +
-                '<li><a href="asociaciones.html#adherirse"' + i18n('pie.adherirse', 'Cómo adherirse') + '</a></li>' +
+                '<li><a href="asociaciones.html"' + i18n('pie.asoc', 'Entidades guineanas') + '</a></li>' +
+                '<li><a href="asociaciones.html#adherirse"' + i18n('pie.adherirse', 'Cómo inscribirse') + '</a></li>' +
               '</ul>' +
             '</div>' +
 

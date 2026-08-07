@@ -48,8 +48,13 @@ inscripción del Ministerio del Interior (salida nº 19017, clave 3844-2024):
 > 1. La tarjeta de la AEAT dice «del Exterior **DE** España» y la resolución del Interior dice
 >    «del Exterior **EN** España». La web usa la fórmula del Interior, que es la de la
 >    inscripción constitutiva.
-> 2. En la resolución, Mamadou Diallo Diallo figura como quien actúa «en nombre y
->    representación de la entidad». La web lo sitúa en la Presidencia: confirma el cargo exacto.
+> 2. La resolución del Interior escribe **«Mamadou Diallo Diallo»** y la hoja del Bureau
+>    **«DIALLO Mamadou»**. La web usa la forma del Bureau, por ser el documento propio de la
+>    entidad. Si el nombre registral completo debe figurar tal cual, dímelo.
+> 3. La hoja del Bureau se titula «CONSEIL DES GUINÉENS DE L'EXTÉRIEUR EN **ESPAGNE/MALTE**»,
+>    pero el ámbito inscrito en el Ministerio del Interior es «todo el territorio del Estado»
+>    español. La web no menciona Malta para no contradecir la inscripción: si el mandato
+>    guineano incluye Malta y queréis reflejarlo, hay que redactarlo con cuidado.
 
 ---
 
@@ -75,7 +80,9 @@ El correo ya está puesto: `infocgees@gmail.com`.
 - **Origen y mandato**: añade la referencia exacta de la orden o decreto del Gobierno de Guinea
   que crea el Consejo de Guineanos del Exterior, y la fecha de la votación en la que se eligió
   la Junta Directiva en España. Es el dato que más peso institucional da a toda la web.
-- **Junta Directiva**: los cinco `Nombre y apellidos` restantes.
+- **Junta Directiva**: ✅ completa. Los 15 cargos del Bureau están cargados con nombre y
+  provincia. **No se publican** los teléfonos, correos, códigos postales ni profesiones que
+  figuran en tu hoja: son datos personales.
 
 ### 📄 `assets/js/contenido.js`
 - **Repertorio de asociaciones**: ya están cargadas las 10 de tu hoja de cálculo. Faltan
@@ -147,12 +154,21 @@ entidad colaboradora en materia de extranjería, sin detallar el procedimiento i
 
 ---
 
-## 6. El repertorio de asociaciones y la protección de datos
+## 6. El repertorio de entidades y la protección de datos
 
-Las 10 asociaciones de tu hoja de cálculo están cargadas en `assets/js/contenido.js`.
-De cada una se publica **solo lo que es dato de la entidad**: nombre, siglas, localidad,
-provincia, año de constitución, área de trabajo y —cuando la dirección es de la asociación y
+Las 10 entidades de tu hoja de cálculo están cargadas en `assets/js/contenido.js`.
+De cada una se publica **solo lo que es dato de la entidad**: nombre, siglas, tipo, localidad,
+provincia, año de constitución, ámbito de actuación y —cuando la dirección es de la entidad y
 no de una persona— el correo.
+
+**Tipo de entidad** (`tipo`): texto libre, pensado para `Asociación`, `Federación`, `ONG`,
+`Fundación`, `Consejo`… Si lo dejas vacío no se muestra la etiqueta. Está puesto en las que el
+nombre lo deja claro; **falta confirmar** el de CSDBGE, Femmes Battantes de Barcelone, Fasso
+Balandou de Sabadell y Manding de Mataró.
+
+**Ámbito de actuación** (`ambito`): admite varios valores separados por comas —`Cultura`,
+`Educación`, `Solidaridad`, `Cooperación`, `Deporte`, `Mujer`, `Juventud`…— y cada uno sale
+como una etiqueta independiente.
 
 **Se han dejado fuera a propósito**, aunque estén en tu hoja:
 

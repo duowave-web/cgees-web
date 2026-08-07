@@ -992,6 +992,8 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .directorio__email svg { width: 15px; height: 15px; flex-shrink: 0; }
 .directorio__nombre { font-weight: 700; color: var(--navy); font-size: .98rem; }
 .directorio__meta { font-size: .84rem; color: var(--texto-suave); }
+.directorio__ambitos { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.directorio__ambitos .etiqueta { font-size: .64rem; padding: 3px 9px; }
 .directorio__vacio {
   padding: 40px 26px; text-align: center;
   border: 1.5px dashed var(--gris-300);
