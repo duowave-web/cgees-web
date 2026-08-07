@@ -1,7 +1,15 @@
 ﻿# CGE-ES — Sitio web
 
 Web institucional del **Consejo de Guineanos del Exterior en España (CGE-ES)**.
-Dominio previsto: **www.cgees.org**
+
+| | |
+|---|---|
+| **Vista previa** | https://duowave-web.github.io/cgees-web/ |
+| **Repositorio** | https://github.com/duowave-web/cgees-web |
+| **Dominio final previsto** | www.cgees.org |
+
+> La vista previa se actualiza sola cada vez que se sube un cambio (tarda un par de minutos).
+> Es **un borrador**: lleva `noindex` para que no salga en Google.
 
 HTML, CSS y JavaScript puros. **Sin compilación, sin dependencias, sin base de datos.**
 Se edita con cualquier editor de texto y se publica copiando la carpeta a un servidor.
@@ -230,7 +238,7 @@ cada vez que se sube un cambio.
 ### Descargar el proyecto por primera vez
 
 ```bash
-git clone https://github.com/USUARIO/REPOSITORIO.git
+git clone https://github.com/duowave-web/cgees-web.git
 ```
 
 Luego se abre `index.html`, o mejor se levanta el servidor local (punto 1).
