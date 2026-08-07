@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-labelledby="cgeTituloB">
+  <title id="cgeTituloB">Conseil des Guinéens de l'Extérieur en Espagne — CGE-ES</title>
+
+  <!--
+    Misma composición que logo.svg. Lo único que cambia es lo que iría en gris
+    oscuro (anillo exterior, texto circular y puntos), que aquí va en blanco
+    para que se lea sobre fondos oscuros. Todo lo demás es idéntico.
+  -->
+
+  <defs>
+    <path id="bArcoSup" d="M 33,200 A 167,167 0 0 1 367,200" fill="none"/>
+    <path id="bArcoInf" d="M 18,200 A 182,182 0 0 0 382,200" fill="none"/>
+
+    <path id="bGuinea" d="M 0,32.7 L 14.7,21.8 L 18.7,9.1 L 28,0.4 L 37.3,5.5 L 49.3,5.5 L 58.7,14.5
+                          L 69.3,9.1 L 78.7,12.7 L 89.3,30.9 L 92,41.8 L 96,56.4 L 98.7,69.1
+                          L 92,78.2 L 89.3,90.9 L 81.3,98.2 L 76,85.5 L 69.3,76.4 L 60,74.5
+                          L 52,67.3 L 43,56 L 29.3,61.8 L 24,67.3 L 18.7,56.4 L 9.3,43.6 Z"/>
+
+    <path id="bEspana" d="M 2.4,7.7 L 18.3,2.6 L 38.1,5.1 L 57.9,5.1 L 59.7,5.4 L 79.4,14.1 L 85.7,17.9
+                          L 99.2,17.9 L 81,35.9 L 73.8,50 L 71.4,56.4 L 75.4,64.1 L 68.3,79.5
+                          L 59.5,84.6 L 50,91 L 38.9,91 L 29.4,100 L 23.8,89.7 L 15.1,84.6
+                          L 18.3,71.8 L 15.9,55.1 L 19,44.9 L 19.8,35.9 L 24.6,28.2 L 21.4,23.1
+                          L 8.7,23.1 L 3.2,15.4 Z"/>
+
+    <path id="bEscudo" d="M 130,120 a 12,12 0 0 1 12,-12 h 116 a 12,12 0 0 1 12,12
+                          v 78 c 0,52 -40,78 -70,94 c -30,-16 -70,-42 -70,-94 Z"/>
+
+    <path id="bHoja" d="M 0,0 C 9,-8 21,-7 26,0 C 21,7 9,8 0,0 Z"/>
+
+    <clipPath id="bRecorteGuinea"><use href="#bGuinea" transform="translate(152 124) scale(0.96 0.72)"/></clipPath>
+    <clipPath id="bRecorteEscudo"><use href="#bEscudo"/></clipPath>
+  </defs>
+
+  <!-- ===== Anillo exterior (en blanco) ===== -->
+  <circle cx="200" cy="200" r="190" fill="none" stroke="#FFFFFF" stroke-width="5"/>
+  <circle cx="200" cy="200" r="158" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".6"/>
+
+  <!-- ===== Texto circular (en blanco) ===== -->
+  <g fill="#FFFFFF" font-family="Montserrat, 'Trebuchet MS', Verdana, Arial, sans-serif" font-weight="700">
+    <text font-size="18" letter-spacing="0.6"><textPath href="#bArcoSup" startOffset="50%" text-anchor="middle">CONSEIL DES GUINÉENS DE L'EXTÉRIEUR</textPath></text>
+    <text font-size="26" letter-spacing="4"><textPath href="#bArcoInf" startOffset="50%" text-anchor="middle">EN ESPAGNE</textPath></text>
+  </g>
+  <circle cx="26" cy="200" r="5" fill="#FFFFFF"/>
+  <circle cx="374" cy="200" r="5" fill="#FFFFFF"/>
+
+  <!-- ===== Corona de laurel (idéntica al logo principal) ===== -->
+  <g fill="#009E49">
+    <g>
+      <path d="M 188,341 C 158,335 128,310 113,270 C 108,257 106,247 105,238"
+            fill="none" stroke="#009E49" stroke-width="3.4" stroke-linecap="round"/>
+      <use href="#bHoja" transform="translate(180 338) rotate(202)"/>
+      <use href="#bHoja" transform="translate(163 331) rotate(212)"/>
+      <use href="#bHoja" transform="translate(148 320) rotate(223)"/>
+      <use href="#bHoja" transform="translate(135 305) rotate(234)"/>
+      <use href="#bHoja" transform="translate(124 287) rotate(244)"/>
+      <use href="#bHoja" transform="translate(116 267) rotate(254)"/>
+      <use href="#bHoja" transform="translate(110 247) rotate(262)"/>
+    </g>
+    <g transform="translate(400 0) scale(-1 1)">
+      <path d="M 188,341 C 158,335 128,310 113,270 C 108,257 106,247 105,238"
+            fill="none" stroke="#009E49" stroke-width="3.4" stroke-linecap="round"/>
+      <use href="#bHoja" transform="translate(180 338) rotate(202)"/>
+      <use href="#bHoja" transform="translate(163 331) rotate(212)"/>
+      <use href="#bHoja" transform="translate(148 320) rotate(223)"/>
+      <use href="#bHoja" transform="translate(135 305) rotate(234)"/>
+      <use href="#bHoja" transform="translate(124 287) rotate(244)"/>
+      <use href="#bHoja" transform="translate(116 267) rotate(254)"/>
+      <use href="#bHoja" transform="translate(110 247) rotate(262)"/>
+    </g>
+  </g>
+
+  <!-- Estrella inferior -->
+  <path d="M 0,-14 L 3.14,-4.33 L 13.31,-4.33 L 5.09,1.65 L 8.23,11.33 L 0,5.35
+           L -8.23,11.33 L -5.09,1.65 L -13.31,-4.33 L -3.14,-4.33 Z"
+        transform="translate(200 336)" fill="#FCD116" stroke="#D9B00A" stroke-width="1"/>
+
+  <!-- ===== Escudo (idéntico al logo principal) ===== -->
+  <use href="#bEscudo" fill="#FFFFFF" stroke="#FCD116" stroke-width="6"/>
+
+  <g clip-path="url(#bRecorteEscudo)">
+    <use href="#bEspana" transform="translate(166 232) scale(0.68 0.55)" fill="#E6E6E6"/>
+  </g>
+
+  <g clip-path="url(#bRecorteGuinea)">
+    <rect x="152" y="124" width="32" height="72" fill="#CE1126"/>
+    <rect x="184" y="124" width="32" height="72" fill="#FCD116"/>
+    <rect x="216" y="124" width="32" height="72" fill="#009E49"/>
+  </g>
+
+  <use href="#bEscudo" fill="none" stroke="#1F2A37" stroke-width="1.5"
+       transform="translate(200 200) scale(0.93) translate(-200 -200)"/>
+
+  <rect x="132" y="199" width="136" height="34" rx="4" fill="#1F2A37"/>
+  <text x="200" y="222" text-anchor="middle" fill="#FFFFFF"
+        font-family="Montserrat, 'Trebuchet MS', Verdana, Arial, sans-serif"
+        font-weight="800" font-size="24" letter-spacing="1.2">CGE-ES</text>
+</svg>

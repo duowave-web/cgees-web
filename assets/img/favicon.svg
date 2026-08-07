@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CGE-ES">
+  <defs>
+    <path id="fGuinea" d="M 0,32.7 L 14.7,21.8 L 18.7,9.1 L 28,0.4 L 37.3,5.5 L 49.3,5.5 L 58.7,14.5
+                          L 69.3,9.1 L 78.7,12.7 L 89.3,30.9 L 92,41.8 L 96,56.4 L 98.7,69.1
+                          L 92,78.2 L 89.3,90.9 L 81.3,98.2 L 76,85.5 L 69.3,76.4 L 60,74.5
+                          L 52,67.3 L 43,56 L 29.3,61.8 L 24,67.3 L 18.7,56.4 L 9.3,43.6 Z"/>
+    <clipPath id="fRecorte">
+      <use href="#fGuinea" transform="translate(6 15) scale(0.52 0.39)"/>
+    </clipPath>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="#1F2A37"/>
+
+  <g clip-path="url(#fRecorte)">
+    <rect x="6"  y="15" width="17.4" height="39" fill="#CE1126"/>
+    <rect x="23.4" y="15" width="17.4" height="39" fill="#FCD116"/>
+    <rect x="40.8" y="15" width="17.4" height="39" fill="#009E49"/>
+  </g>
+
+  <rect x="0" y="55" width="64" height="9" fill="#141C26"/>
+  <text x="32" y="62" text-anchor="middle" fill="#FFFFFF"
+        font-family="Montserrat, 'Trebuchet MS', Verdana, Arial, sans-serif"
+        font-weight="800" font-size="7" letter-spacing="0.6">CGE-ES</text>
+</svg>

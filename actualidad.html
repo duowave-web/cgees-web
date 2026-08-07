@@ -1,0 +1,110 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title data-i18n="meta.news.t">Actualidad · CGE-ES</title>
+<meta name="description" data-i18n-attr="content:meta.news.d" content="Noticias, actividades, jornadas y comunicados del Consejo de Guineanos del Exterior en España (CGE-ES).">
+
+<link rel="canonical" href="https://www.cgees.org/actualidad.html">
+<link rel="alternate" hreflang="es" href="https://www.cgees.org/actualidad.html?lang=es">
+<link rel="alternate" hreflang="fr" href="https://www.cgees.org/actualidad.html?lang=fr">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1F2A37">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Actualidad · CGE-ES">
+<meta property="og:image" content="https://www.cgees.org/assets/img/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+<a class="saltar" href="#principal" data-i18n="a11y.saltar">Saltar al contenido principal</a>
+
+<div id="site-header">
+  <noscript>
+    <div class="contenedor" style="padding:18px 24px;border-bottom:1px solid #E1E5E9">
+      <strong>CGE-ES</strong> ·
+      <a href="index.html">Inicio</a> · <a href="quienes-somos.html">El Consejo</a> ·
+      <a href="asociaciones.html">Asociaciones</a> · <a href="servicios.html">Servicios</a> ·
+      <a href="asuntos-consulares.html">Asuntos consulares</a> ·
+      <a href="actualidad.html">Actualidad</a> · <a href="contacto.html">Contacto</a>
+    </div>
+  </noscript>
+</div>
+
+<main id="principal">
+
+  <section class="hero-pagina">
+    <div class="contenedor hero-pagina__inner">
+      <ol class="migas">
+        <li><a href="index.html" data-i18n="migas.inicio">Inicio</a></li>
+        <li data-i18n="migas.actualidad">Actualidad</li>
+      </ol>
+      <h1 data-i18n="news.h1">Actualidad y avisos</h1>
+      <p data-i18n="news.sub">
+        Convocatorias, comunicados institucionales y avisos prácticos para la comunidad guineana
+        en España. Aquí se publican también las convocatorias de la Fiesta de la Independencia.
+      </p>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+
+      <!-- Aviso de contenido de ejemplo (se oculta solo cuando las noticias son reales) -->
+      <div class="panel-nota" data-aviso-ejemplo hidden style="margin-bottom:34px">
+        <strong data-i18n="news.demo.t">Contenido de ejemplo</strong>
+        <span data-i18n="news.demo.p">
+          Las noticias que aparecen a continuación son ejemplos de maquetación. Para publicar
+          contenido real, edita el archivo <code>assets/js/contenido.js</code> y cambia la opción
+          <code>noticiasDeEjemplo</code> a <code>false</code>.
+        </span>
+      </div>
+
+      <div class="filtros" data-filtros role="group" aria-label="Filtrar por categoría">
+        <button class="filtro" type="button" data-filtro="todas" aria-pressed="true" data-i18n="news.f.todas">Todas</button>
+        <button class="filtro" type="button" data-filtro="institucional" aria-pressed="false" data-i18n="news.f.inst">Institucional</button>
+        <button class="filtro" type="button" data-filtro="consular" aria-pressed="false" data-i18n="news.f.cons">Consular</button>
+        <button class="filtro" type="button" data-filtro="comunidad" aria-pressed="false" data-i18n="news.f.com">Comunidad</button>
+        <button class="filtro" type="button" data-filtro="asociaciones" aria-pressed="false" data-i18n="news.f.asoc">Asociaciones</button>
+      </div>
+
+      <div class="rejilla rejilla--3" data-noticias-todas></div>
+
+      <p data-sin-resultados hidden style="text-align:center;color:var(--texto-suave);padding:48px 0"
+         data-i18n="news.vacio">No hay noticias en esta categoría por el momento.</p>
+
+    </div>
+  </section>
+
+  <!-- ================= SUSCRIPCIÓN / AVISO ================= -->
+  <section class="seccion seccion--gris">
+    <div class="contenedor contenedor--estrecho texto-centro">
+      <span class="eyebrow" style="justify-content:center" data-i18n="news.avisos.eyebrow">Mantente informado</span>
+      <h2 data-i18n="news.avisos.h2">¿Quieres recibir nuestros avisos?</h2>
+      <p class="entradilla" data-i18n="news.avisos.p">
+        Escríbenos indicando que deseas recibir información sobre jornadas, plazos y actividades
+        del CGE-ES. Solo enviamos comunicaciones relevantes y puedes darte de baja cuando quieras.
+      </p>
+      <div style="margin-top:26px">
+        <a class="btn btn--primario" href="contacto.html" data-i18n="news.avisos.cta">Escribir al CGE-ES</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/layout.js"></script>
+<script src="assets/js/contenido.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
