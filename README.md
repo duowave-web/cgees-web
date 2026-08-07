@@ -218,7 +218,51 @@ El formulario ya lleva campo trampa antispam, validación en los dos idiomas y c
 
 ---
 
-## 9. Publicar
+## 9. Trabajar en equipo con GitHub
+
+El proyecto está en un repositorio de Git. La vista previa se publica sola en **GitHub Pages**
+cada vez que se sube un cambio.
+
+> ⚠️ Mientras el sitio sea un borrador, las 10 páginas llevan
+> `<meta name="robots" content="noindex, nofollow">` para que no aparezca en Google.
+> Busca el comentario `BORRADOR` y quita esas dos líneas cuando publiquéis en cgees.org.
+
+### Descargar el proyecto por primera vez
+
+```bash
+git clone https://github.com/USUARIO/REPOSITORIO.git
+```
+
+Luego se abre `index.html`, o mejor se levanta el servidor local (punto 1).
+
+### Enviar cambios
+
+```bash
+git add -A
+git commit -m "Describe aquí lo que has cambiado"
+git push
+```
+
+En un minuto los cambios están en la web de vista previa.
+
+### Traer los cambios de la otra persona
+
+```bash
+git pull
+```
+
+Hazlo **antes** de empezar a editar. Si los dos tocáis el mismo archivo a la vez, Git avisa de
+un conflicto y hay que resolverlo a mano: para evitarlo, repartíos los archivos (por ejemplo,
+uno toca los textos de los `.html` y otro los datos de `assets/js/`).
+
+### Si prefieres no usar la terminal
+
+[GitHub Desktop](https://desktop.github.com) hace lo mismo con botones: *Fetch*, *Commit* y
+*Push*. Es la opción recomendada para quien no esté acostumbrado a la línea de comandos.
+
+---
+
+## 10. Publicar
 
 **Netlify (lo más sencillo):** entra en [app.netlify.com/drop](https://app.netlify.com/drop),
 arrastra la carpeta entera y conecta el dominio en *Domain settings*.
@@ -234,7 +278,7 @@ en `robots.txt` y en `sitemap.xml`.
 
 ---
 
-## 10. Datos de terceros usados en la web
+## 11. Datos de terceros usados en la web
 
 **Embajada de la República de Guinea en España y Malta** (página de asuntos consulares):
 Calle Luis Muriel, 4 · Madrid · +34 914 352 928 / +34 914 311 004 ·
@@ -249,7 +293,7 @@ Se edita en `assets/js/layout.js` → `SITIO.embajada`.
 
 ---
 
-## 11. Identidad visual
+## 12. Identidad visual
 
 | Color | Código |
 |---|---|
@@ -270,7 +314,7 @@ una imprenta para fabricar el sello físico.
 
 ---
 
-## 12. Accesibilidad y privacidad
+## 13. Accesibilidad y privacidad
 
 - Navegación completa con teclado y enlace «Saltar al contenido».
 - Etiquetas ARIA en menú, acordeón, filtros y formulario.
