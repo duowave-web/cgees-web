@@ -125,7 +125,8 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     │   ├── logo.svg                 Escudo institucional a color
     │   ├── logo-blanco.svg          El mismo logo, en versión clara para el pie
     │   ├── sello-institucional.svg  Sello redondo para documentos
-    │   └── favicon.svg              Icono de la pestaña
+    │   ├── favicon.svg              Icono de la pestaña
+    │   └── png/                     Los mismos logos en PNG (ver punto 12)
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
@@ -335,6 +336,27 @@ Se edita en `assets/js/layout.js` → `SITIO.embajada`.
 siguiendo la lógica CGE‑ES. Los SVG son vectoriales: se amplían sin perder calidad.
 `sello-institucional.svg` es el sello redondo para documentos oficiales y puede llevarse a
 una imprenta para fabricar el sello físico.
+
+### Versiones en PNG
+
+En `assets/img/png/`, con **fondo transparente**:
+
+| Archivo | Tamaño | Para qué |
+|---|---|---|
+| `cge-es-logo-512.png` | 512 px | Firmas de correo, redes sociales, documentos |
+| `cge-es-logo-1024.png` | 1024 px | Uso general, presentaciones |
+| `cge-es-logo-2048.png` | 2048 px | Imprenta, carteles, camisetas |
+| `cge-es-logo-claro-1024.png` | 1024 px | Solo para fondos oscuros |
+| `cge-es-sello-1024.png` | 1024 px | Sellar documentos, encargar el sello físico |
+
+> La versión clara es blanca: sobre fondo blanco no se ve. Es normal, está pensada para
+> colocarse encima de fondos oscuros.
+
+**Para documentos oficiales, cartas o cualquier cosa que vaya a imprimirse, usa el SVG si el
+programa lo admite** (Word y Google Docs sí): no pierde nitidez a ningún tamaño. El PNG solo
+donde no quede otro remedio.
+
+Si hace falta otro tamaño, se regenera con Chrome sin instalar nada; pídemelo y lo hago.
 
 ---
 
