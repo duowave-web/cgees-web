@@ -34,13 +34,11 @@ fr: {
 "cta.h2": "On en parle ?",
 "cta.p": "Écrivez-nous en espagnol ou en français. Si vous représentez une association guinéenne, indiquez-le dans votre premier message.",
 "cta.b1": "Écrire au Conseil",
-"cta.b2": "Affaires consulaires",
 
 /* --- En-tête et pied de page -------------------------------------------- */
 "marca.nombre": "Conseil des Guinéens de l'Extérieur en Espagne",
 "marca.nombre.pie": "Conseil des Guinéens de l'Extérieur en Espagne",
 "cab.sede": "Avda. del Cerro de los Ángeles, 25 · Madrid",
-"cab.cta": "Écrivez-nous",
 
 "nav.inicio": "Accueil",
 "nav.quienes": "Le Conseil",
@@ -92,7 +90,6 @@ fr: {
 "home.hero.h1": "La voix organisée de la <em>diaspora guinéenne</em> en Espagne",
 "home.hero.p": "Le Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES) est l'organe qui réunit et représente les entités guinéennes réparties sur le territoire espagnol. Il s'inscrit dans le cadre du Conseil des Guinéens de l'Extérieur impulsé par le Gouvernement de la République de Guinée, et son Conseil d'administration a été élu par vote de la communauté elle-même.",
 "home.hero.cta1": "Affaires consulaires",
-"home.hero.cta2": "Inscrire mon entité",
 "home.hero.f1": "Siège à Madrid",
 "home.hero.f2": "Registre national des associations nº 629208",
 "home.hero.f3": "Compétence nationale · Accueil en espagnol et en français",
@@ -115,7 +112,6 @@ fr: {
 "home.como.p2": "Ce répertoire est ce qui nous permet de parler d'une seule voix devant les institutions et de savoir ce qui se fait en chaque point du territoire.",
 "home.como.p3": "Si votre entité n'y figure pas encore, écrivez-nous. L'intégrer est simple et ne change rien à son fonctionnement interne.",
 "home.como.cta1": "Voir les entités",
-"home.como.cta2": "Inscrire la mienne",
 "home.como.1.t": "Un recensement vivant",
 "home.como.1.d": "Nous savons quelles entités guinéennes existent en Espagne, où elles sont et ce qu'elles font.",
 "home.como.2.t": "Des rencontres régulières",
@@ -152,7 +148,6 @@ fr: {
 "home.fiesta.p1": "L'organisation de la commémoration de l'anniversaire de l'indépendance en Espagne revient au Conseil. C'est le rendez-vous de l'année : le moment où les associations de tout le territoire se retrouvent au même endroit.",
 "home.fiesta.p2": "Si votre association souhaite participer à l'organisation, proposer une prestation ou tenir un stand, écrivez-nous suffisamment tôt.",
 "home.fiesta.cta": "Je veux participer",
-"home.fiesta.cta2": "Voir les appels",
 "home.fiesta.nota.t": "Édition en préparation",
 "home.fiesta.nota.p": "Indiquez ici la date, l'heure et le lieu de l'événement dès qu'ils seront fixés, et publiez également l'appel à participation sur la page Actualités.",
 
@@ -244,7 +239,7 @@ fr: {
 
 "about.jd.eyebrow": "Gouvernance",
 "about.jd.h2": "Conseil d'administration",
-"about.jd.p": "Quinze fonctions élues par vote de la communauté guinéenne en Espagne. Toutes sont bénévoles et non rémunérées. Ses membres résident à Madrid, Barcelone, Gérone, Lleida, Navarre et Huesca, ce qui permet au Conseil de travailler réellement sur tout le territoire.",
+"about.jd.p": "Fonctions élues par vote de la communauté guinéenne en Espagne. Toutes sont bénévoles et non rémunérées. Ses membres résident à Madrid, Barcelone, Gérone, Lleida, Navarre et Huesca, ce qui permet au Conseil de travailler réellement sur tout le territoire.",
 "about.jd.c1": "Présidence",
 "about.jd.d1": "Assure la représentation légale de l'entité, préside le Conseil d'administration et signe les documents officiels.",
 "about.jd.c2": "Vice-présidence",
@@ -267,6 +262,9 @@ fr: {
 "about.jd.r13": "2e négociations et gestion des conflits",
 "about.jd.r14": "1er projets avec la communauté locale",
 "about.jd.r15": "2e projets avec la communauté locale",
+"about.jd.r16": "Conseil",
+"about.jd.r16prov": "Province à confirmer",
+"about.jd.interina": "Par intérim",
 "about.jd.nota": "Pour contacter un membre du Conseil d'administration, écrivez à l'adresse du Conseil en indiquant la fonction : nous transmettons le message.",
 "about.jd.asamblea.t": "Assemblée générale",
 "about.jd.asamblea.p": "C'est l'organe suprême du Conseil. Elle réunit les entités enregistrées et les membres individuels. Elle se réunit au moins une fois par an pour approuver les comptes et le plan d'action et, le cas échéant, renouveler le Conseil d'administration par vote.",
@@ -377,7 +375,6 @@ fr: {
 "cons.cta.h2": "Vous avez une question précise ?",
 "cons.cta.p": "Exposez-la nous et nous vous dirons par où commencer. Si vous appartenez à une association guinéenne, indiquez-le dans votre message : cela nous aide à mieux situer la demande.",
 "cons.cta.b1": "Écrire au Conseil",
-"cons.cta.b2": "Trouver mon association",
 
 /* --- Services ------------------------------------------------------------ */
 "meta.serv.t": "Services · CGE-ES",
@@ -429,15 +426,14 @@ fr: {
 "serv.cta.h2": "Vous ne savez pas par où commencer ?",
 "serv.cta.p": "Écrivez-nous en résumant votre situation en deux lignes. Nous vous dirons laquelle de ces voies vous concerne et, si aucune ne convient, nous vous dirons aussi où vous adresser.",
 "serv.cta.b1": "Écrire au Conseil",
-"serv.cta.b2": "Trouver mon association",
 
 /* --- Actualités ---------------------------------------------------------- */
 "meta.news.t": "Actualités · CGE-ES",
 "meta.news.d": "Appels, communiqués institutionnels et avis pratiques du Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES).",
 "news.h1": "Actualités et avis",
 "news.sub": "Appels à participation, communiqués institutionnels et avis pratiques pour la communauté guinéenne en Espagne. Les appels relatifs à la Fête de l'Indépendance sont également publiés ici.",
-"news.demo.t": "Contenu d'exemple",
-"news.demo.p": "Les actualités ci-dessous sont des exemples de mise en page. Pour publier du contenu réel, modifiez le fichier <code>assets/js/contenido.js</code> et passez l'option <code>noticiasDeEjemplo</code> à <code>false</code>.",
+"news.demo.t": "Fiches à compléter",
+"news.demo.p": "Les événements ci-dessous sont chargés mais il leur manque la date et le détail. Modifiez le fichier <code>assets/js/contenido.js</code> et, une fois complets, passez l'option <code>noticiasDeEjemplo</code> à <code>false</code> pour retirer cet avis.",
 "news.f.todas": "Toutes",
 "news.f.inst": "Institutionnel",
 "news.f.cons": "Consulaire",

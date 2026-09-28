@@ -81,16 +81,25 @@ Ya están puestos: el correo `conseil.guineen.espagne@gmail.com`, y las redes **
 - **Origen y mandato**: añade la referencia exacta de la orden o decreto del Gobierno de Guinea
   que crea el Consejo de Guineanos del Exterior, y la fecha de la votación en la que se eligió
   la Junta Directiva en España. Es el dato que más peso institucional da a toda la web.
-- **Junta Directiva**: ✅ completa. Los 15 cargos del Bureau están cargados con nombre y
+- **Junta Directiva**: ✅ completa. Los cargos del Bureau están cargados con nombre y
   provincia. **No se publican** los teléfonos, correos, códigos postales ni profesiones que
   figuran en tu hoja: son datos personales.
+  - **Tesorería**: figura **Abdoulaye Soumah** con la etiqueta «En funciones». El motivo del
+    cambio (expediente disciplinario del titular anterior) **no se publica**: es un dato
+    personal sensible y publicarlo expondría a la entidad. Si el cargo se consolida o vuelve
+    al titular, basta con quitar o cambiar esa etiqueta.
+  - **Asesoría**: falta la **provincia de Mamadou Yero Sylla**.
 
 ### 📄 `assets/js/contenido.js`
 - **Repertorio de asociaciones**: ya están cargadas las 10 de tu hoja de cálculo. Faltan
   algunos datos (ver punto 6) y **todas son de Cataluña**: cuando tengas asociaciones de otras
   comunidades, añádelas ahí.
-- **Noticias**: la primera es real (la inscripción registral). Las otras cinco son ejemplos.
-  Cuando las sustituyas, pon `noticiasDeEjemplo: false` para quitar el aviso amarillo.
+- **Eventos**: están cargados los 11 eventos de tus notas (Malta, RAVEC 2025, la nueva
+  Constitución, el embajador Framoi Mara, la cena con el ministro Ousmane Gaoual, el satisfecit
+  al cónsul en Sabadell, la formación…) más la noticia real de la inscripción registral.
+  **A cada evento le falta la fecha (`AAAA-MM-DD`) y un resumen más amplio**: mientras no la
+  tenga, la ficha se enseña sin fecha. Cuando estén completos, pon `noticiasDeEjemplo: false`
+  para quitar el aviso amarillo de Actualidad.
 
 ### 📄 `index.html`
 - **Fiesta de la Independencia**: fecha, hora y lugar de la próxima edición.
@@ -131,7 +140,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (529 claves)
+        ├── i18n.js         Traducción al francés (531 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 
@@ -207,10 +216,17 @@ de registro. Las cuatro últimas aparecen en la web solo con nombre y localidad.
   ambito: 'Cultura', email: '', web: '' },
 ```
 
-### Publicar una noticia
+### Publicar una noticia o un evento
 `assets/js/contenido.js` → array `noticias`. Copia un bloque entero, ponlo **el primero** y
-cambia fecha, categoría y textos en los dos idiomas. Aparece sola en portada (las 3 más
-recientes) y en Actualidad (todas).
+cambia fecha, categoría y textos en los dos idiomas. Aparece sola en portada (las 3 primeras)
+y en Actualidad (todas).
+
+Dos cosas que conviene saber:
+
+- **El orden de la lista es el orden en que se ve.** Lo primero del archivo es lo primero de
+  la web. No se reordena por fecha, así que puedes colocar cada ficha donde quieras.
+- **La fecha es opcional.** Si la dejas en `''`, la ficha se publica sin fecha en vez de
+  quedarse fuera. Es lo que permite tener los eventos ya cargados mientras se confirman.
 Categorías: `institucional`, `consular`, `comunidad`, `asociaciones`.
 
 ### Cambiar un texto

@@ -210,9 +210,9 @@
 
           '<nav class="nav" id="nav-principal" aria-label="Principal">' + itemsNav + '</nav>' +
 
+          /* Sin botón «Escríbenos» aquí: Contacto ya está en el menú y
+             duplicarlo solo añade ruido a la cabecera. */
           '<div class="cabecera__acciones">' +
-            '<a class="btn btn--primario btn--sm" href="contacto.html"' +
-              i18n('cab.cta', 'Escríbenos') + '</a>' +
             '<button class="hamburguesa" type="button" aria-expanded="false" ' +
               'aria-controls="nav-principal" aria-label="Abrir menú">' +
               '<span></span><span></span><span></span>' +

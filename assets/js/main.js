@@ -247,7 +247,10 @@
         '</div>' +
         '<div class="noticia__cuerpo">' +
           '<div class="noticia__meta">' + etiquetaHTML +
-            '<time class="noticia__fecha" datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>' +
+            /* La fecha es opcional: sin ella, no se pinta la etiqueta <time> */
+            (n.fecha
+              ? '<time class="noticia__fecha" datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>'
+              : '') +
           '</div>' +
           '<h3>' + txt.titulo + '</h3>' +
           '<p>' + txt.resumen + '</p>' +
@@ -260,9 +263,9 @@
     var C = window.CGE_CONTENIDO;
     if (!C) return;
 
-    var lista = C.noticias.slice().sort(function (a, b) {
-      return a.fecha < b.fecha ? 1 : -1;
-    });
+    /* Se respeta el orden del archivo contenido.js: lo primero de la lista es
+       lo primero que se ve. Así no hace falta que todo tenga fecha. */
+    var lista = C.noticias.slice();
 
     var home = document.querySelector('[data-noticias-home]');
     if (home) home.innerHTML = lista.slice(0, 3).map(tarjetaNoticia).join('');

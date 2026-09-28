@@ -16,8 +16,13 @@ window.CGE_CONTENIDO = {
        enlace     → URL, o '' si todavía no hay página de detalle
        es/fr/en   → { titulo, resumen }
 
-     ⚠ Salvo la primera, las entradas de abajo son EJEMPLOS de maquetación.
-       Sustitúyelas por contenido real y pon `noticiasDeEjemplo: false`.
+     EL ORDEN DE ESTA LISTA ES EL ORDEN EN QUE SE MUESTRAN. Lo más reciente
+     arriba. La fecha es opcional: si la dejas en '' simplemente no se enseña.
+
+     ⚠ PENDIENTE: los eventos de abajo están sin fecha y con un resumen
+       mínimo. Añade la fecha (AAAA-MM-DD) y amplía el resumen de cada uno.
+       Cuando estén completos, pon `noticiasDeEjemplo: false` para quitar el
+       aviso amarillo de la página de Actualidad.
      ====================================================================== */
 
   noticiasDeEjemplo: true,
@@ -30,6 +35,149 @@ window.CGE_CONTENIDO = {
   },
 
   noticias: [
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'consular',
+      enlace: '',
+      es: {
+        titulo: 'Censo RAVEC 2025',
+        resumen: 'Campaña del censo administrativo con fines de estado civil (RAVEC). Informamos sobre quién puede inscribirse, qué documentación hace falta y dónde hacerlo.'
+      },
+      fr: {
+        titulo: "Recensement RAVEC 2025",
+        resumen: "Campagne du recensement administratif à vocation d'état civil (RAVEC). Nous informons sur qui peut s'inscrire, quels documents sont nécessaires et où le faire."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'consular',
+      enlace: '',
+      es: {
+        titulo: 'Kits de enrolamiento',
+        resumen: 'Despliegue de los kits de enrolamiento para la inscripción de la comunidad guineana residente en España.'
+      },
+      fr: {
+        titulo: "Kits d'enrôlement",
+        resumen: "Déploiement des kits d'enrôlement pour l'inscription de la communauté guinéenne résidant en Espagne."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'institucional',
+      enlace: '',
+      es: {
+        titulo: 'Referéndum de la nueva Constitución',
+        resumen: 'Participación de la diáspora en la consulta sobre la nueva Constitución: organización del voto y acompañamiento a las personas inscritas.'
+      },
+      fr: {
+        titulo: "Référendum sur la nouvelle Constitution",
+        resumen: "Participation de la diaspora à la consultation sur la nouvelle Constitution : organisation du vote et accompagnement des personnes inscrites."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'institucional',
+      enlace: '',
+      es: {
+        titulo: 'Elecciones a la nueva Asamblea Nacional',
+        resumen: 'Organización y acompañamiento del voto de la comunidad guineana en España para la nueva Asamblea Nacional.'
+      },
+      fr: {
+        titulo: "Élections à la nouvelle Assemblée nationale",
+        resumen: "Organisation et accompagnement du vote de la communauté guinéenne en Espagne pour la nouvelle Assemblée nationale."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'institucional',
+      enlace: '',
+      es: {
+        titulo: 'Presentación y entrega de la nueva Constitución',
+        resumen: 'Acto de presentación del nuevo texto constitucional y entrega de ejemplares a la comunidad guineana en España.'
+      },
+      fr: {
+        titulo: "Présentation et remise de la nouvelle Constitution",
+        resumen: "Cérémonie de présentation du nouveau texte constitutionnel et remise d'exemplaires à la communauté guinéenne en Espagne."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'institucional',
+      enlace: '',
+      es: {
+        titulo: 'Presentación del nuevo embajador, Framoi Mara',
+        resumen: 'Encuentro de la comunidad con el nuevo embajador de la República de Guinea en España, Framoi Mara.'
+      },
+      fr: {
+        titulo: "Présentation du nouvel ambassadeur, Framoi Mara",
+        resumen: "Rencontre de la communauté avec le nouvel ambassadeur de la République de Guinée en Espagne, Framoi Mara."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'institucional',
+      enlace: '',
+      es: {
+        titulo: 'Cena con el ministro Ousmane Gaoual en Granollers',
+        resumen: 'Encuentro del Consejo y las entidades guineanas con el ministro Ousmane Gaoual en Granollers (Barcelona).'
+      },
+      fr: {
+        titulo: "Dîner avec le ministre Ousmane Gaoual à Granollers",
+        resumen: "Rencontre du Conseil et des entités guinéennes avec le ministre Ousmane Gaoual à Granollers (Barcelone)."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'institucional',
+      enlace: '',
+      es: {
+        titulo: 'Satisfecit al cónsul en Sabadell',
+        resumen: 'Entrega de un satisfecit al cónsul en reconocimiento a su labor con la comunidad guineana, en Sabadell (Barcelona).'
+      },
+      fr: {
+        titulo: "Satisfecit au consul à Sabadell",
+        resumen: "Remise d'un satisfecit au consul en reconnaissance de son travail auprès de la communauté guinéenne, à Sabadell (Barcelone)."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'consular',
+      enlace: '',
+      es: {
+        titulo: 'Enrolamiento en Malta',
+        resumen: 'Jornada de enrolamiento e inscripción consular para la comunidad guineana residente en Malta.'
+      },
+      fr: {
+        titulo: "Enrôlement à Malte",
+        resumen: "Journée d'enrôlement et d'inscription consulaire pour la communauté guinéenne résidant à Malte."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'institucional',
+      enlace: '',
+      es: {
+        titulo: 'Viaje a Malta',
+        resumen: 'Desplazamiento del Consejo a Malta para atender a la comunidad guineana del país y coordinar con la representación diplomática.'
+      },
+      fr: {
+        titulo: "Voyage à Malte",
+        resumen: "Déplacement du Conseil à Malte pour accompagner la communauté guinéenne du pays et assurer la coordination avec la représentation diplomatique."
+      }
+    },
+    {
+      fecha: '',                       // PENDIENTE — formato AAAA-MM-DD
+      categoria: 'comunidad',
+      enlace: '',
+      es: {
+        titulo: 'Formación',
+        resumen: 'Sesiones de formación dirigidas a la comunidad guineana y a las entidades registradas en el Consejo.'
+      },
+      fr: {
+        titulo: "Formation",
+        resumen: "Sessions de formation destinées à la communauté guinéenne et aux entités enregistrées auprès du Conseil."
+      }
+    },
     {
       /* ✅ Esta entrada sí es real: consta en la resolución del Ministerio. */
       fecha: '2024-09-24',
@@ -46,91 +194,6 @@ window.CGE_CONTENIDO = {
       en: {
         titulo: 'CGE-ES entered in the National Register of Associations',
         resumen: 'The Ministry of the Interior registers the Council’s incorporation, operating across the whole of Spain, under number 629208 of Section 1.'
-      }
-    },
-    {
-      fecha: '2026-06-18',
-      categoria: 'comunidad',
-      enlace: '',
-      es: {
-        titulo: 'Abierta la convocatoria para la Fiesta de la Independencia',
-        resumen: 'Las asociaciones federadas que quieran participar en la organización del 2 de octubre pueden comunicarlo ya al Consejo.'
-      },
-      fr: {
-        titulo: "Appel à participation pour la Fête de l'Indépendance",
-        resumen: "Les associations fédérées souhaitant participer à l'organisation du 2 octobre peuvent dès à présent se manifester auprès du Conseil."
-      },
-      en: {
-        titulo: 'Call for participation in the Independence Day celebration',
-        resumen: 'Member associations wishing to take part in organising the 2 October event can now let the Council know.'
-      }
-    },
-    {
-      fecha: '2026-05-09',
-      categoria: 'consular',
-      enlace: '',
-      es: {
-        titulo: 'Recordatorio: revisa la caducidad de tu pasaporte',
-        resumen: 'Buena parte de los expedientes que se atascan lo hacen por un pasaporte vencido. La renovación lleva tiempo: conviene no dejarlo para el final.'
-      },
-      fr: {
-        titulo: "Rappel : vérifiez la validité de votre passeport",
-        resumen: "Une bonne partie des dossiers bloqués le sont à cause d'un passeport périmé. Le renouvellement prend du temps : mieux vaut ne pas attendre."
-      },
-      en: {
-        titulo: 'Reminder: check your passport expiry date',
-        resumen: 'Many stalled files are held up by an expired passport. Renewal takes time, so it is best not to leave it until the last minute.'
-      }
-    },
-    {
-      fecha: '2026-04-02',
-      categoria: 'asociaciones',
-      enlace: '',
-      es: {
-        titulo: 'El repertorio de asociaciones suma nuevas provincias',
-        resumen: 'Continúa el trabajo de censo de las asociaciones guineanas que operan en España. Si la tuya aún no figura, escríbenos.'
-      },
-      fr: {
-        titulo: "Le répertoire des associations s'étend à de nouvelles provinces",
-        resumen: "Le recensement des associations guinéennes actives en Espagne se poursuit. Si la vôtre n'y figure pas encore, écrivez-nous."
-      },
-      en: {
-        titulo: 'The association directory expands to new provinces',
-        resumen: 'Work continues on the census of Guinean associations operating in Spain. If yours is not listed yet, get in touch.'
-      }
-    },
-    {
-      fecha: '2026-01-15',
-      categoria: 'institucional',
-      enlace: '',
-      es: {
-        titulo: 'Reunión de trabajo con administraciones locales',
-        resumen: 'El Consejo traslada a los servicios sociales municipales las principales necesidades detectadas por las asociaciones durante el último año.'
-      },
-      fr: {
-        titulo: 'Réunion de travail avec les administrations locales',
-        resumen: "Le Conseil transmet aux services sociaux municipaux les principaux besoins identifiés par les associations au cours de l'année écoulée."
-      },
-      en: {
-        titulo: 'Working meeting with local authorities',
-        resumen: 'The Council presents municipal social services with the main needs identified by member associations over the past year.'
-      }
-    },
-    {
-      fecha: '2025-11-28',
-      categoria: 'comunidad',
-      enlace: '',
-      es: {
-        titulo: 'Campaña de información sobre el empadronamiento',
-        resumen: 'Recordamos que empadronarse es un derecho independiente de la situación administrativa y la puerta de entrada a la sanidad y la educación.'
-      },
-      fr: {
-        titulo: "Campagne d'information sur l'inscription au registre municipal",
-        resumen: "Nous rappelons que l'inscription au registre municipal est un droit indépendant de la situation administrative et la porte d'accès à la santé et à l'éducation."
-      },
-      en: {
-        titulo: 'Information campaign on municipal registration',
-        resumen: 'We recall that municipal registration is a right independent of administrative status and the gateway to healthcare and education.'
       }
     }
   ],
