@@ -76,6 +76,11 @@ Todo lo pendiente aparece **resaltado en amarillo con subrayado discontinuo** en
 Ya están puestos: el correo `conseil.guineen.espagne@gmail.com`, y las redes **Facebook** y
 **TikTok**.
 
+> De la Embajada de Guinea **solo se publica el enlace a su web**, no su dirección, sus
+> teléfonos ni su horario. Los cambian sin avisar y, cuando se quedan viejos, la gente hace el
+> viaje en balde creyendo que el dato es nuestro. Si algún día queréis publicarlos, hay que
+> asumir revisarlos.
+
 ### 📄 `quienes-somos.html`
 
 - **Origen y mandato**: añade la referencia exacta de la orden o decreto del Gobierno de Guinea
@@ -132,11 +137,9 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
 └── assets/
     ├── css/styles.css        TODO el diseño
     ├── img/
-    │   ├── logo.svg                 Escudo institucional a color
-    │   ├── logo-blanco.svg          El mismo logo, en versión clara para el pie
-    │   ├── sello-institucional.svg  Sello redondo para documentos
-    │   ├── favicon.svg              Icono de la pestaña
-    │   └── png/                     Los mismos logos en PNG (ver punto 12)
+    │   ├── logo.svg                 El emblema. Único, se usa en todo el sitio
+    │   ├── favicon.svg              Icono de la pestaña (emblema simplificado)
+    │   └── png/                     El emblema en PNG (ver punto 12)
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
@@ -343,6 +346,9 @@ Se edita en `assets/js/layout.js` → `SITIO.embajada`.
 | Rojo | `#CE1126` |
 | Amarillo | `#FCD116` |
 | Verde | `#009E49` |
+| Rojo del emblema | `#D60A07` |
+| Amarillo del emblema | `#FCC803` |
+| Verde del emblema | `#37960E` |
 | Gris oscuro | `#1F2A37` |
 | Gris claro | `#E6E6E6` |
 
@@ -350,10 +356,21 @@ Se edita en `assets/js/layout.js` → `SITIO.embajada`.
 (ver política de privacidad, punto 7), descarga la fuente a `assets/fonts/` y sustituye el
 `<link>` de cada `.html` por un `@font-face` en `styles.css`.
 
-**Logo:** el escudo lleva «CONSEIL DES GUINÉENS DE L'EXTÉRIEUR» arriba y «EN ESPAGNE» abajo,
-siguiendo la lógica CGE‑ES. Los SVG son vectoriales: se amplían sin perder calidad.
-`sello-institucional.svg` es el sello redondo para documentos oficiales y puede llevarse a
-una imprenta para fabricar el sello físico.
+**Logo:** `assets/img/logo.svg` es el emblema oficial, reconstruido en vectorial a partir del
+archivo que nos pasasteis. Lleva «CONSEIL DES GUINÉENS DE L'ÉTRANGER» arriba y «ESPAGNE» abajo.
+
+Es **el mismo en toda la web**: cabecera, pie y páginas interiores. Al ser redondo y llevar el
+aro rojo por fuera, se ve igual sobre blanco que sobre el fondo oscuro del pie, así que ya no
+hacen falta versiones clara y oscura.
+
+Va todo en trazos, sin texto tipográfico: la letra del original es una gruesa condensada que no
+tenemos, y sustituirla por Montserrat se notaba en el ancho. La ventaja es que se ve idéntico en
+cualquier sitio (navegador, Word, PDF) sin depender de ninguna fuente instalada. La pega es que
+**no se puede reescribir el texto editando el SVG**: si algún día cambia la denominación, hay
+que rehacerlo desde el archivo original.
+
+`favicon.svg` es el emblema reducido a los tres aros: a 16 px el texto y el apretón de manos no
+se distinguen y solo ensucian.
 
 ### Versiones en PNG
 
@@ -364,11 +381,6 @@ En `assets/img/png/`, con **fondo transparente**:
 | `cge-es-logo-512.png` | 512 px | Firmas de correo, redes sociales, documentos |
 | `cge-es-logo-1024.png` | 1024 px | Uso general, presentaciones |
 | `cge-es-logo-2048.png` | 2048 px | Imprenta, carteles, camisetas |
-| `cge-es-logo-claro-1024.png` | 1024 px | Solo para fondos oscuros |
-| `cge-es-sello-1024.png` | 1024 px | Sellar documentos, encargar el sello físico |
-
-> La versión clara es blanca: sobre fondo blanco no se ve. Es normal, está pensada para
-> colocarse encima de fondos oscuros.
 
 **Para documentos oficiales, cartas o cualquier cosa que vaya a imprimirse, usa el SVG si el
 programa lo admite** (Word y Google Docs sí): no pierde nitidez a ningún tamaño. El PNG solo

@@ -62,15 +62,11 @@
       entidad: 'Banco Santander'
     },
 
-    /* Embajada de la República de Guinea en España y Malta */
+    /* De la Embajada solo guardamos el enlace a su web. La dirección, los
+       teléfonos y el horario los publica ella y cambian sin avisarnos: si los
+       copiásemos aquí acabaríamos mandando a la gente a un dato caducado. */
     embajada: {
-      nombre:    'Ambassade de Guinée en Espagne',
-      direccion: 'Calle Luis Muriel, 4 — 28002 Madrid',
-      telefono:  '+34 914 352 928',
-      telefono2: '+34 914 311 004',
-      email:     'embajada@guineamadrid.es',
-      web:       'https://es.ambaguinee.org/',
-      horario:   'Lunes a viernes, 9:00 – 16:00'
+      web: 'https://es.ambaguinee.org/'
     },
 
     /* Redes sociales. Deja vacío lo que no tengáis: el icono no aparece. */
@@ -198,10 +194,9 @@
       '<header class="cabecera">' +
         '<div class="contenedor cabecera__inner">' +
           '<a class="marca" href="index.html" aria-label="' + SITIO.sigla + ' — ' + SITIO.nombre + '">' +
-            /* Escudo completo en escritorio; marca compacta en móvil, donde el
-               anillo exterior y el texto circular no se leerían. */
-            '<img class="marca__escudo" src="assets/img/logo.svg" alt="" width="50" height="50">' +
-            '<img class="marca__compacta" src="assets/img/logo-marca.svg" alt="" width="38" height="49">' +
+            /* Un único logo en todo el sitio, también en el pie: el emblema es
+               redondo y funciona igual sobre blanco que sobre el navy oscuro. */
+            '<img class="marca__escudo" src="assets/img/logo.svg" alt="" width="52" height="52">' +
             '<span class="marca__texto">' +
               '<span class="marca__sigla">' + SITIO.sigla + '</span>' +
               '<span class="marca__nombre"' + i18n('marca.nombre', SITIO.nombre) + '</span>' +
@@ -242,7 +237,7 @@
 
             '<div>' +
               '<a class="pie__marca" href="index.html">' +
-                '<img src="assets/img/logo-blanco.svg" alt="" width="58" height="58">' +
+                '<img src="assets/img/logo.svg" alt="" width="58" height="58">' +
                 '<span class="pie__marca-texto">' +
                   '<span class="pie__marca-sigla">' + SITIO.sigla + '</span>' +
                   '<span class="pie__marca-nombre"' + i18n('marca.nombre.pie', SITIO.nombre) + '</span>' +

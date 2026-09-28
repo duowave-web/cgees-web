@@ -243,7 +243,7 @@
     return '' +
       '<article class="noticia" data-categoria="' + n.categoria + '">' +
         '<div class="noticia__media">' +
-          '<img src="assets/img/logo-blanco.svg" alt="" width="62" height="62" loading="lazy">' +
+          '<img src="assets/img/logo.svg" alt="" width="62" height="62" loading="lazy">' +
         '</div>' +
         '<div class="noticia__cuerpo">' +
           '<div class="noticia__meta">' + etiquetaHTML +
@@ -482,7 +482,7 @@
 
       /* --- Sin endpoint configurado: abrir el cliente de correo --- */
       if (!endpoint) {
-        var destino  = (window.CGE && window.CGE.SITIO.email) || 'infocgees@gmail.com';
+        var destino  = (window.CGE && window.CGE.SITIO.email) || 'conseil.guineen.espagne@gmail.com';
         var asunto   = '[Web CGE-ES] ' + textoDelSelect('f-motivo');
         window.location.href = 'mailto:' + destino +
           '?subject=' + encodeURIComponent(asunto) +
@@ -514,7 +514,7 @@
           aviso.setAttribute('data-estado', 'error');
           aviso.textContent = msg('form.err.envio',
             'No hemos podido enviar el mensaje. Escríbenos directamente a ' +
-            ((window.CGE && window.CGE.SITIO.email) || 'infocgees@gmail.com') + '.');
+            ((window.CGE && window.CGE.SITIO.email) || 'conseil.guineen.espagne@gmail.com') + '.');
         })
         .then(function () { boton.disabled = false; });
     });

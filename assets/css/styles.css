@@ -327,9 +327,7 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
 }
 
 .marca { display: flex; align-items: center; gap: 13px; text-decoration: none; flex-shrink: 0; }
-.marca__escudo { width: 50px; height: 50px; flex-shrink: 0; }
-/* La marca compacta solo aparece en pantallas pequeñas (ver responsive) */
-.marca__compacta { display: none; width: 38px; height: 49px; flex-shrink: 0; }
+.marca__escudo { width: 52px; height: 52px; flex-shrink: 0; }
 .marca__texto { display: flex; flex-direction: column; line-height: 1.15; }
 .marca__sigla {
   font-size: 1.28rem; font-weight: 800; color: var(--navy);
@@ -1157,10 +1155,6 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   .pasos, .pasos--5 { grid-template-columns: repeat(2, 1fr); }
   .pie__rejilla { grid-template-columns: 1fr 1fr; }
   .marca__nombre { display: none; }
-  /* Sin el nombre al lado, el escudo completo pierde legibilidad:
-     se cambia por la marca compacta. */
-  .marca__escudo { display: none; }
-  .marca__compacta { display: block; }
   .marca { gap: 11px; }
 }
 
