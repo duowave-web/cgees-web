@@ -24,7 +24,7 @@
     nombre:       'Consejo de Guineanos del Exterior en España',
     nombreFr:     "Conseil des Guinéens de l'Extérieur en Espagne",
 
-    email:        'infocgees@gmail.com',
+    email:        'conseil.guineen.espagne@gmail.com',
     telefono:     '+34 900 000 000',              // PENDIENTE
     telefonoTel:  '+34900000000',                 // PENDIENTE (sin espacios)
     whatsapp:     '',                             // PENDIENTE (opcional, formato 34600000000)
@@ -59,7 +59,7 @@
       titular: 'Consejo de Guineanos del Exterior en España',
       iban:    '',                                // PENDIENTE — ej. 'ES00 0000 0000 0000 0000 0000'
       bic:     '',                                // PENDIENTE (opcional)
-      entidad: ''                                 // PENDIENTE (opcional, nombre del banco)
+      entidad: 'Banco Santander'
     },
 
     /* Embajada de la República de Guinea en España y Malta */
@@ -73,10 +73,11 @@
       horario:   'Lunes a viernes, 9:00 – 16:00'
     },
 
+    /* Redes sociales. Deja vacío lo que no tengáis: el icono no aparece. */
     redes: {
-      facebook:  '',   // PENDIENTE — deja vacío para ocultar el icono
+      facebook:  'https://www.facebook.com/share/1YmGJtPvvs/',
+      tiktok:    'https://www.tiktok.com/@conseil.guineen.d',
       instagram: '',   // PENDIENTE
-      linkedin:  '',   // PENDIENTE
       youtube:   ''    // PENDIENTE
     }
   };
@@ -126,7 +127,7 @@
     caret: '<svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
     fb:    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>',
     ig:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>',
-    li:    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05A4.2 4.2 0 0 1 16.6 8.7c4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg>',
+    tt:    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8a4.8 4.8 0 0 1-1-1.1A4.7 4.7 0 0 1 14.8 2h-3.2v12.9a2.9 2.9 0 0 1-2.9 2.8 2.9 2.9 0 1 1 .8-5.6V8.8a6.1 6.1 0 0 0-.8-.1 6.1 6.1 0 1 0 6.1 6.1V8.3a7.9 7.9 0 0 0 4.6 1.5V6.6a4.7 4.7 0 0 1-2.8-.8z"/></svg>',
     yt:    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2a2.8 2.8 0 0 0-2-2C18.9 4.4 12 4.4 12 4.4s-6.9 0-8.6.4a2.8 2.8 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2a2.8 2.8 0 0 0 2 2c1.7.4 8.6.4 8.6.4s6.9 0 8.6-.4a2.8 2.8 0 0 0 2-2C23 15.5 23 12 23 12zM9.8 15.3V8.7l5.7 3.3z"/></svg>',
     ext:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>'
   };
@@ -197,7 +198,10 @@
       '<header class="cabecera">' +
         '<div class="contenedor cabecera__inner">' +
           '<a class="marca" href="index.html" aria-label="' + SITIO.sigla + ' — ' + SITIO.nombre + '">' +
+            /* Escudo completo en escritorio; marca compacta en móvil, donde el
+               anillo exterior y el texto circular no se leerían. */
             '<img class="marca__escudo" src="assets/img/logo.svg" alt="" width="50" height="50">' +
+            '<img class="marca__compacta" src="assets/img/logo-marca.svg" alt="" width="38" height="49">' +
             '<span class="marca__texto">' +
               '<span class="marca__sigla">' + SITIO.sigla + '</span>' +
               '<span class="marca__nombre"' + i18n('marca.nombre', SITIO.nombre) + '</span>' +
@@ -225,8 +229,8 @@
   function htmlPie() {
     var redes = '';
     if (SITIO.redes.facebook)  redes += '<a href="' + SITIO.redes.facebook  + '" aria-label="Facebook"  target="_blank" rel="noopener">' + ICO.fb + '</a>';
+    if (SITIO.redes.tiktok)    redes += '<a href="' + SITIO.redes.tiktok    + '" aria-label="TikTok"    target="_blank" rel="noopener">' + ICO.tt + '</a>';
     if (SITIO.redes.instagram) redes += '<a href="' + SITIO.redes.instagram + '" aria-label="Instagram" target="_blank" rel="noopener">' + ICO.ig + '</a>';
-    if (SITIO.redes.linkedin)  redes += '<a href="' + SITIO.redes.linkedin  + '" aria-label="LinkedIn"  target="_blank" rel="noopener">' + ICO.li + '</a>';
     if (SITIO.redes.youtube)   redes += '<a href="' + SITIO.redes.youtube   + '" aria-label="YouTube"   target="_blank" rel="noopener">' + ICO.yt + '</a>';
     var bloqueRedes = redes ? '<div class="redes">' + redes + '</div>' : '';
 
@@ -284,11 +288,6 @@
                 '<li><a class="pendiente" href="tel:' + SITIO.telefonoTel + '">' + SITIO.telefono + '</a></li>' +
                 '<li style="margin-top:12px">' + SITIO.direccion + '</li>' +
                 '<li>' + SITIO.cp + '</li>' +
-              '</ul>' +
-              '<h4 style="margin-top:26px"' + i18n('pie.embajada', 'Embajada de Guinea') + '</h4>' +
-              '<ul>' +
-                '<li><a href="' + SITIO.embajada.web + '" target="_blank" rel="noopener">es.ambaguinee.org</a></li>' +
-                '<li>' + SITIO.embajada.telefono + '</li>' +
               '</ul>' +
             '</div>' +
 

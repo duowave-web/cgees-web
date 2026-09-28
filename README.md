@@ -69,11 +69,12 @@ Todo lo pendiente aparece **resaltado en amarillo con subrayado discontinuo** en
 | `telefono` / `telefonoTel` | Teléfono real de atención |
 | `horario` | Horario real de atención |
 | `banco.iban` | **IBAN de la entidad.** Mientras esté vacío, el bloque de datos bancarios no aparece en la web |
-| `banco.bic` / `banco.entidad` | Opcionales: si los dejas vacíos, esas filas no se muestran |
+| `banco.bic` | Opcional. La entidad ya está puesta: **Banco Santander** |
 | `whatsapp` | Opcional |
-| `redes.*` | URLs de Facebook, Instagram, LinkedIn y YouTube. **Si lo dejas vacío, el icono no aparece** |
+| `redes.instagram` / `redes.youtube` | Opcionales. **Si lo dejas vacío, el icono no aparece** |
 
-El correo ya está puesto: `infocgees@gmail.com`.
+Ya están puestos: el correo `conseil.guineen.espagne@gmail.com`, y las redes **Facebook** y
+**TikTok**.
 
 ### 📄 `quienes-somos.html`
 
@@ -305,7 +306,8 @@ en `robots.txt` y en `sitemap.xml`.
 
 ## 11. Datos de terceros usados en la web
 
-**Embajada de la República de Guinea en España y Malta** (página de asuntos consulares):
+**Embajada de la República de Guinea en España y Malta**. Sus datos aparecen únicamente en la
+página de asuntos consulares; en el pie de página ya no se muestran:
 Calle Luis Muriel, 4 · Madrid · +34 914 352 928 / +34 914 311 004 ·
 embajada@guineamadrid.es · [es.ambaguinee.org](https://es.ambaguinee.org/) ·
 L–V 9:00–16:00.

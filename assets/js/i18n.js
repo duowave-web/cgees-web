@@ -79,7 +79,6 @@ fr: {
 "pie.s4": "Culture et communauté",
 "pie.s5": "Actualités et avis",
 "pie.contacto": "Contact",
-"pie.embajada": "Ambassade de Guinée",
 "pie.derechos": "Tous droits réservés.",
 "pie.aviso": "Mentions légales",
 "pie.privacidad": "Politique de confidentialité",
