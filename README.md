@@ -6,7 +6,7 @@ Web institucional del **Consejo de Guineanos del Exterior en España (CGE-ES)**.
 |---|---|
 | **Vista previa** | https://duowave-web.github.io/cgees-web/ |
 | **Repositorio** | https://github.com/duowave-web/cgees-web |
-| **Dominio final previsto** | www.cgees.org |
+| **Dominio final previsto** | www.cge-es.org |
 
 > La vista previa se actualiza sola cada vez que se sube un cambio (tarda un par de minutos).
 > Es **un borrador**: lleva `noindex` para que no salga en Google.
@@ -66,15 +66,21 @@ Todo lo pendiente aparece **resaltado en amarillo con subrayado discontinuo** en
 
 | Campo | Qué poner |
 |---|---|
-| `telefono` / `telefonoTel` | Teléfono real de atención |
-| `horario` | Horario real de atención |
-| `banco.iban` | **IBAN de la entidad.** Mientras esté vacío, el bloque de datos bancarios no aparece en la web |
-| `banco.bic` | Opcional. La entidad ya está puesta: **Banco Santander** |
 | `whatsapp` | Opcional |
 | `redes.instagram` / `redes.youtube` | Opcionales. **Si lo dejas vacío, el icono no aparece** |
 
-Ya están puestos: el correo `conseil.guineen.espagne@gmail.com`, y las redes **Facebook** y
-**TikTok**.
+Ya están puestos: el correo, los dos teléfonos (679 901 221 y 637 631 003), el IBAN, el BIC y
+las redes **Facebook** y **TikTok**.
+
+> **El titular de la cuenta va «de España», no «en España».** Es como figura en el banco y
+> tiene que coincidir exactamente o la transferencia puede rebotar. En el resto de la web la
+> denominación es «en España», que es la registral. Cuando el banco lo corrija, igualad las
+> dos en `SITIO.banco.titular`.
+
+> **El domicilio solo aparece en la ficha informativa de «El Consejo»**, etiquetado como
+> domicilio social. No es una oficina y no hay atención presencial: ponerlo en el pie o en
+> Contacto hacía que la gente se presentara allí. Si lo añadís en algún sitio nuevo, ponedlo
+> siempre con esa etiqueta.
 
 > De la Embajada de Guinea **solo se publica el enlace a su web**, no su dirección, sus
 > teléfonos ni su horario. Los cambian sin avisar y, cuando se quedan viejos, la gente hace el
@@ -83,28 +89,43 @@ Ya están puestos: el correo `conseil.guineen.espagne@gmail.com`, y las redes **
 
 ### 📄 `quienes-somos.html`
 
-- **Origen y mandato**: añade la referencia exacta de la orden o decreto del Gobierno de Guinea
-  que crea el Consejo de Guineanos del Exterior, y la fecha de la votación en la que se eligió
-  la Junta Directiva en España. Es el dato que más peso institucional da a toda la web.
-- **Junta Directiva**: ✅ completa. Los cargos del Bureau están cargados con nombre y
-  provincia. **No se publican** los teléfonos, correos, códigos postales ni profesiones que
-  figuran en tu hoja: son datos personales.
-  - **Tesorería**: figura **Abdoulaye Soumah** con la etiqueta «En funciones». El motivo del
-    cambio (expediente disciplinario del titular anterior) **no se publica**: es un dato
-    personal sensible y publicarlo expondría a la entidad. Si el cargo se consolida o vuelve
-    al titular, basta con quitar o cambiar esa etiqueta.
-  - **Asesoría**: falta la **provincia de Mamadou Yero Sylla**.
+La página tiene cuatro apartados y nada más: **Origen y mandato**, **Logros**, **Junta
+Directiva** y **Ficha informativa**.
+
+- **Origen y mandato**: ✅ completo, con las tres fechas clave (creación el 8/10/2022, RNA el
+  24/9/2024 y RECEX el 18/6/2026) y los documentos que amparan la creación, plegados en un
+  desplegable para que no estorben.
+- **Logros**: se pinta solo, a partir de las fichas de `contenido.js` que llevan
+  `tipo: 'logro'`. Para mover una a Actualidad, cambia esa palabra por `'noticia'`.
+- **Junta Directiva**: ✅ completa. **No se publican** los teléfonos, correos, códigos postales
+  ni profesiones que figuran en la hoja: son datos personales.
+  - **Tesorería**: consta **Fode Diakite** tachado y marcado como suspendido, y **Abdoulaye
+    Soumah** como tesorero en funciones.
+
+    > Publicar que una persona concreta está suspendida por un expediente disciplinario es un
+    > dato personal sensible y puede dar pie a una reclamación del afectado. Se ha puesto
+    > porque lo pedisteis expresamente, con la redacción más neutra posible y sin entrar en el
+    > motivo. Si el expediente se archiva o se resuelve, **acordaos de actualizar esa fila**:
+    > dejarla así indefinidamente es lo que más riesgo tiene.
+- **Ficha informativa**: ✅ completa, con NIF, RNA, RECEX, domicilio social, teléfonos, correo
+  y cuenta bancaria.
 
 ### 📄 `assets/js/contenido.js`
 - **Repertorio de asociaciones**: ya están cargadas las 10 de tu hoja de cálculo. Faltan
   algunos datos (ver punto 6) y **todas son de Cataluña**: cuando tengas asociaciones de otras
   comunidades, añádelas ahí.
-- **Eventos**: están cargados los 11 eventos de tus notas (Malta, RAVEC 2025, la nueva
-  Constitución, el embajador Framoi Mara, la cena con el ministro Ousmane Gaoual, el satisfecit
-  al cónsul en Sabadell, la formación…) más la noticia real de la inscripción registral.
-  **A cada evento le falta la fecha (`AAAA-MM-DD`) y un resumen más amplio**: mientras no la
-  tenga, la ficha se enseña sin fecha. Cuando estén completos, pon `noticiasDeEjemplo: false`
+- **Noticias y logros**: las 12 fichas están cargadas. Cada una lleva un campo `tipo`:
+  `'noticia'` sale en Actualidad y en la portada, `'logro'` sale en «El Consejo». El reparto
+  actual (6 y 6) **lo hice yo a ojo**: revisadlo y cambiad la palabra en las que no encajen.
+- **A cada ficha le faltan** la fecha (`AAAA-MM-DD`), el `cuerpo`, el `autor` y las `fotos`.
+  Mientras el `cuerpo` esté vacío, la noticia **no se puede abrir**: la tarjeta no ofrece el
+  enlace, a propósito, para que nadie llegue a una página en blanco. En cuanto escribáis el
+  cuerpo, el enlace aparece solo. Cuando estén todas completas, pon `noticiasDeEjemplo: false`
   para quitar el aviso amarillo de Actualidad.
+- **Entidades**: dos campos nuevos. `cotejada: false` marca la entidad como «datos por
+  verificar» y la enseña atenuada y sin acción; si no pones el campo, se entiende que sí está
+  cotejada. Y las **siglas ya no se inventan**: si el campo `sigla` está vacío se pone la
+  inicial del nombre. Antes se fabricaban juntando iniciales y salían siglas que nadie usa.
 
 ### 📄 `index.html`
 - **Fiesta de la Independencia**: fecha, hora y lugar de la próxima edición.
@@ -130,6 +151,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
 ├── actualidad.html           Noticias y avisos, con filtros
 ├── contacto.html             Formulario, datos y mapa
 ├── aviso-legal.html          Aviso legal (LSSI-CE)
+├── noticia.html              Plantilla para leer una noticia entera (?id=...)
 ├── privacidad.html           Privacidad y cookies (RGPD)
 ├── 404.html                  Página de error
 ├── robots.txt / sitemap.xml
@@ -143,7 +165,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (531 claves)
+        ├── i18n.js         Traducción al francés (492 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 
@@ -207,7 +229,7 @@ de registro. Las cuatro últimas aparecen en la web solo con nombre y localidad.
 
 ## 7. Tareas habituales
 
-### Cambiar el teléfono, la dirección, el horario o el IBAN
+### Cambiar el teléfono, el domicilio o el IBAN
 `assets/js/layout.js` → bloque `SITIO`. Se actualiza en las 10 páginas a la vez.
 
 ### Añadir una asociación al repertorio
@@ -270,7 +292,7 @@ cada vez que se sube un cambio.
 
 > ⚠️ Mientras el sitio sea un borrador, las 10 páginas llevan
 > `<meta name="robots" content="noindex, nofollow">` para que no aparezca en Google.
-> Busca el comentario `BORRADOR` y quita esas dos líneas cuando publiquéis en cgees.org.
+> Busca el comentario `BORRADOR` y quita esas dos líneas cuando publiquéis en cge-es.org.
 
 ### Descargar el proyecto por primera vez
 
@@ -316,9 +338,9 @@ arrastra la carpeta entera y conecta el dominio en *Domain settings*.
 
 **Después:** comprueba que el HTTPS está activo y da de alta la web en
 [Google Search Console](https://search.google.com/search-console) enviando
-`https://www.cgees.org/sitemap.xml`.
+`https://www.cge-es.org/sitemap.xml`.
 
-Si el dominio final no fuera `www.cgees.org`, busca y reemplaza esa cadena en los `.html`,
+Si el dominio final no fuera `www.cge-es.org`, busca y reemplaza esa cadena en los `.html`,
 en `robots.txt` y en `sitemap.xml`.
 
 ---

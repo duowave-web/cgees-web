@@ -78,6 +78,8 @@
 
     /* Vuelve a pintar lo que se genera por JS */
     pintarNoticias();
+    pintarLogros();
+    pintarNoticiaDetalle();
     pintarDirectorio();
 
     document.dispatchEvent(new CustomEvent('cge:idioma', { detail: { idioma: idiomaActual } }));
@@ -231,9 +233,12 @@
     var txt = n[idiomaActual] || n.es;
     var etiqueta = cat[idiomaActual] || cat.es || n.categoria;
 
+    /* Solo se ofrece «leer más» si la ficha tiene cuerpo escrito. Un enlace
+       que lleva a una página vacía es peor que no tener enlace. */
     var flecha = '';
-    if (n.enlace) {
-      flecha = '<a class="enlace-flecha" href="' + n.enlace + '">' +
+    var destino = enlaceNoticia(n);
+    if (destino) {
+      flecha = '<a class="enlace-flecha" href="' + destino + '">' +
         (traducir('comun.leermas') || 'Leer más') +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>';
     }
@@ -242,9 +247,13 @@
 
     return '' +
       '<article class="noticia" data-categoria="' + n.categoria + '">' +
-        '<div class="noticia__media">' +
-          '<img src="assets/img/logo.svg" alt="" width="62" height="62" loading="lazy">' +
-        '</div>' +
+        (n.fotos && n.fotos.length
+          ? '<div class="noticia__media noticia__media--foto">' +
+              '<img src="' + n.fotos[0] + '" alt="" loading="lazy">' +
+            '</div>'
+          : '<div class="noticia__media">' +
+              '<img src="assets/img/logo.svg" alt="" width="62" height="62" loading="lazy">' +
+            '</div>') +
         '<div class="noticia__cuerpo">' +
           '<div class="noticia__meta">' + etiquetaHTML +
             /* La fecha es opcional: sin ella, no se pinta la etiqueta <time> */
@@ -252,11 +261,26 @@
               ? '<time class="noticia__fecha" datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>'
               : '') +
           '</div>' +
-          '<h3>' + txt.titulo + '</h3>' +
+          '<h3>' + (destino ? '<a href="' + destino + '">' + txt.titulo + '</a>' : txt.titulo) + '</h3>' +
           '<p>' + txt.resumen + '</p>' +
           (flecha ? '<div style="margin-top:auto;padding-top:18px">' + flecha + '</div>' : '') +
         '</div>' +
       '</article>';
+  }
+
+  /* Devuelve la URL de la noticia, o '' si no hay nada que abrir.
+     `enlace` sigue funcionando por si algún día se apunta a algo externo. */
+  function enlaceNoticia(n) {
+    if (n.enlace) return n.enlace;
+    if (n.tipo === 'logro' || !n.id) return '';
+    var txt = n[idiomaActual] || n.es;
+    var cuerpo = txt && txt.cuerpo;
+    if (!cuerpo || !cuerpo.length) return '';
+    return 'noticia.html?id=' + encodeURIComponent(n.id);
+  }
+
+  function soloNoticias(lista) {
+    return lista.filter(function (n) { return n.tipo !== 'logro'; });
   }
 
   function pintarNoticias() {
@@ -264,8 +288,9 @@
     if (!C) return;
 
     /* Se respeta el orden del archivo contenido.js: lo primero de la lista es
-       lo primero que se ve. Así no hace falta que todo tenga fecha. */
-    var lista = C.noticias.slice();
+       lo primero que se ve. Así no hace falta que todo tenga fecha.
+       Los logros se quedan fuera: viven en «El Consejo». */
+    var lista = soloNoticias(C.noticias);
 
     var home = document.querySelector('[data-noticias-home]');
     if (home) home.innerHTML = lista.slice(0, 3).map(tarjetaNoticia).join('');
@@ -287,6 +312,109 @@
   }
 
   /* ========================================================================
+     5 bis. Logros
+     ------------------------------------------------------------------------
+     Las fichas con tipo: 'logro' de contenido.js. No se abren: son cortas
+     a propósito, para que la lista se lea de un vistazo.
+     ====================================================================== */
+
+  function pintarLogros() {
+    var caja = document.querySelector('[data-logros]');
+    if (!caja) return;
+
+    var C = window.CGE_CONTENIDO;
+    var lista = ((C && C.noticias) || []).filter(function (n) { return n.tipo === 'logro'; });
+
+    if (!lista.length) { caja.innerHTML = ''; return; }
+
+    caja.innerHTML = lista.map(function (n) {
+      var txt = n[idiomaActual] || n.es;
+      var cat = (C.categorias && C.categorias[n.categoria]) || {};
+      var etiqueta = cat[idiomaActual] || cat.es || n.categoria;
+      return '' +
+        '<article class="logro revelar">' +
+          '<span class="logro__marca" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' +
+          '</span>' +
+          '<div>' +
+            '<div class="logro__meta">' +
+              '<span class="etiqueta ' + (cat.clase || '') + '">' + etiqueta + '</span>' +
+              (n.fecha ? '<time datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>' : '') +
+            '</div>' +
+            '<h3>' + txt.titulo + '</h3>' +
+            '<p>' + txt.resumen + '</p>' +
+          '</div>' +
+        '</article>';
+    }).join('');
+  }
+
+  /* ========================================================================
+     5 ter. Noticia completa (noticia.html?id=...)
+     ------------------------------------------------------------------------
+     No hay generador de sitio: la página es una sola plantilla que se
+     rellena con la ficha que pida la URL. Si el id no existe o la ficha no
+     tiene cuerpo, se avisa y se ofrece volver a Actualidad en lugar de
+     dejar la página en blanco.
+     ====================================================================== */
+
+  function pintarNoticiaDetalle() {
+    var caja = document.querySelector('[data-noticia-detalle]');
+    if (!caja) return;
+
+    var C = window.CGE_CONTENIDO;
+    var id = new URLSearchParams(window.location.search).get('id');
+    var n = ((C && C.noticias) || []).filter(function (x) {
+      return x.id === id && x.tipo !== 'logro';
+    })[0];
+
+    var txt = n && (n[idiomaActual] || n.es);
+    var cuerpo = txt && txt.cuerpo;
+
+    if (!n || !cuerpo || !cuerpo.length) {
+      caja.innerHTML =
+        '<div class="panel-nota">' +
+          '<strong>' + (traducir('noti.nohay.t') || 'No encontramos esa noticia') + '</strong>' +
+          '<span>' + (traducir('noti.nohay.p') || 'Puede que el enlace esté mal escrito o que la noticia ya no esté publicada.') + '</span>' +
+        '</div>' +
+        '<p style="margin-top:24px"><a class="btn btn--primario" href="actualidad.html">' +
+          (traducir('noti.volver') || 'Volver a Actualidad') + '</a></p>';
+      document.title = (traducir('noti.nohay.t') || 'Noticia no encontrada') + ' · CGE-ES';
+      return;
+    }
+
+    var cat = (C.categorias && C.categorias[n.categoria]) || {};
+    var etiqueta = cat[idiomaActual] || cat.es || n.categoria;
+
+    var meta = '<span class="etiqueta ' + (cat.clase || '') + '">' + etiqueta + '</span>';
+    if (n.fecha) meta += '<time datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>';
+    if (n.autor) meta += '<span class="noticia-detalle__autor">' + n.autor + '</span>';
+
+    var fotos = n.fotos || [];
+    var portada = fotos.length
+      ? '<figure class="noticia-detalle__portada"><img src="' + fotos[0] + '" alt=""></figure>'
+      : '';
+    var galeria = fotos.length > 1
+      ? '<div class="noticia-detalle__galeria">' + fotos.slice(1).map(function (f) {
+          return '<figure><img src="' + f + '" alt="" loading="lazy"></figure>';
+        }).join('') + '</div>'
+      : '';
+
+    caja.innerHTML =
+      '<div class="noticia-detalle__meta">' + meta + '</div>' +
+      '<h1>' + txt.titulo + '</h1>' +
+      '<p class="entradilla">' + txt.resumen + '</p>' +
+      portada +
+      cuerpo.map(function (par) { return '<p>' + par + '</p>'; }).join('') +
+      galeria +
+      '<p class="noticia-detalle__volver"><a class="enlace-flecha" href="actualidad.html">' +
+        (traducir('noti.volver') || 'Volver a Actualidad') + '</a></p>';
+
+    document.title = txt.titulo + ' · CGE-ES';
+    var desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', txt.resumen);
+  }
+
+  /* ========================================================================
      5 bis. Repertorio de asociaciones federadas
      ====================================================================== */
 
@@ -294,7 +422,28 @@
     var caja = document.querySelector('[data-directorio]');
     if (!caja) return;
 
-    var lista = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.asociaciones) || [];
+    var todas = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.asociaciones) || [];
+    var lista = filtrarEntidades(todas, busquedaEntidades);
+
+    /* El contador y el aviso de «sin resultados» solo tienen sentido si hay
+       algo cargado: si el repertorio entero está vacío se enseña el aviso de
+       «en construcción» de más abajo. */
+    var contador = document.querySelector('[data-entidades-total]');
+    if (contador) {
+      contador.textContent = todas.length
+        ? (lista.length === todas.length
+            ? todas.length + ' ' + (traducir('asoc.dir.entidades') || 'entidades')
+            : lista.length + ' / ' + todas.length)
+        : '';
+    }
+
+    if (todas.length && !lista.length) {
+      caja.innerHTML =
+        '<p class="directorio__vacio">' +
+          (traducir('asoc.dir.nada') || 'Ninguna entidad coincide con esa búsqueda.') +
+        '</p>';
+      return;
+    }
 
     if (!lista.length) {
       caja.innerHTML =
@@ -309,14 +458,10 @@
     }
 
     caja.innerHTML = '<div class="directorio">' + lista.map(function (a) {
-      /* Si la asociación no tiene siglas, se generan a partir del nombre */
-      var sigla = a.sigla || a.nombre
-        .replace(/\(.*?\)/g, '')
-        .split(/\s+/)
-        .filter(function (p) { return p.length > 2 && /^[A-ZÁÉÍÓÚÀÈÇÑ]/.test(p); })
-        .map(function (p) { return p[0]; })
-        .join('')
-        .slice(0, 4) || '—';
+      /* Las siglas NO se inventan: muchas entidades no tienen. Si el campo
+         viene vacío se pone la inicial del nombre y ya está. Antes se
+         fabricaban juntando iniciales y salían siglas que nadie usa. */
+      var sigla = a.sigla || (a.nombre.trim()[0] || '·').toUpperCase();
 
       var lugar = [a.ciudad, a.provincia].filter(Boolean);
       if (lugar.length === 2 && lugar[0] === lugar[1]) lugar = [lugar[0]];
@@ -347,7 +492,16 @@
           (traducir('asoc.dir.registrada') || 'Registrada') + '</span>';
       }
 
-      return '<div class="directorio__item">' +
+      /* `cotejada: false` = todavía no hemos comprobado NIF, denominación
+         oficial y número de registro. Se muestra igualmente, pero apagada y
+         sin acción, para no dar por bueno un dato que no lo está. */
+      var sinCotejar = a.cotejada === false;
+      if (sinCotejar) {
+        accion = '<span class="etiqueta">' +
+          (traducir('asoc.dir.sincotejar') || 'Datos por verificar') + '</span>';
+      }
+
+      return '<div class="directorio__item' + (sinCotejar ? ' directorio__item--sincotejar' : '') + '">' +
         '<span class="directorio__sigla">' + sigla + '</span>' +
         '<span><span class="directorio__nombre">' + a.nombre + '</span>' +
           (meta ? '<span class="directorio__meta" style="display:block">' + meta + '</span>' : '') +
@@ -356,6 +510,54 @@
         accion +
       '</div>';
     }).join('') + '</div>';
+  }
+
+  /* Búsqueda del repertorio. Se normaliza quitando acentos para que
+     «Coordinacion» encuentre «Coordinación», y se exige que TODAS las
+     palabras aparezcan, que es como la gente espera que busque. */
+  var busquedaEntidades = '';
+
+  function normalizar(t) {
+    return String(t || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function filtrarEntidades(lista, texto) {
+    var palabras = normalizar(texto).split(/\s+/).filter(Boolean);
+    if (!palabras.length) return lista.slice();
+
+    return lista.filter(function (a) {
+      var heno = normalizar([
+        a.sigla, a.nombre, a.tipo, a.ciudad, a.provincia, a.desde, a.ambito
+      ].filter(Boolean).join(' '));
+      return palabras.every(function (w) { return heno.indexOf(w) !== -1; });
+    });
+  }
+
+  function initBuscadorEntidades() {
+    var campo = document.querySelector('[data-buscar-entidades]');
+    if (!campo) return;
+
+    var limpiar = document.querySelector('[data-limpiar-busqueda]');
+
+    function aplicar() {
+      busquedaEntidades = campo.value;
+      if (limpiar) limpiar.hidden = !campo.value;
+      pintarDirectorio();
+    }
+
+    campo.addEventListener('input', aplicar);
+    /* Enter en un campo suelto no debe recargar la página */
+    campo.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') e.preventDefault();
+      if (e.key === 'Escape' && campo.value) { campo.value = ''; aplicar(); }
+    });
+    if (limpiar) {
+      limpiar.hidden = true;
+      limpiar.addEventListener('click', function () { campo.value = ''; aplicar(); campo.focus(); });
+    }
   }
 
   function initFiltros() {
@@ -539,6 +741,7 @@
     initCabeceraFija();
     initAcordeon();
     initFiltros();
+    initBuscadorEntidades();
     initFormulario();
 
     aplicarIdioma(detectarIdioma());

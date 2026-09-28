@@ -25,11 +25,16 @@
     nombreFr:     "Conseil des Guinéens de l'Extérieur en Espagne",
 
     email:        'conseil.guineen.espagne@gmail.com',
-    telefono:     '+34 900 000 000',              // PENDIENTE
-    telefonoTel:  '+34900000000',                 // PENDIENTE (sin espacios)
+    telefono:     '679 901 221',
+    telefonoTel:  '+34679901221',
+    telefono2:    '637 631 003',
+    telefono2Tel: '+34637631003',
     whatsapp:     '',                             // PENDIENTE (opcional, formato 34600000000)
 
     ciudad:       'Madrid',
+    /* Domicilio SOCIAL, no oficina: no hay atención presencial. Solo se
+       publica en la ficha informativa de «El Consejo», y siempre con esa
+       etiqueta. No usarlo en Contacto ni hablar de «sede» o «dónde estamos». */
     direccion:    'Avda. del Cerro de los Ángeles, 25 — 1ª planta, puerta A',
     cp:           '28026 Madrid',
     pais:         'España',
@@ -39,9 +44,11 @@
     registroNum:  '629208',
     fechaAlta:    '24 de septiembre de 2024',
     fechaActa:    '27 de abril de 2024',
+    fechaEstatutos: '13 de agosto de 2023',
+    recexFecha:   '18 de junio de 2026',
+    fechaCreacion: '8 de octubre de 2022',
 
-    horario:      'Lunes a viernes, 9:00 – 18:00',      // PENDIENTE
-    dominio:      'https://www.cgees.org',
+    dominio:      'https://www.cge-es.org',
 
     /* ----------------------------------------------------------------------
        Datos bancarios de la entidad.
@@ -56,9 +63,13 @@
            desmentir una copia falsa sea inmediato.
        ---------------------------------------------------------------------- */
     banco: {
-      titular: 'Consejo de Guineanos del Exterior en España',
-      iban:    '',                                // PENDIENTE — ej. 'ES00 0000 0000 0000 0000 0000'
-      bic:     '',                                // PENDIENTE (opcional)
+      /* OJO: el titular va «de España», no «en España». Es como figura en el
+         banco y tiene que coincidir exactamente o la transferencia puede
+         rebotar. En el resto de la web la denominación es «en España».
+         Cuando el banco lo corrija, igualar los dos. */
+      titular: 'Consejo de Guineanos del Exterior de España — CGE-ES',
+      iban:    'ES05 0049 3165 6322 1422 1008',
+      bic:     'BSCHESMM',
       entidad: 'Banco Santander'
     },
 
@@ -86,12 +97,14 @@
     {
       href: 'quienes-somos.html', key: 'nav.quienes', txt: 'El Consejo',
       sub: [
-        { href: 'quienes-somos.html#origen',   key: 'nav.sub.origen', txt: 'Origen y mandato',
+        { href: 'quienes-somos.html#origen',  key: 'nav.sub.origen', txt: 'Origen y mandato',
           dkey: 'nav.sub.origen.d',  d: 'Cómo y por qué nace el Consejo' },
-        { href: 'quienes-somos.html#organos',  key: 'nav.sub.organos', txt: 'Junta Directiva',
+        { href: 'quienes-somos.html#logros',  key: 'nav.sub.logros', txt: 'Logros',
+          dkey: 'nav.sub.logros.d',  d: 'Lo conseguido desde 2022' },
+        { href: 'quienes-somos.html#organos', key: 'nav.sub.organos', txt: 'Junta Directiva',
           dkey: 'nav.sub.organos.d', d: 'Elegida por votación de la comunidad' },
-        { href: 'quienes-somos.html#registro', key: 'nav.sub.registro', txt: 'Datos registrales',
-          dkey: 'nav.sub.registro.d', d: 'Inscripción, NIF y sede social' }
+        { href: 'quienes-somos.html#ficha',   key: 'nav.sub.registro', txt: 'Ficha informativa',
+          dkey: 'nav.sub.registro.d', d: 'Datos registrales, NIF y cuenta' }
       ]
     },
     { href: 'asociaciones.html', key: 'nav.asociaciones', txt: 'Entidades' },
@@ -109,7 +122,10 @@
       ]
     },
     { href: 'actualidad.html', key: 'nav.actualidad', txt: 'Actualidad' },
-    { href: 'contacto.html',   key: 'nav.contacto',   txt: 'Contacto' }
+    /* `destacado` pinta este enlace como botón verde en escritorio. En el
+       cajón de móvil sigue siendo una fila más del menú, que es donde la
+       gente lo busca. */
+    { href: 'contacto.html',   key: 'nav.contacto',   txt: 'Contacto', destacado: true }
   ];
 
   /* ------------------------------------------------------------------------
@@ -152,8 +168,9 @@
       var activo = esActiva(item.href) ? ' aria-current="page"' : '';
 
       if (!item.sub) {
+        var extra = item.destacado ? ' nav__enlace--destacado' : '';
         return '<div class="nav__item">' +
-          '<a class="nav__enlace" href="' + item.href + '"' + activo +
+          '<a class="nav__enlace' + extra + '" href="' + item.href + '"' + activo +
           i18n(item.key, item.txt) + '</a></div>';
       }
 
@@ -176,21 +193,13 @@
         '</div>';
     }).join('');
 
-    return '' +
-      '<div class="barra-superior">' +
-        '<div class="contenedor barra-superior__inner">' +
-          '<div class="barra-superior__datos">' +
-            '<a href="mailto:' + SITIO.email + '">' + ICO.mail + '<span>' + SITIO.email + '</span></a>' +
-            '<span style="display:inline-flex;align-items:center;gap:7px">' + ICO.pin +
-              '<span' + i18n('cab.sede', 'Avda. del Cerro de los Ángeles, 25 · Madrid') + '</span></span>' +
-          '</div>' +
-          '<div class="selector-idioma" role="group" aria-label="Idioma / Langue">' +
-            '<button class="selector-idioma__btn" data-idioma="es" type="button" lang="es">ES</button>' +
-            '<button class="selector-idioma__btn" data-idioma="fr" type="button" lang="fr">FR</button>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
+    var idiomas =
+      '<div class="selector-idioma" role="group" aria-label="Idioma / Langue">' +
+        '<button class="selector-idioma__btn" data-idioma="es" type="button" lang="es">ES</button>' +
+        '<button class="selector-idioma__btn" data-idioma="fr" type="button" lang="fr">FR</button>' +
+      '</div>';
 
+    return '' +
       '<header class="cabecera">' +
         '<div class="contenedor cabecera__inner">' +
           '<a class="marca" href="index.html" aria-label="' + SITIO.sigla + ' — ' + SITIO.nombre + '">' +
@@ -205,9 +214,8 @@
 
           '<nav class="nav" id="nav-principal" aria-label="Principal">' + itemsNav + '</nav>' +
 
-          /* Sin botón «Escríbenos» aquí: Contacto ya está en el menú y
-             duplicarlo solo añade ruido a la cabecera. */
           '<div class="cabecera__acciones">' +
+            idiomas +
             '<button class="hamburguesa" type="button" aria-expanded="false" ' +
               'aria-controls="nav-principal" aria-label="Abrir menú">' +
               '<span></span><span></span><span></span>' +
@@ -279,10 +287,13 @@
             '<div>' +
               '<h4' + i18n('pie.contacto', 'Contacto') + '</h4>' +
               '<ul>' +
+                /* Sin domicilio aquí. Es el domicilio social, a efectos de
+                   notificaciones, y no una oficina: puesto en el pie de todas
+                   las páginas parecía una dirección a la que ir. Está solo en
+                   la ficha informativa de «El Consejo», con esa etiqueta. */
                 '<li><a href="mailto:' + SITIO.email + '">' + SITIO.email + '</a></li>' +
-                '<li><a class="pendiente" href="tel:' + SITIO.telefonoTel + '">' + SITIO.telefono + '</a></li>' +
-                '<li style="margin-top:12px">' + SITIO.direccion + '</li>' +
-                '<li>' + SITIO.cp + '</li>' +
+                '<li><a href="tel:' + SITIO.telefonoTel + '">' + SITIO.telefono + '</a></li>' +
+                '<li><a href="tel:' + SITIO.telefono2Tel + '">' + SITIO.telefono2 + '</a></li>' +
               '</ul>' +
             '</div>' +
 
@@ -296,8 +307,9 @@
             '<nav class="pie__legal-enlaces" aria-label="Enlaces legales">' +
               '<a href="aviso-legal.html"' + i18n('pie.aviso', 'Aviso legal') + '</a>' +
               '<a href="privacidad.html"' + i18n('pie.privacidad', 'Política de privacidad') + '</a>' +
+              /* Sin «Contactar» aquí: Contacto ya está destacado en la barra
+                 del menú, que va fija arriba en toda la web. */
               '<a href="privacidad.html#cookies"' + i18n('pie.cookies', 'Cookies') + '</a>' +
-              '<a href="contacto.html"' + i18n('pie.contactar', 'Contactar') + '</a>' +
             '</nav>' +
           '</div>' +
         '</div>' +

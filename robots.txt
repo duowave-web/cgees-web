@@ -1,4 +1,4 @@
 ﻿User-agent: *
 Allow: /
 
-Sitemap: https://www.cgees.org/sitemap.xml
+Sitemap: https://www.cge-es.org/sitemap.xml

@@ -280,32 +280,28 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
 /* --------------------------------------------------------------------------
    6. Cabecera / navegación
    -------------------------------------------------------------------------- */
-.barra-superior {
-  background: var(--navy-900);
-  color: rgba(255,255,255,.72);
-  font-size: .8rem;
-}
-.barra-superior__inner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; min-height: 40px;
-}
-.barra-superior__datos { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-.barra-superior a { color: rgba(255,255,255,.82); text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
-.barra-superior a:hover { color: #fff; }
-.barra-superior svg { width: 14px; height: 14px; opacity: .8; }
+/* Ya no hay banda oscura sobre la cabecera. El correo y el domicilio estaban
+   ahí y se han quitado: el correo está en Contacto y en el pie, y el domicilio
+   solo debe aparecer en la ficha informativa, etiquetado como domicilio
+   social, porque no es una oficina de atención al público. */
 
-.selector-idioma { display: flex; align-items: center; gap: 2px; }
+/* Selector de idioma. Vive en la barra blanca, así que va en tonos oscuros. */
+.selector-idioma {
+  display: flex; align-items: center; gap: 2px;
+  border: 1px solid var(--gris-200); border-radius: var(--radio-xs);
+  padding: 2px;
+}
 .selector-idioma__btn {
   background: none; border: 0;
-  color: rgba(255,255,255,.6);
+  color: var(--texto-suave);
   font-family: inherit; font-size: .76rem; font-weight: 800;
   letter-spacing: .06em;
-  padding: 5px 9px; border-radius: var(--radio-xs);
+  padding: 5px 9px; border-radius: 5px;
   cursor: pointer;
   transition: color var(--t-rapida), background var(--t-rapida);
 }
-.selector-idioma__btn:hover { color: #fff; background: rgba(255,255,255,.08); }
-.selector-idioma__btn[aria-current="true"] { color: var(--navy); background: var(--amarillo); }
+.selector-idioma__btn:hover { color: var(--navy); background: var(--gris-100); }
+.selector-idioma__btn[aria-current="true"] { color: #fff; background: var(--verde-osc); }
 
 /* El contenedor que rellena layout.js no debe formar caja propia: si la forma,
    la cabecera sticky queda atrapada dentro de sus 115 px y se despega al bajar. */
@@ -313,11 +309,15 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
 
 .cabecera {
   position: sticky; top: 0; z-index: 1000;
-  background: rgba(255,255,255,.94);
-  backdrop-filter: saturate(160%) blur(12px);
-  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  background: #fff;
   border-bottom: 1px solid var(--gris-200);
   transition: box-shadow var(--t);
+
+  /* NO poner aquí backdrop-filter, filter, transform, contain ni will-change.
+     Cualquiera de ellos convierte la cabecera en bloque contenedor de sus
+     hijos `position: fixed`, y el menú lateral de móvil es uno de ellos: se
+     anclaba a la cabecera, acababa fuera de la pantalla y con 70 px de alto.
+     Se abría, pero no se veía nada. Ese fue el bug del menú de móvil. */
 }
 .cabecera.esta-fija { box-shadow: 0 4px 24px rgba(31,42,55,.09); }
 
@@ -339,7 +339,21 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   max-width: 25ch;
 }
 
+.cabecera__acciones { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
 .nav { display: flex; align-items: center; gap: 4px; }
+
+/* Contacto va resaltado como botón en escritorio. En el cajón de móvil se
+   anula (ver responsive) y vuelve a ser una fila normal del menú. */
+.nav__enlace--destacado {
+  background: var(--verde-osc); color: #fff;
+  border-radius: var(--radio-xs);
+  padding-left: 18px; padding-right: 18px;
+  margin-left: 8px;
+}
+.nav__enlace--destacado:hover { background: var(--verde); color: #fff; }
+.nav__enlace--destacado[aria-current="page"] { color: #fff; }
+.nav__enlace--destacado[aria-current="page"]::after { display: none; }
 .nav__enlace {
   position: relative;
   display: block;
@@ -1171,8 +1185,6 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 
 @media (max-width: 900px) {
   .hamburguesa { display: flex; }
-  .barra-superior__datos { display: none; }
-  .barra-superior__inner { justify-content: flex-end; }
 
   .nav {
     position: fixed;
@@ -1202,7 +1214,16 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   }
   .nav__item--desplegable.abierto .submenu { display: block; }
   .nav__item--desplegable.abierto .nav__caret { transform: rotate(180deg); }
-  .cabecera__acciones .btn { display: none; }
+
+  /* Dentro del cajón, Contacto es una fila más: el botón verde a lo ancho
+     del panel parecía un anuncio. */
+  .nav__enlace--destacado {
+    background: none; color: var(--texto);
+    padding-left: 12px; padding-right: 12px; margin-left: 0;
+    border-radius: 0;
+  }
+  .nav__enlace--destacado:hover { background: var(--gris-100); color: var(--navy); }
+  .nav__enlace--destacado[aria-current="page"] { color: var(--verde-osc); }
 
   .velo {
     position: fixed; inset: 0;
@@ -1235,10 +1256,113 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 }
 
 /* --------------------------------------------------------------------------
+   22 bis. Logros, noticia completa, buscador del repertorio
+   -------------------------------------------------------------------------- */
+
+/* Logros: lista con marca de verificado. No son tarjetas porque son textos
+   cortos y en rejilla quedaban con mucho aire dentro y poco que decir. */
+.logros { display: grid; gap: 4px; }
+.logro {
+  display: grid; grid-template-columns: auto 1fr; gap: 18px;
+  align-items: start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--gris-200);
+}
+.logro:last-child { border-bottom: 0; }
+.logro__marca {
+  display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(0,158,73,.12); color: var(--verde-osc);
+  flex-shrink: 0;
+}
+.logro__marca svg { width: 18px; height: 18px; }
+.logro__meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.logro__meta time { font-size: .8rem; color: var(--texto-suave); }
+.logro h3 { font-size: 1.05rem; margin: 0 0 6px; }
+.logro p { margin: 0; color: var(--texto-suave); }
+
+/* Documentos que amparan un hito. Plegados por defecto. */
+.hitos__fuentes { margin-top: 10px; font-size: .84rem; }
+.hitos__fuentes summary {
+  cursor: pointer; color: var(--verde-osc); font-weight: 700;
+  list-style: none;
+}
+.hitos__fuentes summary::-webkit-details-marker { display: none; }
+.hitos__fuentes summary::before { content: '+ '; font-weight: 800; }
+.hitos__fuentes[open] summary::before { content: '– '; }
+.hitos__fuentes ul { margin: 10px 0 0; padding-left: 18px; color: var(--texto-suave); }
+.hitos__fuentes li { margin-bottom: 5px; line-height: 1.45; }
+
+/* Cargo suspendido en la tabla de la Junta */
+.fila--suspendida td { color: var(--texto-suave); }
+.fila--suspendida s { color: var(--texto-suave); }
+
+/* Noticia completa */
+.noticia-detalle__meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+.noticia-detalle__meta time { font-size: .85rem; color: var(--texto-suave); }
+.noticia-detalle__autor { font-size: .85rem; color: var(--texto-suave); }
+.noticia-detalle h1 { margin-bottom: .4em; }
+.noticia-detalle p { margin-bottom: 1.1em; }
+.noticia-detalle__portada { margin: 30px 0; }
+.noticia-detalle__portada img,
+.noticia-detalle__galeria img {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--radio); border: 1px solid var(--gris-200);
+}
+.noticia-detalle__galeria {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px; margin: 30px 0;
+}
+.noticia-detalle__galeria figure { margin: 0; }
+.noticia-detalle__volver { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--gris-200); }
+
+/* Foto de portada en la tarjeta de noticia */
+.noticia__media--foto { padding: 0; overflow: hidden; }
+.noticia__media--foto img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Buscador del repertorio */
+.buscador { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 26px; }
+.buscador__campo { position: relative; flex: 1 1 300px; min-width: 0; }
+.buscador__campo svg {
+  position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--texto-suave); pointer-events: none;
+}
+.buscador__campo input {
+  width: 100%;
+  padding: 13px 44px 13px 44px;
+  font-family: inherit; font-size: .95rem;
+  border: 1px solid var(--gris-200); border-radius: var(--radio-xs);
+  background: #fff; color: var(--texto);
+}
+.buscador__campo input:focus {
+  outline: none; border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(0,158,73,.14);
+}
+.buscador__limpiar {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; display: grid; place-items: center;
+  border: 0; border-radius: 50%; background: var(--gris-100);
+  color: var(--texto-suave); cursor: pointer; font-size: 1rem; line-height: 1;
+}
+.buscador__limpiar:hover { background: var(--gris-200); color: var(--navy); }
+.buscador__total { font-size: .85rem; color: var(--texto-suave); font-weight: 700; }
+.directorio__vacio { text-align: center; color: var(--texto-suave); padding: 44px 0; }
+
+/* Entidad sin datos cotejados: se enseña, pero apagada y sin acción, para
+   no dar por bueno un dato que todavía no hemos comprobado. */
+.directorio__item--sincotejar { opacity: .62; }
+.directorio__item--sincotejar .directorio__sigla { background: var(--gris-200); color: var(--texto-suave); }
+
+@media (max-width: 720px) {
+  .logro { grid-template-columns: 1fr; gap: 12px; }
+  .logro__marca { width: 28px; height: 28px; }
+}
+
+/* --------------------------------------------------------------------------
    23. Impresión
    -------------------------------------------------------------------------- */
 @media print {
-  .cabecera, .barra-superior, .pie, .cta-final, .hamburguesa, .velo { display: none !important; }
+  .cabecera, .pie, .cta-final, .hamburguesa, .velo, .nav { display: none !important; }
   body { font-size: 11pt; color: #000; }
   .hero, .hero-pagina { background: none !important; color: #000; padding-block: 0; }
   .hero h1, .hero-pagina h1, .hero p, .hero-pagina p { color: #000 !important; }

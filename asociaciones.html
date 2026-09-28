@@ -7,17 +7,17 @@
 <title data-i18n="meta.asoc.t">Entidades guineanas · CGE-ES</title>
 <meta name="description" data-i18n-attr="content:meta.asoc.d" content="Repertorio de entidades guineanas en España —asociaciones, federaciones, ONG— coordinadas por el CGE-ES, y procedimiento para inscribir una entidad en el Consejo.">
 
-<!-- BORRADOR: quitar estas 2 lineas al publicar en cgees.org -->
+<!-- BORRADOR: quitar estas 2 lineas al publicar en cge-es.org -->
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://www.cgees.org/asociaciones.html">
-<link rel="alternate" hreflang="es" href="https://www.cgees.org/asociaciones.html?lang=es">
-<link rel="alternate" hreflang="fr" href="https://www.cgees.org/asociaciones.html?lang=fr">
+<link rel="canonical" href="https://www.cge-es.org/asociaciones.html">
+<link rel="alternate" hreflang="es" href="https://www.cge-es.org/asociaciones.html?lang=es">
+<link rel="alternate" hreflang="fr" href="https://www.cge-es.org/asociaciones.html?lang=fr">
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#1F2A37">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Entidades guineanas · CGE-ES">
-<meta property="og:image" content="https://www.cgees.org/assets/img/logo.svg">
+<meta property="og:image" content="https://www.cge-es.org/assets/img/logo.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,36 +58,6 @@
     </div>
   </section>
 
-  <!-- ================= POR QUÉ ================= -->
-  <section class="seccion">
-    <div class="contenedor contenedor--estrecho">
-      <span class="eyebrow" data-i18n="asoc.pq.eyebrow">El modelo</span>
-      <h2 data-i18n="asoc.pq.h2">Por qué llevamos un repertorio</h2>
-      <div class="columnas-texto" style="margin-top:22px">
-        <p data-i18n="asoc.pq.p1">
-          En España hay entidades guineanas en muchas provincias. Algunas llevan décadas
-          funcionando, otras acaban de constituirse; unas tienen local y otras se reúnen donde
-          pueden. Todas conocen a su gente mejor que nadie.
-        </p>
-        <p data-i18n="asoc.pq.p2">
-          El problema, hasta ahora, era que cada una hablaba por su cuenta. Una carta firmada
-          por una entidad de barrio y la misma carta firmada por el conjunto de la diáspora
-          no pesan lo mismo en la mesa de una administración.
-        </p>
-        <p data-i18n="asoc.pq.p3">
-          El repertorio del Consejo resuelve eso: sabemos quién hay, dónde está y a qué se
-          dedica. Cuando alguien nos escribe desde Zaragoza, podemos ponerle en contacto con la
-          entidad de Zaragoza. Y cuando un problema aparece en cinco provincias a la vez, lo
-          llevamos como lo que es: un asunto de toda la comunidad.
-        </p>
-        <p data-i18n="asoc.pq.p4">
-          Estar en el repertorio no obliga a nada y no hace perder autonomía a ninguna
-          entidad. Solo significa que existes para el resto.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= DIRECTORIO ================= -->
   <section class="seccion seccion--gris" id="directorio">
     <div class="contenedor">
@@ -101,11 +71,28 @@
         </p>
       </div>
 
+      <!-- El buscador filtra por siglas, nombre, tipo, localidad, provincia,
+           año y ámbito. Sin acentos y sin distinguir mayúsculas. -->
+      <div class="buscador">
+        <div class="buscador__campo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" data-buscar-entidades
+                 data-i18n-attr="placeholder:asoc.dir.buscar,aria-label:asoc.dir.buscar"
+                 placeholder="Buscar por nombre, ciudad, año o ámbito…"
+                 aria-label="Buscar por nombre, ciudad, año o ámbito">
+          <button type="button" class="buscador__limpiar" data-limpiar-busqueda
+                  data-i18n-attr="aria-label:asoc.dir.limpiar" aria-label="Limpiar la búsqueda" hidden>&times;</button>
+        </div>
+        <span class="buscador__total" data-entidades-total aria-live="polite"></span>
+      </div>
+
       <div data-directorio></div>
 
       <p style="font-size:.85rem;color:var(--texto-suave);margin-top:20px" data-i18n="asoc.dir.nota">
-        Publicamos únicamente datos de la entidad. Para contactar con una que no tenga correo
-        aquí, escribe al Consejo y te ponemos en contacto.
+        Publicamos únicamente datos de la entidad. Las que aparecen atenuadas y marcadas como
+        «datos por verificar» están pendientes de que cotejemos su NIF, su denominación oficial
+        y su número de registro. Para contactar con una que no tenga correo aquí, escribe al
+        Consejo y te ponemos en contacto.
       </p>
     </div>
   </section>
@@ -129,8 +116,15 @@
               <span data-i18n="asoc.adh.1.d">Al correo del Consejo, indicando el nombre de la entidad, su tipo, la provincia y una persona de contacto.</span>
             </li>
             <li>
-              <strong data-i18n="asoc.adh.2.t">Envía la documentación básica</strong>
-              <span data-i18n="asoc.adh.2.d">Estatutos, CIF y acreditación de la inscripción en el registro que corresponda según el tipo de entidad.</span>
+              <strong data-i18n="asoc.adh.2.t">Envía la documentación</strong>
+              <span data-i18n="asoc.adh.2.d">Sin ella no podemos dar de alta la entidad, porque es lo que nos permite comprobar que los datos que publicamos son los reales:</span>
+              <ul class="lista-check" style="margin-top:12px">
+                <li data-i18n="asoc.adh.req.1">Resolución de inscripción, con fecha y número de registro</li>
+                <li data-i18n="asoc.adh.req.2">NIF definitivo</li>
+                <li data-i18n="asoc.adh.req.3">Contacto del representante legal o apoderado</li>
+                <li data-i18n="asoc.adh.req.4">Estatutos</li>
+                <li data-i18n="asoc.adh.req.5">Acta de constitución</li>
+              </ul>
             </li>
             <li>
               <strong data-i18n="asoc.adh.3.t">Nos conocemos</strong>
