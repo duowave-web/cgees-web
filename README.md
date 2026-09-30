@@ -243,8 +243,10 @@ altura, para dejarlo en 1600 × 1088. Ese recorte no es arbitrario: quita los fl
 techo y la mesa del primer plano, y **deja entero el retrato del presidente de la República que
 está en la pared del fondo**, arriba a la derecha. Si se vuelve a recortar, hay que respetarlo.
 
-Al pie le falta de qué acto es y de qué fecha: va marcado con `class="pendiente"` (resaltado en
-amarillo en la web) hasta que alguien lo confirme.
+Es del día de la constitución del Consejo, el 8 de octubre de 2022, y así lo dice el pie.
+
+**Se ve a 620 px, no a todo el ancho**, pero el archivo es de 1600 px a propósito: es el que se
+abre en el visor, y ahí se quiere ver de cerca. No lo recomprimas al tamaño en que se muestra.
 
 ### El vídeo de fondo del hero
 

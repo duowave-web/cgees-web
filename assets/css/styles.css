@@ -1589,7 +1589,11 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 
 /* Foto a lo ancho, con pie. El botón existe para poder ampliarla en el
    visor; se le quitan los estilos de botón para que no parezca uno. */
-.foto-ancha { margin: 34px 0 0; }
+/* Más estrecha que la columna y centrada: a todo lo ancho pesaba demasiado
+   dentro de la sección y empujaba los documentos fuera de la pantalla. El
+   archivo sigue siendo de 1600 px a propósito, porque es el que se abre en
+   el visor y ahí sí se quiere ver de cerca: son veinte caras. */
+.foto-ancha { margin: 30px auto 0; max-width: 620px; }
 .foto-ancha > button {
   display: block; width: 100%; padding: 0; border: 0; background: none;
   border-radius: var(--radio); overflow: hidden;
@@ -1601,9 +1605,9 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .foto-ancha > button:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
 .foto-ancha img { width: 100%; height: auto; display: block; }
 .foto-ancha figcaption {
-  margin-top: 10px;
-  font-size: .84rem; color: var(--texto-suave);
-  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 9px;
+  font-size: .82rem; color: var(--texto-suave);
+  text-align: center;
 }
 
 /* El desplegable de los documentos. El <summary> hace de titular, así que
