@@ -489,7 +489,13 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   width: 100%; height: 100%;
   object-fit: cover;
   pointer-events: none;
-  opacity: .5;
+  opacity: .58;
+
+  /* La bandera está en el cuarto superior derecho del fotograma. El hero es
+     mucho más ancho que 16:9, así que `cover` recorta por arriba y por abajo
+     y con el encuadre centrado la bandera se quedaba fuera. Subiendo el
+     punto de anclaje al 28 % entra entera. */
+  object-position: 50% 28%;
 }
 .hero::before, .hero::after { z-index: 1; }
 .hero__inner { position: relative; z-index: 2; }
@@ -569,6 +575,21 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   background: radial-gradient(760px 380px at 82% -20%, rgba(0,158,73,.26), transparent 62%);
   pointer-events: none;
 }
+/* Cabecera con imagen de fondo. Las imágenes tienen el motivo a la derecha
+   y se oscurecen hacia la izquierda, que es donde va el texto; encima se
+   pone además un velo para que el blanco se lea siempre, también sobre las
+   zonas claras. */
+.hero-pagina--foto { background-size: cover; background-position: center 42%; }
+.hero-pagina--foto::before {
+  background:
+    linear-gradient(100deg,
+      rgba(14,20,28,.90) 0%,
+      rgba(14,20,28,.72) 40%,
+      rgba(14,20,28,.42) 70%,
+      rgba(14,20,28,.22) 100%),
+    radial-gradient(760px 380px at 82% -20%, rgba(0,158,73,.18), transparent 62%);
+}
+
 .hero-pagina__inner { position: relative; z-index: 1; max-width: 860px; }
 .hero-pagina h1 { color: #fff; margin-bottom: .35em; }
 .hero-pagina p { color: rgba(255,255,255,.78); font-size: 1.08rem; max-width: 62ch; }
@@ -1519,6 +1540,9 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 
 @media (max-width: 720px) {
   .insignia--destacada { padding: 18px; }
+  /* En vertical el recorte es horizontal: hay que tirar del encuadre hacia
+     la derecha para que la bandera siga dentro. */
+  .hero__video { object-position: 72% 30%; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1526,6 +1550,24 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
    -------------------------------------------------------------------------- */
 
 .docs { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 4px; }
+
+/* En «El Consejo» los diez documentos van en rejilla, no en lista: así se
+   ven todos de un vistazo sin desplegar nada ni hacer scroll. En la página
+   de un evento se quedan en lista, que son uno o tres. */
+.docs--rejilla {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 8px;
+  margin-top: 0;
+}
+.docs--rejilla .docs__item {
+  align-items: start;
+  padding: 12px 13px;
+  border: 1px solid var(--gris-200); border-radius: var(--radio-sm);
+  background: #fff;
+  height: 100%;
+}
+.docs--rejilla .docs__item:hover { border-color: var(--gris-300); background: var(--gris-50); }
+.docs--rejilla .docs__icono { margin-top: 1px; }
 
 .docs__item {
   width: 100%;

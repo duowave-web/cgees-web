@@ -468,14 +468,11 @@
       .filter(function (d) { return d.origen; });
     if (!lista.length) { caja.innerHTML = ''; return; }
 
-    /* El <summary> dice cuántos hay: colapsado y sin número, nadie lo abre. */
-    var resumen = caja.closest('details') && caja.closest('details').querySelector('summary');
-    if (resumen) {
-      resumen.textContent = (traducir('about.hitos.1.docs') || 'Documentos que lo amparan') +
-        ' (' + lista.length + ')';
-    }
+    /* En «El Consejo» van en rejilla, para ver los diez de un vistazo. En la
+       página de un evento son uno o tres y se quedan en lista. */
+    var enRejilla = caja.hasAttribute('data-documentos');
 
-    caja.innerHTML = '<ul class="docs">' + lista.map(function (d) {
+    caja.innerHTML = '<ul class="docs' + (enRejilla ? ' docs--rejilla' : '') + '">' + lista.map(function (d) {
       var titulo = d[idiomaActual] || d.es;
       var hojas = d.paginas + ' ' + (d.paginas === 1
         ? (traducir('doc.pagina') || 'página')

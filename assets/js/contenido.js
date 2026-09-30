@@ -259,7 +259,11 @@ window.CGE_CONTENIDO = {
       videoPoster: 'assets/video/presidentes-europa-paris-poster.webp',
       portada: 'assets/img/eventos/presidentes-europa-paris/portada.webp',
       fotos: [],
-      documentos: ['ev-informe-paris'],
+      /* El convenio del CGE en Europa se firmó a raíz de este encuentro, así
+         que se enseña aquí además de en «El Consejo». Lleva `origen: true`,
+         de modo que sigue contando entre los diez de allí: aparecer en los
+         dos sitios no lo duplica. */
+      documentos: ['ev-informe-paris', 'convenio-cge-europa'],
       es: {
         titulo: "Encuentro de presidentes del CGE en Europa",
         resumen: "Los consejos de guineanos de los países europeos se reúnen en París y trabajan por grupos temáticos.",

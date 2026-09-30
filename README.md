@@ -215,6 +215,18 @@ ajustar al ancho, página completa y dos columnas. Con el visor abierto, `+` y `
 `0` lo devuelve al 100 %. El zoom cambia el **ancho** de la hoja, no la escala con
 `transform`, porque con `scale()` la hoja se sale del contenedor y el scroll no la alcanza.
 
+### Las cabeceras con imagen
+
+Cinco páginas llevan foto de fondo en la cabecera: El Consejo, Entidades, Asuntos consulares,
+Contacto y Actualidad. Están en `assets/img/cabeceras/` y se ponen con la clase
+`hero-pagina--foto` más un `background-image` en línea.
+
+Las imágenes tienen **el motivo a la derecha y se oscurecen hacia la izquierda**, que es donde
+va el texto. Aun así el CSS pone encima un velo propio: sin él, sobre una zona clara el blanco
+se pierde. Si cambias una imagen, respeta ese encuadre o el titular deja de leerse.
+
+**Servicios no tiene imagen** todavía: se queda con el fondo navy de siempre.
+
 ### El vídeo de fondo del hero
 
 La portada lleva un vídeo de fondo en `assets/video/hero-fondo.mp4`. Tres cosas que conviene
@@ -227,6 +239,10 @@ no romper si se cambia:
   la imagen. Si se quita, sobre un fotograma claro el titular desaparece.
 - Con `prefers-reduced-motion` el vídeo se esconde y queda el poster: un bucle detrás del
   titular es justo lo que molesta a quien activa ese ajuste.
+- **El encuadre está ajustado a mano** (`object-position`). La bandera está en el cuarto
+  superior derecho del fotograma y el hero es mucho más ancho que 16:9, así que con el encuadre
+  centrado se quedaba fuera: en escritorio va al `50% 28%` y en móvil al `72% 30%`, porque ahí
+  el recorte es horizontal. Si se cambia el vídeo, hay que revisar esos dos valores.
 
 Pesa 506 KB después de quitarle el audio y recomprimirlo desde los 3,4 MB del original.
 
@@ -318,7 +334,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (436 claves)
+        ├── i18n.js         Traducción al francés (437 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 
