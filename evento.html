@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Plantilla única para la página de un evento. El contenido lo pone
+     assets/js/main.js a partir de ?id=..., leyendo assets/js/contenido.js.
+     El título y la descripción se reescriben con los del evento. -->
+
+<title>Actualidad · CGE-ES</title>
+<meta name="description" content="Evento del Consejo de Guineanos del Exterior en España (CGE-ES).">
+
+<!-- Todos los eventos se sirven desde esta misma plantilla, así que no se
+     indexa por sí sola: el índice es actualidad.html. -->
+<meta name="robots" content="noindex, follow">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1F2A37">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://www.cge-es.org/assets/img/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+<a class="saltar" href="#principal" data-i18n="a11y.saltar">Saltar al contenido principal</a>
+
+<div id="site-header">
+  <noscript>
+    <div class="contenedor" style="padding:18px 24px;border-bottom:1px solid #E1E5E9">
+      <strong>CGE-ES</strong> ·
+      <a href="index.html">Inicio</a> · <a href="quienes-somos.html">El Consejo</a> ·
+      <a href="asociaciones.html">Entidades</a> · <a href="servicios.html">Servicios</a> ·
+      <a href="asuntos-consulares.html">Asuntos consulares</a> ·
+      <a href="actualidad.html">Actualidad</a> · <a href="contacto.html">Contacto</a>
+    </div>
+  </noscript>
+</div>
+
+<main id="principal">
+  <article data-evento-detalle>
+    <noscript>
+      <div class="contenedor" style="padding:40px 24px">
+        <p>Esta página necesita JavaScript para mostrar el evento.
+           Puedes ver el listado completo en <a href="actualidad.html">Actualidad</a>.</p>
+      </div>
+    </noscript>
+  </article>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/layout.js"></script>
+<script src="assets/js/contenido.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

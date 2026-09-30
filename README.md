@@ -160,7 +160,36 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
 - Fecha de «Última actualización».
 - **Revisión por una persona con formación jurídica** antes de publicar.
 
-### 13. Los documentos de origen
+### 13. Los eventos
+
+Los diez eventos están en Actualidad y cada uno tiene su página (`evento.html?id=...`) con el
+texto, un carrusel de fotos y los documentos del evento, que se abren en el mismo visor que los
+de origen.
+
+En la tarjeta de Actualidad, cuando el evento tiene **portada** la etiqueta y el titular van
+*sobre* la foto, con un degradado oscuro por encima: una foto de un acto no tiene un sitio
+previsible donde el texto contraste, así que se oscurece de abajo arriba. Sin portada se queda
+la banda con el emblema.
+
+Tres eventos **no tienen portada** y es a propósito: el de París porque su única foto mide
+452 px y de portada saldría borrosa; el de Conakry porque sus fotos están marcadas `REVISAR`
+en el archivo y no se han publicado; y el del embajador Framoï Mara porque no hay fotos.
+
+**Ni las fotos originales ni los PDF se publican.** Se sirven versiones de web: portada de
+1200×675, carrusel con el lado mayor a 1500 px y los documentos como imágenes por página.
+
+**Para añadir un evento:**
+
+1. Añádelo a la lista `EVENTOS` de `dev/generar-eventos.py` con su carpeta y sus documentos.
+2. Ejecuta `python dev/generar-eventos.py`.
+3. Copia la entrada al array `noticias` de `assets/js/contenido.js` con `tipo: 'evento'`, y sus
+   documentos al array `documentos`.
+
+Campos propios de un evento: `portada`, `fotos` (array de rutas), `documentos` (array de `id`
+del array `documentos`) y `proximo: true` si todavía no ha ocurrido, que le pone la etiqueta
+«Próximo».
+
+### 14. Los documentos de origen
 
 En «El Consejo» → Origen y mandato hay diez documentos oficiales que se pueden consultar en
 un visor que se abre sobre la página.
@@ -230,6 +259,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
 ├── contacto.html             Formulario, datos y mapa
 ├── aviso-legal.html          Aviso legal (LSSI-CE)
 ├── noticia.html              Plantilla para leer una noticia entera (?id=...)
+├── evento.html               Plantilla de la página de un evento (?id=...)
 ├── privacidad.html           Privacidad y cookies (RGPD)
 ├── 404.html                  Página de error
 ├── robots.txt / sitemap.xml
@@ -243,7 +273,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (419 claves)
+        ├── i18n.js         Traducción al francés (427 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

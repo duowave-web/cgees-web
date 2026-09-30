@@ -1,0 +1,219 @@
+[
+ {
+  "id": "ministro-gaoual-barcelona",
+  "portada": "portada.webp",
+  "fotos": [
+   "01.webp",
+   "02.webp",
+   "03.webp",
+   "04.webp",
+   "05.webp",
+   "06.webp",
+   "07.webp",
+   "08.webp",
+   "09.webp",
+   "10.webp"
+  ],
+  "docs": [
+   {
+    "id": "ev-carta-ministro-gaoual",
+    "fecha": "2023-02-28",
+    "fuente": "CGE-ES",
+    "fuenteFr": null,
+    "paginas": 1,
+    "es": "Carta de bienvenida al ministro Ousmane Gaoual Diallo",
+    "fr": "Lettre de bienvenue au ministre Ousmane Gaoual Diallo"
+   }
+  ]
+ },
+ {
+  "id": "presidentes-europa-paris",
+  "portada": null,
+  "fotos": [
+   "01.webp"
+  ],
+  "docs": [
+   {
+    "id": "ev-informe-paris",
+    "fecha": "2023-03-18",
+    "fuente": "CGE-Francia",
+    "fuenteFr": null,
+    "paginas": 9,
+    "es": "Informe del encuentro de presidentes del CGE en Europa",
+    "fr": "Rapport de la rencontre des présidents du CGE en Europe"
+   }
+  ]
+ },
+ {
+  "id": "syli-national-barcelona",
+  "portada": "portada.webp",
+  "fotos": [
+   "01.webp",
+   "02.webp",
+   "03.webp",
+   "04.webp",
+   "05.webp",
+   "06.webp"
+  ],
+  "docs": [
+   {
+    "id": "ev-comunicado-syli",
+    "fecha": "2023-06-05",
+    "fuente": "Embajada de Guinea en Madrid",
+    "fuenteFr": "Ambassade de Guinée à Madrid",
+    "paginas": 1,
+    "es": "Comunicado 009: partido del Syli National",
+    "fr": "Communiqué 009 : match du Syli National"
+   }
+  ]
+ },
+ {
+  "id": "forum-diaspora-conakry",
+  "portada": null,
+  "fotos": [],
+  "docs": [
+   {
+    "id": "ev-circular-3131-forum",
+    "fecha": "2023-08-07",
+    "fuente": "MAEIAGE",
+    "fuenteFr": null,
+    "paginas": 1,
+    "es": "Carta circular 3131: Foro Nacional de la Diáspora",
+    "fr": "Lettre circulaire 3131 : Forum National de la Diaspora"
+   }
+  ]
+ },
+ {
+  "id": "embajador-framoi-mara",
+  "portada": null,
+  "fotos": [],
+  "docs": [
+   {
+    "id": "ev-invitacion-embajador",
+    "fecha": "2024-05-11",
+    "fuente": "CGE-ES",
+    "fuenteFr": null,
+    "paginas": 1,
+    "es": "Convocatoria del encuentro con el embajador",
+    "fr": "Communiqué d'invitation à la rencontre avec l'ambassadeur"
+   },
+   {
+    "id": "ev-memorandum-2024",
+    "fecha": "2024-05-11",
+    "fuente": "CGE-ES",
+    "fuenteFr": null,
+    "paginas": 8,
+    "es": "Memorándum entregado al embajador Framoï Mara",
+    "fr": "Mémorandum remis à l'ambassadeur Framoï Mara"
+   }
+  ]
+ },
+ {
+  "id": "embajador-comunidad-barcelona",
+  "portada": "portada.webp",
+  "fotos": [
+   "01.webp",
+   "02.webp",
+   "03.webp",
+   "04.webp",
+   "05.webp",
+   "06.webp",
+   "07.webp",
+   "08.webp",
+   "09.webp",
+   "10.webp"
+  ],
+  "docs": []
+ },
+ {
+  "id": "nueva-constitucion-madrid",
+  "portada": "portada.webp",
+  "fotos": [
+   "01.webp"
+  ],
+  "docs": []
+ },
+ {
+  "id": "jornada-presidenciales",
+  "portada": "portada.webp",
+  "fotos": [
+   "01.webp",
+   "02.webp",
+   "03.webp",
+   "04.webp",
+   "05.webp"
+  ],
+  "docs": [
+   {
+    "id": "ev-nota-105-barcelona",
+    "fecha": "2025-12-17",
+    "fuente": "Embajada de Guinea en Madrid",
+    "fuenteFr": "Ambassade de Guinée à Madrid",
+    "paginas": 1,
+    "es": "Nota verbal 105: centro de votación de Barcelona",
+    "fr": "Note verbale 105 : centre de vote de Barcelone"
+   },
+   {
+    "id": "ev-comunicado-020-presidenciales",
+    "fecha": "2025-12-24",
+    "fuente": "Embajada de Guinea en Madrid",
+    "fuenteFr": "Ambassade de Guinée à Madrid",
+    "paginas": 1,
+    "es": "Comunicado 020: centros de voto de las presidenciales",
+    "fr": "Communiqué 020 : centres de vote de la présidentielle"
+   }
+  ]
+ },
+ {
+  "id": "jornada-legislativas",
+  "portada": "portada.webp",
+  "fotos": [
+   "01.webp",
+   "02.webp",
+   "03.webp",
+   "04.webp",
+   "05.webp",
+   "06.webp"
+  ],
+  "docs": [
+   {
+    "id": "ev-nota-039-barcelona",
+    "fecha": "2026-05-21",
+    "fuente": "Embajada de Guinea en Madrid",
+    "fuenteFr": "Ambassade de Guinée à Madrid",
+    "paginas": 1,
+    "es": "Nota verbal 039: centro de votación de Barcelona",
+    "fr": "Note verbale 039 : centre de vote de Barcelone"
+   },
+   {
+    "id": "ev-comunicado-007-legislativas",
+    "fecha": "2026-05-28",
+    "fuente": "Embajada de Guinea en Madrid",
+    "fuenteFr": "Ambassade de Guinée à Madrid",
+    "paginas": 1,
+    "es": "Comunicado 007: centros de voto de las legislativas",
+    "fr": "Communiqué 007 : centres de vote des législatives"
+   },
+   {
+    "id": "ev-papeleta-legislativas",
+    "fecha": "2026-05-31",
+    "fuente": "CENI",
+    "fuenteFr": null,
+    "paginas": 1,
+    "es": "Modelo de papeleta de las listas nacionales",
+    "fr": "Spécimen de bulletin des listes nationales"
+   }
+  ]
+ },
+ {
+  "id": "68-aniversario-independencia",
+  "portada": "portada.webp",
+  "fotos": [
+   "01.webp",
+   "02.webp",
+   "03.webp",
+   "04.webp"
+  ],
+  "docs": []
+ }
+]

@@ -48,7 +48,11 @@ window.CGE_CONTENIDO = {
        para quitar el aviso amarillo de Actualidad.
      ====================================================================== */
 
-  noticiasDeEjemplo: true,
+  /* En false: las fichas ya son reales. Solo queda «Referéndum de la nueva
+     Constitución» sin fecha ni cuerpo, y esa se publica sin fecha, que es
+     lo previsto. Si algún día se vuelven a meter fichas de relleno, ponlo
+     en true y sale el aviso amarillo de Actualidad. */
+  noticiasDeEjemplo: false,
 
   categorias: {
     institucional: { es: 'Institucional', fr: 'Institutionnel', en: 'Institutional', clase: 'etiqueta--navy'  },
@@ -58,6 +62,261 @@ window.CGE_CONTENIDO = {
   },
 
   noticias: [
+    {
+      id: '68-aniversario-independencia',
+      tipo: 'evento',
+      fecha: '2026-10-02',
+      categoria: 'comunidad',
+      proximo: true,          // aún no ha ocurrido
+      autor: '',
+      portada: 'assets/img/eventos/68-aniversario-independencia/portada.webp',
+      fotos: ['assets/img/eventos/68-aniversario-independencia/01.webp', 'assets/img/eventos/68-aniversario-independencia/02.webp', 'assets/img/eventos/68-aniversario-independencia/03.webp', 'assets/img/eventos/68-aniversario-independencia/04.webp'],
+      documentos: [],
+      es: {
+        titulo: "68.º aniversario de la independencia de Guinea",
+        resumen: "Acto conmemorativo del 2 de octubre, organizado por el Consejo. Aquí están los carteles de la convocatoria.",
+        cuerpo: [
+          "La organización en España del acto conmemorativo del aniversario de la independencia corresponde al Consejo. Es la cita del año: el momento en que las entidades guineanas de todo el territorio coinciden en un mismo sitio.",
+          "Los carteles de esta edición están abajo. Si tu entidad quiere participar en la organización, aportar una actuación o montar un puesto, escríbenos."
+        ]
+      },
+      fr: {
+        titulo: "68e anniversaire de l'indépendance de la Guinée",
+        resumen: "Cérémonie commémorative du 2 octobre, organisée par le Conseil. Les affiches de l'appel à participation sont ici.",
+        cuerpo: [
+          "L'organisation en Espagne de la commémoration de l'anniversaire de l'indépendance revient au Conseil. C'est le rendez-vous de l'année : le moment où les entités guinéennes de tout le territoire se retrouvent au même endroit.",
+          "Les affiches de cette édition sont ci-dessous. Si votre entité souhaite participer à l'organisation, proposer une prestation ou tenir un stand, écrivez-nous."
+        ]
+      }
+    },
+    {
+      id: 'jornada-legislativas',
+      tipo: 'evento',
+      fecha: '2026-05-31',
+      categoria: 'consular',
+      autor: '',
+      portada: 'assets/img/eventos/jornada-legislativas/portada.webp',
+      fotos: ['assets/img/eventos/jornada-legislativas/01.webp', 'assets/img/eventos/jornada-legislativas/02.webp', 'assets/img/eventos/jornada-legislativas/03.webp', 'assets/img/eventos/jornada-legislativas/04.webp', 'assets/img/eventos/jornada-legislativas/05.webp', 'assets/img/eventos/jornada-legislativas/06.webp'],
+      documentos: ['ev-nota-039-barcelona', 'ev-comunicado-007-legislativas', 'ev-papeleta-legislativas'],
+      es: {
+        titulo: "Jornada electoral: elecciones legislativas",
+        resumen: "La comunidad vota para la nueva Asamblea Nacional en los centros habilitados en España.",
+        cuerpo: [
+          "La comunidad guineana residente en España votó el 31 de mayo de 2026 para la nueva Asamblea Nacional, en los centros de voto habilitados por la Embajada.",
+          "El Consejo acompañó la jornada: informó de dónde votar y qué documentación hacía falta, y estuvo presente en los centros. Abajo están la nota verbal del centro de Barcelona, el comunicado con los centros de voto y el modelo de papeleta de las listas nacionales."
+        ]
+      },
+      fr: {
+        titulo: "Journée électorale : élections législatives",
+        resumen: "La communauté vote pour la nouvelle Assemblée nationale dans les centres ouverts en Espagne.",
+        cuerpo: [
+          "La communauté guinéenne résidant en Espagne a voté le 31 mai 2026 pour la nouvelle Assemblée nationale, dans les centres de vote ouverts par l'Ambassade.",
+          "Le Conseil a accompagné la journée : information sur les lieux de vote et les documents nécessaires, et présence dans les centres. Ci-dessous, la note verbale du centre de Barcelone, le communiqué des centres de vote et le spécimen de bulletin des listes nationales."
+        ]
+      }
+    },
+    {
+      id: 'jornada-presidenciales',
+      tipo: 'evento',
+      fecha: '2025-12-28',
+      categoria: 'consular',
+      autor: '',
+      portada: 'assets/img/eventos/jornada-presidenciales/portada.webp',
+      fotos: ['assets/img/eventos/jornada-presidenciales/01.webp', 'assets/img/eventos/jornada-presidenciales/02.webp', 'assets/img/eventos/jornada-presidenciales/03.webp', 'assets/img/eventos/jornada-presidenciales/04.webp', 'assets/img/eventos/jornada-presidenciales/05.webp'],
+      documentos: ['ev-nota-105-barcelona', 'ev-comunicado-020-presidenciales'],
+      es: {
+        titulo: "Jornada electoral: elecciones presidenciales",
+        resumen: "Votación de la comunidad en los centros habilitados en España, con el Consejo presente en los centros.",
+        cuerpo: [
+          "La comunidad guineana residente en España votó el 28 de diciembre de 2025 en las elecciones presidenciales, en los centros de voto habilitados por la Embajada.",
+          "El Consejo informó de los centros y de la documentación necesaria, y acompañó la jornada. Abajo están la nota verbal del centro de Barcelona y el comunicado con los centros de voto."
+        ]
+      },
+      fr: {
+        titulo: "Journée électorale : élection présidentielle",
+        resumen: "Vote de la communauté dans les centres ouverts en Espagne, avec le Conseil présent sur place.",
+        cuerpo: [
+          "La communauté guinéenne résidant en Espagne a voté le 28 décembre 2025 à l'élection présidentielle, dans les centres de vote ouverts par l'Ambassade.",
+          "Le Conseil a informé des centres et des documents nécessaires, et a accompagné la journée. Ci-dessous, la note verbale du centre de Barcelone et le communiqué des centres de vote."
+        ]
+      }
+    },
+    {
+      id: 'nueva-constitucion-madrid',
+      tipo: 'evento',
+      fecha: '2025-08-02',
+      categoria: 'institucional',
+      autor: '',
+      portada: 'assets/img/eventos/nueva-constitucion-madrid/portada.webp',
+      fotos: ['assets/img/eventos/nueva-constitucion-madrid/01.webp'],
+      documentos: [],
+      es: {
+        titulo: "Presentación de la nueva Constitución en Madrid",
+        resumen: "Acto de presentación del nuevo texto constitucional a la comunidad guineana en España.",
+        cuerpo: [
+          "El 2 de agosto de 2025 se presentó en Madrid el nuevo texto constitucional de la República de Guinea a la comunidad guineana residente en España."
+        ]
+      },
+      fr: {
+        titulo: "Présentation de la nouvelle Constitution à Madrid",
+        resumen: "Cérémonie de présentation du nouveau texte constitutionnel à la communauté guinéenne en Espagne.",
+        cuerpo: [
+          "Le 2 août 2025, le nouveau texte constitutionnel de la République de Guinée a été présenté à Madrid à la communauté guinéenne résidant en Espagne."
+        ]
+      }
+    },
+    {
+      id: 'embajador-comunidad-barcelona',
+      tipo: 'evento',
+      fecha: '2024-08-11',
+      categoria: 'comunidad',
+      autor: '',
+      portada: 'assets/img/eventos/embajador-comunidad-barcelona/portada.webp',
+      fotos: ['assets/img/eventos/embajador-comunidad-barcelona/01.webp', 'assets/img/eventos/embajador-comunidad-barcelona/02.webp', 'assets/img/eventos/embajador-comunidad-barcelona/03.webp', 'assets/img/eventos/embajador-comunidad-barcelona/04.webp', 'assets/img/eventos/embajador-comunidad-barcelona/05.webp', 'assets/img/eventos/embajador-comunidad-barcelona/06.webp', 'assets/img/eventos/embajador-comunidad-barcelona/07.webp', 'assets/img/eventos/embajador-comunidad-barcelona/08.webp', 'assets/img/eventos/embajador-comunidad-barcelona/09.webp', 'assets/img/eventos/embajador-comunidad-barcelona/10.webp'],
+      documentos: [],
+      es: {
+        titulo: "El embajador visita a la comunidad en Barcelona",
+        resumen: "Encuentro del embajador de Guinea con la comunidad guineana de Cataluña.",
+        cuerpo: [
+          "El 11 de agosto de 2024 el embajador de la República de Guinea ante España y Malta se reunió en Barcelona con la comunidad guineana de Cataluña, acompañado por el Consejo."
+        ]
+      },
+      fr: {
+        titulo: "L'ambassadeur rend visite à la communauté à Barcelone",
+        resumen: "Rencontre de l'ambassadeur de Guinée avec la communauté guinéenne de Catalogne.",
+        cuerpo: [
+          "Le 11 août 2024, l'ambassadeur de la République de Guinée auprès de l'Espagne et de Malte a rencontré à Barcelone la communauté guinéenne de Catalogne, accompagné par le Conseil."
+        ]
+      }
+    },
+    {
+      id: 'embajador-framoi-mara',
+      tipo: 'evento',
+      fecha: '2024-05-11',
+      categoria: 'institucional',
+      autor: '',
+      portada: '',
+      fotos: [],
+      documentos: ['ev-invitacion-embajador', 'ev-memorandum-2024'],
+      es: {
+        titulo: "Encuentro con el embajador Framoï Mara",
+        resumen: "Primer encuentro de la comunidad con el nuevo embajador ante España y Malta, con entrega de un memorándum.",
+        cuerpo: [
+          "El 11 de mayo de 2024 la comunidad guineana en España se reunió por primera vez con Framoï Mara, nuevo embajador de la República de Guinea ante el Reino de España y Malta.",
+          "El Consejo le entregó un memorándum con los asuntos que la comunidad tenía planteados. Ese documento y la convocatoria del encuentro se pueden consultar abajo."
+        ]
+      },
+      fr: {
+        titulo: "Rencontre avec l'ambassadeur Framoï Mara",
+        resumen: "Première rencontre de la communauté avec le nouvel ambassadeur auprès de l'Espagne et de Malte, avec remise d'un mémorandum.",
+        cuerpo: [
+          "Le 11 mai 2024, la communauté guinéenne en Espagne a rencontré pour la première fois Framoï Mara, nouvel ambassadeur de la République de Guinée auprès du Royaume d'Espagne et de Malte.",
+          "Le Conseil lui a remis un mémorandum reprenant les questions soulevées par la communauté. Ce document et l'invitation à la rencontre sont consultables ci-dessous."
+        ]
+      }
+    },
+    {
+      id: 'forum-diaspora-conakry',
+      tipo: 'evento',
+      fecha: '2023-09-13',
+      categoria: 'institucional',
+      autor: '',
+      portada: '',
+      fotos: [],
+      documentos: ['ev-circular-3131-forum'],
+      es: {
+        titulo: "Foro Nacional de la Diáspora en Conakry",
+        resumen: "Participación del CGE-ES en el Foro Nacional de la Diáspora convocado por el Gobierno de Guinea.",
+        cuerpo: [
+          "El Gobierno de Guinea convocó en Conakry el Foro Nacional de la Diáspora, al que asistió el Consejo de Guineanos del Exterior en España. La carta circular que lo convoca se puede consultar abajo."
+        ]
+      },
+      fr: {
+        titulo: "Forum National de la Diaspora à Conakry",
+        resumen: "Participation du CGE-ES au Forum National de la Diaspora convoqué par le Gouvernement guinéen.",
+        cuerpo: [
+          "Le Gouvernement guinéen a convoqué à Conakry le Forum National de la Diaspora, auquel le Conseil des Guinéens de l'Extérieur en Espagne a participé. La lettre circulaire de convocation est consultable ci-dessous."
+        ]
+      }
+    },
+    {
+      id: 'syli-national-barcelona',
+      tipo: 'evento',
+      fecha: '2023-06-17',
+      categoria: 'comunidad',
+      autor: '',
+      portada: 'assets/img/eventos/syli-national-barcelona/portada.webp',
+      fotos: ['assets/img/eventos/syli-national-barcelona/01.webp', 'assets/img/eventos/syli-national-barcelona/02.webp', 'assets/img/eventos/syli-national-barcelona/03.webp', 'assets/img/eventos/syli-national-barcelona/04.webp', 'assets/img/eventos/syli-national-barcelona/05.webp', 'assets/img/eventos/syli-national-barcelona/06.webp'],
+      documentos: ['ev-comunicado-syli'],
+      es: {
+        titulo: "El Syli National juega en Barcelona",
+        resumen: "La comunidad se reúne para apoyar a la selección de Guinea en su partido en Barcelona.",
+        cuerpo: [
+          "El 17 de junio de 2023 la selección de Guinea, el Syli National, jugó en Barcelona. La comunidad guineana de toda España se organizó para acompañarla desde la grada.",
+          "El comunicado de la Embajada con los detalles del partido está abajo."
+        ]
+      },
+      fr: {
+        titulo: "Le Syli National joue à Barcelone",
+        resumen: "La communauté se réunit pour soutenir la sélection guinéenne lors de son match à Barcelone.",
+        cuerpo: [
+          "Le 17 juin 2023, la sélection guinéenne, le Syli National, a joué à Barcelone. La communauté guinéenne de toute l'Espagne s'est organisée pour l'accompagner depuis les tribunes.",
+          "Le communiqué de l'Ambassade avec les détails du match est ci-dessous."
+        ]
+      }
+    },
+    {
+      id: 'presidentes-europa-paris',
+      tipo: 'evento',
+      fecha: '2023-03-19',
+      categoria: 'institucional',
+      autor: '',
+      portada: '',
+      fotos: ['assets/img/eventos/presidentes-europa-paris/01.webp'],
+      documentos: ['ev-informe-paris'],
+      es: {
+        titulo: "Encuentro de presidentes del CGE en Europa",
+        resumen: "Los consejos de guineanos de los países europeos se reúnen en París y trabajan por grupos temáticos.",
+        cuerpo: [
+          "En marzo de 2023 los presidentes de los Consejos de Guineanos del Exterior de los países europeos se reunieron en París. El CGE-ES participó en el encuentro.",
+          "El trabajo se organizó en grupos temáticos. Dos de ellos tocaban de cerca lo que más se nos pregunta: el de pasaportes biométricos y el de migración e integración. El informe completo del encuentro, con las conclusiones y las propuestas de cada grupo, se puede consultar abajo."
+        ]
+      },
+      fr: {
+        titulo: "Rencontre des présidents du CGE en Europe",
+        resumen: "Les conseils des Guinéens des pays européens se réunissent à Paris et travaillent en groupes thématiques.",
+        cuerpo: [
+          "En mars 2023, les présidents des Conseils des Guinéens de l'Extérieur des pays européens se sont réunis à Paris. Le CGE-ES a participé à la rencontre.",
+          "Le travail s'est organisé en groupes thématiques. Deux d'entre eux touchaient de près ce qu'on nous demande le plus : celui des passeports biométriques et celui de la migration et de l'intégration. Le rapport complet de la rencontre, avec les conclusions et les propositions de chaque groupe, est consultable ci-dessous."
+        ]
+      }
+    },
+    {
+      id: 'ministro-gaoual-barcelona',
+      tipo: 'evento',
+      fecha: '2023-02-28',
+      categoria: 'institucional',
+      autor: '',
+      portada: 'assets/img/eventos/ministro-gaoual-barcelona/portada.webp',
+      fotos: ['assets/img/eventos/ministro-gaoual-barcelona/01.webp', 'assets/img/eventos/ministro-gaoual-barcelona/02.webp', 'assets/img/eventos/ministro-gaoual-barcelona/03.webp', 'assets/img/eventos/ministro-gaoual-barcelona/04.webp', 'assets/img/eventos/ministro-gaoual-barcelona/05.webp', 'assets/img/eventos/ministro-gaoual-barcelona/06.webp', 'assets/img/eventos/ministro-gaoual-barcelona/07.webp', 'assets/img/eventos/ministro-gaoual-barcelona/08.webp', 'assets/img/eventos/ministro-gaoual-barcelona/09.webp', 'assets/img/eventos/ministro-gaoual-barcelona/10.webp'],
+      documentos: ['ev-carta-ministro-gaoual'],
+      es: {
+        titulo: "Recepción al ministro Ousmane Gaoual Diallo",
+        resumen: "El Consejo recibe en la provincia de Barcelona al ministro y portavoz del Gobierno de Guinea.",
+        cuerpo: [
+          "El 28 de febrero de 2023 el Consejo recibió a Ousmane Gaoual Diallo, ministro de Correos, Telecomunicaciones y Economía Digital y portavoz del Gobierno de la República de Guinea, y a la delegación que le acompañaba.",
+          "El Consejo le entregó una carta de bienvenida, que se puede consultar abajo."
+        ]
+      },
+      fr: {
+        titulo: "Réception du ministre Ousmane Gaoual Diallo",
+        resumen: "Le Conseil reçoit dans la province de Barcelone le ministre et porte-parole du Gouvernement guinéen.",
+        cuerpo: [
+          "Le 28 février 2023, le Conseil a reçu Ousmane Gaoual Diallo, ministre des Postes, des Télécommunications et de l'Économie numérique et porte-parole du Gouvernement de la République de Guinée, ainsi que la délégation qui l'accompagnait.",
+          "Le Conseil lui a remis une lettre de bienvenue, consultable ci-dessous."
+        ]
+      }
+    },
     {
       /* El logro principal. `destacado: true` lo saca en grande, delante
          de los demás. Solo debería haber uno. */
@@ -194,78 +453,6 @@ window.CGE_CONTENIDO = {
       }
     },
     {
-      id: 'elecciones-asamblea-nacional',
-      tipo: 'noticia',
-      fecha: '',                       // PENDIENTE  AAAA-MM-DD
-      categoria: 'institucional',
-      autor: '',                       // PENDIENTE
-      fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
-      es: {
-        titulo: "Elecciones a la nueva Asamblea Nacional",
-        resumen: "Organización y acompañamiento del voto de la comunidad guineana en España para la nueva Asamblea Nacional.",
-        cuerpo: []                     // PENDIENTE
-      },
-      fr: {
-        titulo: "Élections à la nouvelle Assemblée nationale",
-        resumen: "Organisation et accompagnement du vote de la communauté guinéenne en Espagne pour la nouvelle Assemblée nationale.",
-        cuerpo: []
-      }
-    },
-    {
-      id: 'entrega-nueva-constitucion',
-      tipo: 'noticia',
-      fecha: '',                       // PENDIENTE  AAAA-MM-DD
-      categoria: 'institucional',
-      autor: '',                       // PENDIENTE
-      fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
-      es: {
-        titulo: "Presentación y entrega de la nueva Constitución",
-        resumen: "Acto de presentación del nuevo texto constitucional y entrega de ejemplares a la comunidad guineana en España.",
-        cuerpo: []                     // PENDIENTE
-      },
-      fr: {
-        titulo: "Présentation et remise de la nouvelle Constitution",
-        resumen: "Cérémonie de présentation du nouveau texte constitutionnel et remise d'exemplaires à la communauté guinéenne en Espagne.",
-        cuerpo: []
-      }
-    },
-    {
-      id: 'embajador-framoi-mara',
-      tipo: 'noticia',
-      fecha: '',                       // PENDIENTE  AAAA-MM-DD
-      categoria: 'institucional',
-      autor: '',                       // PENDIENTE
-      fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
-      es: {
-        titulo: "Presentación del nuevo embajador, Framoi Mara",
-        resumen: "Encuentro de la comunidad con el nuevo embajador de la República de Guinea en España, Framoi Mara.",
-        cuerpo: []                     // PENDIENTE
-      },
-      fr: {
-        titulo: "Présentation du nouvel ambassadeur, Framoi Mara",
-        resumen: "Rencontre de la communauté avec le nouvel ambassadeur de la République de Guinée en Espagne, Framoi Mara.",
-        cuerpo: []
-      }
-    },
-    {
-      id: 'cena-ministro-granollers',
-      tipo: 'noticia',
-      fecha: '',                       // PENDIENTE  AAAA-MM-DD
-      categoria: 'institucional',
-      autor: '',                       // PENDIENTE
-      fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
-      es: {
-        titulo: "Cena con el ministro Ousmane Gaoual en Granollers",
-        resumen: "Encuentro del Consejo y las entidades guineanas con el ministro Ousmane Gaoual en Granollers (Barcelona).",
-        cuerpo: []                     // PENDIENTE
-      },
-      fr: {
-        titulo: "Dîner avec le ministre Ousmane Gaoual à Granollers",
-        resumen: "Rencontre du Conseil et des entités guinéennes avec le ministre Ousmane Gaoual à Granollers (Barcelone).",
-        cuerpo: []
-      }
-    },
-    {
       id: 'inscripcion-rna',
       tipo: 'noticia',
       fecha: '2024-09-24',
@@ -310,6 +497,50 @@ window.CGE_CONTENIDO = {
      ====================================================================== */
 
   documentos: [
+    { id: 'ev-carta-ministro-gaoual', fecha: '2023-02-28', paginas: 1,
+      fuente: "CGE-ES",
+      es: "Carta de bienvenida al ministro Ousmane Gaoual Diallo",
+      fr: "Lettre de bienvenue au ministre Ousmane Gaoual Diallo" },
+    { id: 'ev-informe-paris', fecha: '2023-03-18', paginas: 9,
+      fuente: "CGE-Francia",
+      es: "Informe del encuentro de presidentes del CGE en Europa",
+      fr: "Rapport de la rencontre des présidents du CGE en Europe" },
+    { id: 'ev-comunicado-syli', fecha: '2023-06-05', paginas: 1,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Comunicado 009: partido del Syli National",
+      fr: "Communiqué 009 : match du Syli National" },
+    { id: 'ev-circular-3131-forum', fecha: '2023-08-07', paginas: 1,
+      fuente: "MAEIAGE",
+      es: "Carta circular 3131: Foro Nacional de la Diáspora",
+      fr: "Lettre circulaire 3131 : Forum National de la Diaspora" },
+    { id: 'ev-invitacion-embajador', fecha: '2024-05-11', paginas: 1,
+      fuente: "CGE-ES",
+      es: "Convocatoria del encuentro con el embajador",
+      fr: "Communiqué d'invitation à la rencontre avec l'ambassadeur" },
+    { id: 'ev-memorandum-2024', fecha: '2024-05-11', paginas: 8,
+      fuente: "CGE-ES",
+      es: "Memorándum entregado al embajador Framoï Mara",
+      fr: "Mémorandum remis à l'ambassadeur Framoï Mara" },
+    { id: 'ev-nota-105-barcelona', fecha: '2025-12-17', paginas: 1,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Nota verbal 105: centro de votación de Barcelona",
+      fr: "Note verbale 105 : centre de vote de Barcelone" },
+    { id: 'ev-comunicado-020-presidenciales', fecha: '2025-12-24', paginas: 1,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Comunicado 020: centros de voto de las presidenciales",
+      fr: "Communiqué 020 : centres de vote de la présidentielle" },
+    { id: 'ev-nota-039-barcelona', fecha: '2026-05-21', paginas: 1,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Nota verbal 039: centro de votación de Barcelona",
+      fr: "Note verbale 039 : centre de vote de Barcelone" },
+    { id: 'ev-comunicado-007-legislativas', fecha: '2026-05-28', paginas: 1,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Comunicado 007: centros de voto de las legislativas",
+      fr: "Communiqué 007 : centres de vote des législatives" },
+    { id: 'ev-papeleta-legislativas', fecha: '2026-05-31', paginas: 1,
+      fuente: "CENI",
+      es: "Modelo de papeleta de las listas nacionales",
+      fr: "Spécimen de bulletin des listes nationales" },
     { id: 'tdr-assises-nationales', fecha: '2022-03', paginas: 15,
       fuente: "MATD",
       es: "Términos de referencia de las Asambleas Nacionales",

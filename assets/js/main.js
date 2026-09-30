@@ -81,6 +81,7 @@
     pintarLogros();
     pintarDocumentos();
     pintarNoticiaDetalle();
+    pintarEventoDetalle();
     pintarDirectorio();
 
     document.dispatchEvent(new CustomEvent('cge:idioma', { detail: { idioma: idiomaActual } }));
@@ -248,24 +249,40 @@
 
     return '' +
       '<article class="noticia" data-categoria="' + n.categoria + '">' +
-        (n.fotos && n.fotos.length
-          ? '<div class="noticia__media noticia__media--foto">' +
-              '<img src="' + n.fotos[0] + '" alt="" loading="lazy">' +
+        /* Con portada, la etiqueta y el titular van SOBRE la imagen, con un
+           velo oscuro por encima para que se lean: una foto de un acto no
+           tiene un sitio previsible donde el texto contraste. Sin portada,
+           se queda la banda con el emblema y el titular debajo. */
+        (n.portada
+          ? '<div class="noticia__portada">' +
+              '<img src="' + n.portada + '" alt="" loading="lazy">' +
+              '<div class="noticia__sobreimpreso">' +
+                '<div class="noticia__meta">' + etiquetaHTML +
+                  (n.fecha ? '<time datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>' : '') +
+                  (n.proximo ? '<span class="etiqueta etiqueta--oro">' + (traducir('ev.proximo') || 'Próximo') + '</span>' : '') +
+                '</div>' +
+                '<h3>' + (destino ? '<a href="' + destino + '">' + txt.titulo + '</a>' : txt.titulo) + '</h3>' +
+              '</div>' +
+            '</div>' +
+            '<div class="noticia__cuerpo">' +
+              '<p>' + txt.resumen + '</p>' +
+              (flecha ? '<div style="margin-top:auto;padding-top:14px">' + flecha + '</div>' : '') +
             '</div>'
           : '<div class="noticia__media">' +
               '<img src="assets/img/logo.svg" alt="" width="62" height="62" loading="lazy">' +
+            '</div>' +
+            '<div class="noticia__cuerpo">' +
+              '<div class="noticia__meta">' + etiquetaHTML +
+                /* La fecha es opcional: sin ella, no se pinta el <time> */
+                (n.fecha
+                  ? '<time class="noticia__fecha" datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>'
+                  : '') +
+                (n.proximo ? '<span class="etiqueta etiqueta--oro">' + (traducir('ev.proximo') || 'Próximo') + '</span>' : '') +
+              '</div>' +
+              '<h3>' + (destino ? '<a href="' + destino + '">' + txt.titulo + '</a>' : txt.titulo) + '</h3>' +
+              '<p>' + txt.resumen + '</p>' +
+              (flecha ? '<div style="margin-top:auto;padding-top:18px">' + flecha + '</div>' : '') +
             '</div>') +
-        '<div class="noticia__cuerpo">' +
-          '<div class="noticia__meta">' + etiquetaHTML +
-            /* La fecha es opcional: sin ella, no se pinta la etiqueta <time> */
-            (n.fecha
-              ? '<time class="noticia__fecha" datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>'
-              : '') +
-          '</div>' +
-          '<h3>' + (destino ? '<a href="' + destino + '">' + txt.titulo + '</a>' : txt.titulo) + '</h3>' +
-          '<p>' + txt.resumen + '</p>' +
-          (flecha ? '<div style="margin-top:auto;padding-top:18px">' + flecha + '</div>' : '') +
-        '</div>' +
       '</article>';
   }
 
@@ -274,6 +291,9 @@
   function enlaceNoticia(n) {
     if (n.enlace) return n.enlace;
     if (n.tipo === 'logro' || !n.id) return '';
+    /* Un evento siempre tiene página: aunque no haya cuerpo escrito, hay
+       fotos o documentos que enseñar. */
+    if (n.tipo === 'evento') return 'evento.html?id=' + encodeURIComponent(n.id);
     var txt = n[idiomaActual] || n.es;
     var cuerpo = txt && txt.cuerpo;
     if (!cuerpo || !cuerpo.length) return '';
@@ -424,9 +444,25 @@
                ' loading="' + (i === 1 ? 'eager' : 'lazy') + '" draggable="false">' +
                '<figcaption>' + i + ' / ' + doc.paginas + '</figcaption></figure>';
     }
+    d.querySelector('.visor__hojas').className = 'visor__hojas';
     d.querySelector('.visor__hojas').innerHTML = hojas;
     d.querySelector('.visor__hojas').scrollTop = 0;
 
+    visorFoco = document.activeElement;
+    if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+    document.body.classList.add('visor-abierto');
+    d.querySelector('.visor__cerrar').focus();
+  }
+
+  /* El mismo <dialog> se reutiliza para ampliar una foto del carrusel: es
+     la misma capa, la misma ✕ y el mismo Escape. */
+  function abrirFoto(src, alt, pos) {
+    var d = crearVisor();
+    d.querySelector('.visor__titulo').innerHTML = '<strong>' + (alt || '') + '</strong>' +
+      (pos ? '<span>' + pos + '</span>' : '');
+    d.querySelector('.visor__hojas').className = 'visor__hojas visor__hojas--foto';
+    d.querySelector('.visor__hojas').innerHTML =
+      '<figure><img src="' + src + '" alt="' + (alt || '') + '" draggable="false"></figure>';
     visorFoco = document.activeElement;
     if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
     document.body.classList.add('visor-abierto');
@@ -446,6 +482,177 @@
     document.addEventListener('click', function (e) {
       var b = e.target.closest('[data-abrir-doc]');
       if (b) { e.preventDefault(); abrirVisor(b.getAttribute('data-abrir-doc')); }
+    });
+  }
+
+  /* ========================================================================
+     5 quater. Página de un evento (evento.html?id=...)
+     ------------------------------------------------------------------------
+     Una plantilla que se rellena con el evento que pida la URL: cabecera con
+     la portada, el texto, el carrusel de fotos y los documentos, que se
+     abren en el mismo visor que los de origen.
+     ====================================================================== */
+
+  var carrusel = { fotos: [], i: 0, titulo: '' };
+
+  function pintarCarrusel() {
+    var caja = document.querySelector('[data-carrusel]');
+    if (!caja || !carrusel.fotos.length) return;
+    var total = carrusel.fotos.length;
+    var i = carrusel.i;
+    caja.querySelector('.carrusel__imagen img').src = carrusel.fotos[i];
+    caja.querySelector('.carrusel__cuenta').textContent = (i + 1) + ' / ' + total;
+    /* Con una sola foto no hay nada que pasar: se esconden las flechas. */
+    caja.querySelectorAll('.carrusel__paso').forEach(function (b) { b.hidden = total < 2; });
+    var puntos = caja.querySelector('.carrusel__puntos');
+    if (puntos) {
+      puntos.innerHTML = total < 2 ? '' : carrusel.fotos.map(function (_, k) {
+        return '<button type="button" class="carrusel__punto' + (k === i ? ' es-actual' : '') +
+               '" data-ir="' + k + '" aria-label="' + (k + 1) + '"></button>';
+      }).join('');
+    }
+  }
+
+  function moverCarrusel(delta) {
+    var total = carrusel.fotos.length;
+    if (!total) return;
+    carrusel.i = (carrusel.i + delta + total) % total;
+    pintarCarrusel();
+  }
+
+  function pintarEventoDetalle() {
+    var caja = document.querySelector('[data-evento-detalle]');
+    if (!caja) return;
+
+    var C = window.CGE_CONTENIDO;
+    var id = new URLSearchParams(window.location.search).get('id');
+    var ev = ((C && C.noticias) || []).filter(function (x) {
+      return x.id === id && x.tipo === 'evento';
+    })[0];
+
+    if (!ev) {
+      caja.innerHTML =
+        '<div class="panel-nota">' +
+          '<strong>' + (traducir('ev.nohay.t') || 'No encontramos ese evento') + '</strong>' +
+          '<span>' + (traducir('ev.nohay.p') || 'Puede que el enlace esté mal escrito o que ya no esté publicado.') + '</span>' +
+        '</div>' +
+        '<p style="margin-top:22px"><a class="btn btn--primario" href="actualidad.html">' +
+          (traducir('noti.volver') || 'Volver a Actualidad') + '</a></p>';
+      document.title = (traducir('ev.nohay.t') || 'Evento no encontrado') + ' · CGE-ES';
+      return;
+    }
+
+    var txt = ev[idiomaActual] || ev.es;
+    var cat = (C.categorias && C.categorias[ev.categoria]) || {};
+    var etiqueta = cat[idiomaActual] || cat.es || ev.categoria;
+
+    var meta = '<span class="etiqueta ' + (cat.clase || '') + '">' + etiqueta + '</span>';
+    if (ev.fecha) meta += '<time datetime="' + ev.fecha + '">' + formatearFecha(ev.fecha) + '</time>';
+    if (ev.proximo) meta += '<span class="etiqueta etiqueta--oro">' + (traducir('ev.proximo') || 'Próximo') + '</span>';
+
+    var html = '';
+
+    /* Cabecera. Con portada va sobre la foto con velo; sin ella, sobre el
+       fondo navy de siempre, que es lo que hay cuando no hay fotos. */
+    html += '<header class="ev-cabecera' + (ev.portada ? ' ev-cabecera--foto' : '') + '"' +
+      (ev.portada ? ' style="background-image:url(' + ev.portada + ')"' : '') + '>' +
+      '<div class="ev-cabecera__inner">' +
+        '<div class="ev-cabecera__meta">' + meta + '</div>' +
+        '<h1>' + txt.titulo + '</h1>' +
+        '<p>' + txt.resumen + '</p>' +
+      '</div>' +
+    '</header>';
+
+    html += '<div class="ev-cuerpo">';
+
+    var cuerpo = (txt.cuerpo || []);
+    if (cuerpo.length) {
+      html += cuerpo.map(function (par) { return '<p>' + par + '</p>'; }).join('');
+    }
+
+    /* Carrusel */
+    if (ev.fotos && ev.fotos.length) {
+      html += '<section class="carrusel" data-carrusel aria-roledescription="carrusel">' +
+        '<h2 class="ev-subtitulo">' + (traducir('ev.fotos') || 'Imágenes') + '</h2>' +
+        '<div class="carrusel__marco">' +
+          '<button class="carrusel__paso carrusel__paso--atras" type="button" data-carrusel-paso="-1"' +
+            ' aria-label="' + (traducir('ev.anterior') || 'Anterior') + '">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>' +
+          '</button>' +
+          '<button class="carrusel__imagen" type="button" data-ampliar' +
+            ' aria-label="' + (traducir('ev.ampliar') || 'Ampliar') + '">' +
+            '<img src="" alt="' + txt.titulo + '" draggable="false">' +
+          '</button>' +
+          '<button class="carrusel__paso carrusel__paso--adelante" type="button" data-carrusel-paso="1"' +
+            ' aria-label="' + (traducir('ev.siguiente') || 'Siguiente') + '">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>' +
+          '</button>' +
+          '<span class="carrusel__cuenta"></span>' +
+        '</div>' +
+        '<div class="carrusel__puntos"></div>' +
+      '</section>';
+    }
+
+    /* Documentos del evento, en el visor de siempre */
+    var docsEv = (ev.documentos || []).map(function (did) {
+      return ((C.documentos || []).filter(function (d) { return d.id === did; })[0]);
+    }).filter(Boolean);
+
+    if (docsEv.length) {
+      html += '<section class="ev-docs">' +
+        '<h2 class="ev-subtitulo">' + (traducir('ev.docs') || 'Documentos del evento') + '</h2>' +
+        '<ul class="docs">' + docsEv.map(function (d) {
+          var titulo = d[idiomaActual] || d.es;
+          var hojas = d.paginas + ' ' + (d.paginas === 1
+            ? (traducir('doc.pagina') || 'página')
+            : (traducir('doc.paginas') || 'páginas'));
+          return '<li><button class="docs__item" type="button" data-abrir-doc="' + d.id + '">' +
+            '<span class="docs__icono" aria-hidden="true">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>' +
+            '</span>' +
+            '<span class="docs__texto">' +
+              '<span class="docs__titulo">' + titulo + '</span>' +
+              '<span class="docs__meta">' + fuenteDe(d) + ' · ' + formatearFechaDoc(d.fecha) + ' · ' + hojas + '</span>' +
+            '</span>' +
+          '</button></li>';
+        }).join('') + '</ul>' +
+      '</section>';
+    }
+
+    html += '<p class="noticia-detalle__volver"><a class="enlace-flecha" href="actualidad.html">' +
+      (traducir('noti.volver') || 'Volver a Actualidad') + '</a></p>';
+    html += '</div>';
+
+    caja.innerHTML = html;
+
+    carrusel = { fotos: (ev.fotos || []).slice(), i: 0, titulo: txt.titulo };
+    pintarCarrusel();
+
+    document.title = txt.titulo + ' · CGE-ES';
+    var desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', txt.resumen);
+  }
+
+  function initEvento() {
+    document.addEventListener('click', function (e) {
+      var paso = e.target.closest('[data-carrusel-paso]');
+      if (paso) { moverCarrusel(parseInt(paso.getAttribute('data-carrusel-paso'), 10)); return; }
+      var punto = e.target.closest('[data-ir]');
+      if (punto) { carrusel.i = parseInt(punto.getAttribute('data-ir'), 10); pintarCarrusel(); return; }
+      var ampliar = e.target.closest('[data-ampliar]');
+      if (ampliar && carrusel.fotos.length) {
+        abrirFoto(carrusel.fotos[carrusel.i], carrusel.titulo,
+                  (carrusel.i + 1) + ' / ' + carrusel.fotos.length);
+      }
+    });
+
+    /* Flechas del teclado, pero solo si el visor está cerrado: con él
+       abierto las flechas son para desplazar la imagen. */
+    document.addEventListener('keydown', function (e) {
+      if (!carrusel.fotos.length) return;
+      if (visorDoc && visorDoc.hasAttribute('open')) return;
+      if (e.key === 'ArrowLeft') moverCarrusel(-1);
+      if (e.key === 'ArrowRight') moverCarrusel(1);
     });
   }
 
@@ -897,6 +1104,7 @@
     initFiltros();
     initBuscadorEntidades();
     initDocumentos();
+    initEvento();
     initFormulario();
 
     aplicarIdioma(detectarIdioma());
