@@ -303,7 +303,12 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   transition: color var(--t-rapida), background var(--t-rapida);
 }
 .selector-idioma__btn:hover { color: var(--navy); background: var(--gris-100); }
-.selector-idioma__btn[aria-current="true"] { color: #fff; background: var(--verde-osc); }
+/* El idioma activo va en el rojo de la bandera, no en verde: el verde es el
+   del botón de Contacto, que está justo al lado, y los dos juntos parecían
+   dos piezas de lo mismo. El amarillo se probó y llamaba más la atención que
+   la propia llamada a la acción. Blanco sobre #CE1126 da 5,6:1 de contraste,
+   por encima del 4,5:1 que pide la norma. */
+.selector-idioma__btn[aria-current="true"] { color: #fff; background: var(--rojo); }
 
 /* El contenedor que rellena layout.js no debe formar caja propia: si la forma,
    la cabecera sticky queda atrapada dentro de sus 115 px y se despega al bajar. */

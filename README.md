@@ -408,6 +408,10 @@ Se edita en `assets/js/layout.js` → `SITIO.embajada`.
 | Amarillo | `#FCD116` |
 | Verde | `#009E49` |
 | Rojo del emblema | `#D60A07` |
+
+El **idioma activo** del selector va en el rojo de la bandera (`--rojo`), no en verde: el
+verde es el del botón de Contacto, que está justo al lado, y juntos parecían dos piezas de
+lo mismo. El amarillo se probó y llamaba más la atención que la propia llamada a la acción.
 | Amarillo del emblema | `#FCC803` |
 | Verde del emblema | `#37960E` |
 | Gris oscuro | `#1F2A37` |
