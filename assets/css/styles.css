@@ -1569,6 +1569,26 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .docs--rejilla .docs__item:hover { border-color: var(--gris-300); background: var(--gris-50); }
 .docs--rejilla .docs__icono { margin-top: 1px; }
 
+/* El desplegable de los documentos. El <summary> hace de titular, así que
+   lleva el tamaño de un h2 y no la flecha por defecto del navegador, que se
+   quita con `list-style: none` más la regla de ::-webkit-details-marker. */
+.docs-plegable > summary {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.25rem; font-weight: 800; color: var(--navy);
+  letter-spacing: -.015em;
+}
+.docs-plegable > summary::-webkit-details-marker { display: none; }
+.docs-plegable > summary:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; border-radius: 4px; }
+.docs-plegable__cuenta { font-size: .95rem; font-weight: 700; color: var(--texto-suave); }
+.docs-plegable__flecha {
+  width: 18px; height: 18px; color: var(--texto-suave);
+  transition: transform var(--t-rapida);
+}
+.docs-plegable[open] > summary .docs-plegable__flecha { transform: rotate(180deg); }
+.docs-plegable__intro { margin: 10px 0 16px; font-size: .9rem; color: var(--texto-suave); }
+
 .docs__item {
   width: 100%;
   display: grid; grid-template-columns: auto 1fr; gap: 11px; align-items: center;

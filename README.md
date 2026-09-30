@@ -225,7 +225,11 @@ Las imágenes tienen **el motivo a la derecha y se oscurecen hacia la izquierda*
 va el texto. Aun así el CSS pone encima un velo propio: sin él, sobre una zona clara el blanco
 se pierde. Si cambias una imagen, respeta ese encuadre o el titular deja de leerse.
 
-**Servicios no tiene imagen** todavía: se queda con el fondo navy de siempre.
+Las seis páginas principales llevan imagen. **Servicios y Asuntos consulares comparten la
+foto del escritorio** con recortes distintos: solo había cinco imágenes para seis páginas. Si
+aparece una más, se sustituye la de Servicios.
+
+Las páginas legales (aviso legal y privacidad) se quedan con el fondo navy, a propósito.
 
 ### El vídeo de fondo del hero
 
@@ -244,7 +248,12 @@ no romper si se cambia:
   centrado se quedaba fuera: en escritorio va al `50% 28%` y en móvil al `72% 30%`, porque ahí
   el recorte es horizontal. Si se cambia el vídeo, hay que revisar esos dos valores.
 
-Pesa 506 KB después de quitarle el audio y recomprimirlo desde los 3,4 MB del original.
+**El bucle es de ida y vuelta**: el vídeo va seguido de sí mismo al revés, así que el último
+fotograma es igual al primero y el salto del loop no se ve. Medido: los dos fotogramas se
+diferencian en 2,8 sobre 255. Si se cambia el vídeo hay que volver a generarlo así; el comando
+está en el historial de commits.
+
+Pesa 1 MB: 20 segundos, sin audio y recomprimido desde los 3,4 MB del original.
 
 ### 14. Los documentos de origen
 

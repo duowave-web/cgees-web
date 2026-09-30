@@ -113,13 +113,20 @@
        `origen: true`. Se abren en el visor. -->
   <section class="seccion seccion--compacta seccion--gris" id="documentos">
     <div class="contenedor">
-      <div class="cabecera-seccion" style="margin-bottom:18px">
-        <h2 style="font-size:1.25rem;margin-bottom:.3em" data-i18n="about.docs.h2">Documentos que lo amparan</h2>
-        <p style="margin:0;font-size:.9rem;color:var(--texto-suave)" data-i18n="about.docs.p">
+      <!-- Plegado por defecto: son referencias administrativas y quien las
+           necesita las busca. El número va en el propio resumen, que lo pone
+           main.js, para que se vea que hay algo dentro. -->
+      <details class="docs-plegable">
+        <summary>
+          <span class="docs-plegable__titulo" data-i18n="about.docs.h2">Documentos que lo amparan</span>
+          <span class="docs-plegable__cuenta" data-documentos-cuenta></span>
+          <svg class="docs-plegable__flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <p class="docs-plegable__intro" data-i18n="about.docs.p">
           Los diez documentos oficiales del proceso. Pulsa cualquiera para leerlo.
         </p>
-      </div>
-      <div data-documentos></div>
+        <div data-documentos></div>
+      </details>
     </div>
   </section>
 

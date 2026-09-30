@@ -472,6 +472,10 @@
        página de un evento son uno o tres y se quedan en lista. */
     var enRejilla = caja.hasAttribute('data-documentos');
 
+    /* El contador del resumen: plegado y sin número, nadie lo abre. */
+    var cuenta = document.querySelector('[data-documentos-cuenta]');
+    if (cuenta) cuenta.textContent = '(' + lista.length + ')';
+
     caja.innerHTML = '<ul class="docs' + (enRejilla ? ' docs--rejilla' : '') + '">' + lista.map(function (d) {
       var titulo = d[idiomaActual] || d.es;
       var hojas = d.paginas + ' ' + (d.paginas === 1
