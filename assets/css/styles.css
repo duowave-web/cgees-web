@@ -509,12 +509,44 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   pointer-events: none;
   opacity: .58;
 
-  /* La bandera está en el cuarto superior derecho del fotograma. El hero es
-     mucho más ancho que 16:9, así que `cover` recorta por arriba y por abajo
-     y con el encuadre centrado la bandera se quedaba fuera. Subiendo el
-     punto de anclaje al 28 % entra entera. */
-  object-position: 50% 28%;
+  /* La bandera está en el cuarto superior derecho del fotograma. En una
+     pantalla ancha `cover` recorta por arriba y por abajo, así que el punto
+     de anclaje se sube: con el encuadre centrado la bandera se salía por
+     arriba.
+
+     El 22 % no es un número redondo por casualidad. Es el que aguanta
+     también las ventanas anchas y bajas —1400x500, 2000x560—, donde el
+     recorte vertical se come media altura del fotograma y con el 28 % que
+     había antes la bandera perdía la punta. Comprobado en veintiocho
+     tamaños, de un iPhone SE a un 3440x1440; en los normales la bandera se
+     mueve cuatro píxeles respecto al 28 %, o sea nada.
+
+     El encuadre horizontal para pantallas no anchas va más abajo, en su
+     propia regla. */
+  object-position: 50% 22%;
 }
+/* La bandera, entera, en pantallas que no son anchas.
+   --------------------------------------------------------------------------
+   El vídeo es 16:9 y el hueco del hero casi nunca lo es. Con `cover` el
+   recorte se lleva lo que sobra, y con el encuadre centrado la bandera
+   —que ondea en la franja x 968-1187 del fotograma, medida fotograma a
+   fotograma porque la cámara se mueve unos 40 px a lo largo del bucle— se
+   salía por la derecha.
+
+   Echando la cuenta: centrado, la bandera solo cabe entera si el hueco es
+   más ancho que 1,52 veces su altura. Por eso el corte va por PROPORCIÓN y
+   no por ancho: un móvil de pie (0,46), una tableta de pie (0,85) y un
+   iPad tumbado (1,33) tienen el mismo problema aunque midan muy distinto,
+   y con un corte por píxeles la tableta se quedaba con la bandera cortada.
+
+   Al 97 % el encuadre se pega a ese lado y la bandera entra entera, con
+   aire a los dos lados, en todos esos casos. La vertical no hace falta
+   tocarla: cuando el recorte es horizontal, el fotograma se ve de arriba
+   abajo y el segundo valor da igual. */
+@media (max-aspect-ratio: 3/2) {
+  .hero__video { object-position: 97% 50%; }
+}
+
 .hero::before, .hero::after { z-index: 1; }
 .hero__inner { position: relative; z-index: 2; }
 
@@ -1055,6 +1087,13 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 /* La provincia, como dato secundario al lado del nombre. */
 .ficha__prov { font-weight: 500; font-size: .84rem; color: var(--texto-suave); }
 .ficha__prov::before { content: "·"; margin-right: 6px; }
+/* El correo del Consejo es una sola palabra de 33 caracteres. En una
+   pantalla estrecha no cabía en su celda, se salía de la ficha y la ficha
+   —que recorta— lo cortaba: la dirección quedaba ilegible justo donde se
+   va a buscar. Con esto parte por donde haga falta, y solo cuando hace
+   falta. Vale igual para cualquier IBAN o número largo que se añada. */
+.ficha dd { overflow-wrap: anywhere; }
+
 .ficha dt {
   padding: 8px 14px;
   background: var(--gris-50);
@@ -1558,9 +1597,6 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 
 @media (max-width: 720px) {
   .insignia--destacada { padding: 18px; }
-  /* En vertical el recorte es horizontal: hay que tirar del encuadre hacia
-     la derecha para que la bandera siga dentro. */
-  .hero__video { object-position: 72% 30%; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1708,6 +1744,18 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .visor__hojas figure { margin: 0; position: relative; }
 .visor__hojas img {
   width: 100%; height: auto; display: block;
+
+  /* Hueco reservado mientras la página carga: un A4 de pie, que es lo que
+     son casi todos los documentos. Sin esto cada hoja medía cero hasta
+     tener su imagen, y pasaban dos cosas: los rótulos de «3 / 15» se
+     apilaban unos encima de otros, y el navegador se creía que las quince
+     páginas estaban a la vista y se las descargaba todas de golpe, que en
+     un móvil son megas para nada.
+
+     En cuanto la imagen carga, main.js quita esta proporción y manda la
+     de verdad: hay documentos apaisados y alguno con una página cruzada. */
+  aspect-ratio: 1 / 1.414;
+  object-fit: contain;
   border: 1px solid var(--gris-200); border-radius: 4px;
   background: #fff;
   /* Sin arrastrar la imagen fuera de la ventana. No impide guardarla con el
@@ -1975,6 +2023,128 @@ body.visor-abierto { overflow: hidden; }
 /* --------------------------------------------------------------------------
    23. Impresión
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   23. Repaso del móvil
+   --------------------------------------------------------------------------
+   Ajustes para pantallas de teléfono. Va al final del archivo a propósito:
+   son correcciones sobre reglas que ya existen más arriba y, a igualdad de
+   especificidad, manda la que se declara después.
+
+   Dos criterios:
+
+   - En el móvil se toca con el dedo, no con el ratón. Todo lo que se pueda
+     pulsar llega a 40 px de alto, o a 24 como mínimo absoluto, que es lo
+     que pide la norma (WCAG 2.5.8). Se estira el área de toque con
+     relleno, no la letra: el aspecto no cambia.
+   - Nada por debajo de 12 px. Lo que en el escritorio pasa por etiqueta
+     pequeña, en un teléfono no se lee.
+   -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+
+  /* ---- El hero de la portada ----
+     El encuadre del vídeo se arregla más arriba, por proporción del hueco.
+     Lo que falta aquí es el otro lado del problema, y este sí es cosa del
+     teléfono: la bandera cae en el tercio superior del fotograma y, con el
+     contenido centrado en una pantalla estrecha, el titular se le ponía
+     justo encima. Entraba entera pero no se veía. Con el texto abajo, el
+     tercio de arriba queda para la bandera y el paisaje.
+
+     En una tableta no hace falta: ahí la bandera queda en la mitad derecha
+     y el texto, que no pasa de 60 caracteres por línea, no la alcanza. */
+  .hero { align-items: flex-end; }
+
+  /* Y entonces el velo tiene que ir de arriba abajo, no de izquierda a
+     derecha: claro donde está la bandera y denso donde está el texto. El
+     degradado horizontal de la regla original dejaba el titular sobre la
+     parte clara del cielo. */
+  .hero::before {
+    background:
+      linear-gradient(to bottom,
+        rgba(14,20,28,.36) 0%,
+        rgba(14,20,28,.28) 26%,
+        rgba(14,20,28,.58) 54%,
+        rgba(14,20,28,.86) 78%,
+        rgba(14,20,28,.93) 100%),
+      radial-gradient(420px 300px at 76% 6%, rgba(0,158,73,.18), transparent 68%),
+      radial-gradient(420px 320px at -10% 106%, rgba(206,17,38,.20), transparent 64%);
+  }
+
+  /* ---- Zonas de toque ---- */
+  .selector-idioma__btn { min-height: 40px; padding-inline: 13px; }
+  .migas a { display: inline-block; padding-block: 6px; }
+  .enlace-flecha, .enlace-externo, .directorio__email { padding-block: 9px; }
+  .filtro { min-height: 40px; }
+
+  /* Los enlaces del pie iban a 18 px de alto. Se les da relleno y se
+     recorta el margen de la fila, para que la columna no crezca. */
+  .pie li { margin-bottom: 2px; }
+  .pie li a, .pie__legal-enlaces a { display: inline-block; padding-block: 7px; }
+
+  /* La casilla del consentimiento, a 24 px. La etiqueta ya es un <label>
+     que envuelve el texto, así que tocar el texto también marca. */
+  .consentimiento input { width: 24px; height: 24px; margin-top: 1px; }
+
+  /* El carrusel: las flechas vuelven a 40 px —la regla de más arriba las
+     dejaba en 34— y los puntos pasan a ser un área de 22 px con el punto
+     dibujado dentro, que antes eran 8 px de diana. El punto se ve igual;
+     lo que crece es dónde vale tocar. Con diez fotos, que es el máximo,
+     la fila sigue cabiendo de una vez. */
+  .carrusel__paso { width: 40px; height: 40px; }
+  .carrusel__puntos { gap: 2px; margin-top: 6px; }
+  .carrusel__punto {
+    width: 22px; height: 22px;
+    background: none; position: relative; transform: none;
+  }
+  .carrusel__punto::before {
+    content: ""; position: absolute; inset: 7px;
+    border-radius: 50%; background: var(--gris-300);
+    transition: background var(--t-rapida), transform var(--t-rapida);
+  }
+  /* El punto activo crece dibujado, no como caja: la regla de arriba
+     escalaba el botón entero y, con el punto ya dentro de un ::before que
+     también escala, el aumento se aplicaba dos veces. */
+  .carrusel__punto.es-actual { transform: none; }
+  .carrusel__punto.es-actual::before { background: var(--verde-osc); transform: scale(1.35); }
+
+  /* ---- Letra demasiado pequeña ---- */
+  .etiqueta { font-size: .77rem; }
+  .pie__marca-nombre { font-size: .76rem; }
+  .directorio__sigla { font-size: .78rem; }
+  .ficha dt { font-size: .78rem; }
+  .ficha--dos dt { font-size: .76rem; }
+  .docs__meta { font-size: .8rem; }
+
+  /* Las etiquetas del repertorio tienen su propia regla, más específica
+     que la de arriba, y se quedaban en 10,2 px. */
+  .directorio__ambitos .etiqueta { font-size: .75rem; }
+
+  /* Los correos del repertorio van en una sola línea a propósito, para que
+     no se partan al leerlos. En un teléfono estrecho no caben, así que
+     aquí sí se les deja partir. */
+  .directorio__email { white-space: normal; overflow-wrap: anywhere; }
+
+  /* El titular de una tarjeta de actualidad es un enlace de una o dos
+     líneas: con una sola quedaba en 19 px de alto. Tres píxeles de relleno
+     lo llevan a 25. La tarjeta tiene además su «Leer más», que con el
+     relleno de más arriba pasa de 23 a 41 px. */
+  .noticia h3 a { display: inline-block; padding-block: 3px; }
+
+  /* La etiqueta del panel consular iba a 11,2 px y en blanco al 45 %, que
+     sobre el navy se queda justo en el límite de contraste. */
+  .consular__dato span { font-size: .77rem; color: rgba(255,255,255,.62); }
+
+  /* ---- El visor de documentos ----
+     La barra se comía 171 px de una pantalla de 812, y los tres botones de
+     vista no servían para nada aquí: «dos columnas» ya se colapsa a una
+     sola más arriba, y a lo ancho de un teléfono la hoja entera cabe de
+     todos modos, así que «página completa» y «ajustar al ancho» hacían lo
+     mismo. Se quedan el zoom y el nivel, que es como se lee un documento
+     en un móvil. */
+  .visor__opciones [data-vista], .visor__sep { display: none; }
+  .visor__barra { padding: 10px 12px; }
+  .visor__op { min-height: 38px; }
+}
+
 @media print {
   .cabecera, .pie, .cta-final, .hamburguesa, .velo, .nav, .visor { display: none !important; }
   body { font-size: 11pt; color: #000; }

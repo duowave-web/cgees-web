@@ -260,10 +260,24 @@ no romper si se cambia:
   la imagen. Si se quita, sobre un fotograma claro el titular desaparece.
 - Con `prefers-reduced-motion` el vídeo se esconde y queda el poster: un bucle detrás del
   titular es justo lo que molesta a quien activa ese ajuste.
-- **El encuadre está ajustado a mano** (`object-position`). La bandera está en el cuarto
-  superior derecho del fotograma y el hero es mucho más ancho que 16:9, así que con el encuadre
-  centrado se quedaba fuera: en escritorio va al `50% 28%` y en móvil al `72% 30%`, porque ahí
-  el recorte es horizontal. Si se cambia el vídeo, hay que revisar esos dos valores.
+- **El encuadre está ajustado a mano** (`object-position`), y es lo más delicado del bloque.
+  La bandera ondea en la franja `x 968-1187` del fotograma de 1280 —medida fotograma a
+  fotograma, porque la cámara se desplaza unos 40 px a lo largo del bucle— y el hueco del hero
+  casi nunca es 16:9, así que `cover` recorta y con el encuadre centrado la bandera se salía.
+
+  Echando la cuenta, centrada solo cabe entera si el hueco es **más ancho que 1,52 veces su
+  altura**. Por eso el corte va **por proporción y no por ancho**:
+
+  - hueco ancho (proporción de pantalla > 3/2) → `50% 22%`
+  - el resto (`@media (max-aspect-ratio: 3/2)`) → `97% 50%`, pegado a la derecha
+
+  Un móvil de pie (0,46), una tableta de pie (0,85) y un iPad tumbado (1,33) tienen el mismo
+  problema aunque midan cosas muy distintas: con un corte por píxeles la tableta se quedaba con
+  la bandera cortada. El `22 %` de la primera regla es el que aguanta además las ventanas
+  anchas y bajas (1400x500, 2000x560), donde el recorte vertical se come media altura del
+  fotograma. Comprobado en veintiocho tamaños, de un iPhone SE a un 3440x1440.
+
+  **Si se cambia el vídeo hay que volver a medir la bandera y revisar los dos valores.**
 
 **El hero ocupa la pantalla entera** menos la cabecera
 (`min-height: calc(100svh - var(--alto-header))`), para que el vídeo no quede cortado con la
@@ -278,6 +292,36 @@ diferencian en 2,8 sobre 255. Si se cambia el vídeo hay que volver a generarlo 
 está en el historial de commits.
 
 Pesa 1 MB: 20 segundos, sin audio y recomprimido desde los 3,4 MB del original.
+
+### El móvil
+
+La web se revisó entera a 375 px (y a 330, que es lo más estrecho que se puede probar aquí) con
+dos criterios, y las reglas están todas juntas al final de `styles.css`, en el apartado
+«23. Repaso del móvil»:
+
+- **En el móvil se toca con el dedo.** Todo lo que se pueda pulsar llega a 40 px de alto, o a
+  24 como mínimo absoluto, que es lo que pide la norma (WCAG 2.5.8). Se estira el área de toque
+  con relleno, **no la letra**: el aspecto no cambia. Afectó a los botones de idioma (eran
+  36x25), las migas de pan (15 px de alto), los enlaces «Leer más», los correos del repertorio,
+  los enlaces del pie (18 px), la casilla del consentimiento (19 px) y los puntos del carrusel,
+  que eran dianas de 8 px y ahora son un área de 22 con el punto dibujado dentro.
+- **Nada de letra por debajo de 12 px.** Lo que en el escritorio pasa por etiqueta pequeña, en
+  un teléfono no se lee.
+
+Aparte de eso, en el móvil:
+
+- **El hero baja el texto al pie** (`align-items: flex-end`) y el velo pasa a ir de arriba
+  abajo, claro donde está la bandera y denso donde está el texto. La bandera cae en el tercio
+  superior del fotograma: con el contenido centrado, el titular se le ponía justo encima y daba
+  igual que entrara entera, porque no se veía. En tableta no hace falta, porque allí la bandera
+  queda en la mitad derecha y el texto no pasa de 60 caracteres por línea.
+- **El visor de documentos se queda solo con el zoom.** Los tres botones de vista no servían de
+  nada en un teléfono: «dos columnas» ya se colapsa a una sola, y a lo ancho de una pantalla
+  estrecha la hoja entera cabe de todos modos, así que «página completa» y «ajustar al ancho»
+  hacían lo mismo. La barra pasó de 171 px a 136.
+- **El correo del Consejo parte por donde haga falta** (`overflow-wrap: anywhere` en
+  `.ficha dd`). Es una sola palabra de 33 caracteres: en una pantalla estrecha se salía de la
+  ficha y la ficha lo recortaba, justo donde se va a buscar la dirección.
 
 ### 14. Los documentos de origen
 
@@ -295,6 +339,13 @@ que el archivo esté ahí para descargarlo.
 
 Las imágenes se cargan **al abrir** el documento, no al cargar la página: son 35 y pesan
 4,6 MB en total.
+
+Cada hoja **reserva el hueco de un A4 antes de cargar** (`aspect-ratio` en el CSS, que main.js
+sustituye por la proporción real en cuanto la imagen está). Sin eso las hojas medían cero hasta
+tener su imagen, y pasaban dos cosas: los rótulos de «3 / 15» se apilaban unos encima de otros,
+y el navegador se creía que las quince páginas estaban a la vista y se las descargaba todas de
+golpe, que en un móvil son megas para nada. La proporción real hace falta porque hay documentos
+apaisados y alguno con una página cruzada.
 
 **Para añadir un documento nuevo:**
 

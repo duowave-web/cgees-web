@@ -562,6 +562,14 @@
     d.querySelector('.visor__hojas').className = 'visor__hojas';
     d.querySelector('.visor__hojas').innerHTML = hojas;
     d.querySelector('.visor__hojas').scrollTop = 0;
+
+    /* El CSS le da a cada hoja el hueco de un A4 para que no midan cero
+       antes de cargar. Una vez cargada, se le quita y vale la proporción
+       real del archivo, que no siempre es A4. */
+    d.querySelectorAll('.visor__hojas img').forEach(function (img) {
+      if (img.complete && img.naturalWidth) { img.style.aspectRatio = 'auto'; return; }
+      img.addEventListener('load', function () { img.style.aspectRatio = 'auto'; }, { once: true });
+    });
     d.querySelector('[data-visor-opciones]').hidden = false;
     visorZoom = 2; visorVista = 'ancho';
     pintarEstadoVisor();
