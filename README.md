@@ -105,7 +105,13 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
 
   > Los resúmenes de estas fichas son **cortos a propósito**: se ven en una celda de unos
   > 370 px y el CSS los corta a dos líneas. Si escribes un párrafo de noticia, se trunca.
-- **Junta Directiva**: ✅ completa. **No se publican** los teléfonos, correos, códigos postales
+- **Junta Directiva**: ✅ completa. Va en una **ficha a dos columnas**
+  (`class="ficha ficha--dos"`), el mismo formato que la ficha informativa del final. Eran
+  dieciséis cargos y en tabla a una columna la página se iba de largo. En móvil vuelve a
+  una sola columna.
+
+  Abdoulaye Soumah aparece **una sola vez**, en su fila de Vicepresidencia, con la etiqueta
+  «Tesorería en funciones». Antes tenía dos filas y parecían dos personas. **No se publican** los teléfonos, correos, códigos postales
   ni profesiones que figuran en la hoja: son datos personales.
   - **Tesorería**: consta **Fode Diakite** tachado y marcado como suspendido, y **Abdoulaye
     Soumah** como tesorero en funciones.
@@ -141,6 +147,12 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
 ### 📄 `aviso-legal.html` y `privacidad.html`
 - Fecha de «Última actualización».
 - **Revisión por una persona con formación jurídica** antes de publicar.
+
+### Fondos alternos
+
+Las secciones alternan blanco y gris (`seccion--gris`) para que cada bloque se despegue del
+anterior. **Si añades o quitas una sección, comprueba el alternado**: dos bloques del mismo
+color seguidos se leen como uno solo y se pierde el corte. El hero cuenta como navy.
 
 ### Densidad y llamadas a la acción
 
@@ -192,7 +204,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (441 claves)
+        ├── i18n.js         Traducción al francés (437 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

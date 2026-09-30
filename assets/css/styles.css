@@ -939,6 +939,28 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   border-bottom: 1px solid var(--gris-200);
 }
 .ficha__fila:last-child { border-bottom: 0; }
+
+/* Ficha a dos columnas, para listas largas como la Junta Directiva.
+
+   Las filas van en un grid de dos columnas. La de la derecha lleva borde
+   izquierdo para separar los dos bloques, y `:last-child` no sirve para
+   quitar el último borde inferior porque ahora hay DOS últimas filas: se
+   usa :nth-last-child(-n+2), que coge las dos de abajo. Con un número
+   impar de filas la última ocupa el ancho de su columna y ya está. */
+.ficha--dos { display: grid; grid-template-columns: 1fr 1fr; }
+.ficha--dos .ficha__fila { grid-template-columns: minmax(130px, 42%) 1fr; }
+.ficha--dos .ficha__fila:nth-child(even) { border-left: 1px solid var(--gris-200); }
+.ficha--dos .ficha__fila:nth-last-child(-n+2) { border-bottom: 0; }
+.ficha--dos dd { font-size: .9rem; }
+.ficha--dos dt { font-size: .7rem; }
+
+/* El cargo cuyo titular está suspendido, apagado. */
+.ficha__fila--suspendida dd { color: var(--texto-suave); font-weight: 500; }
+.ficha__fila--suspendida dd s { color: var(--texto-suave); }
+
+/* La provincia, como dato secundario al lado del nombre. */
+.ficha__prov { font-weight: 500; font-size: .84rem; color: var(--texto-suave); }
+.ficha__prov::before { content: "·"; margin-right: 6px; }
 .ficha dt {
   padding: 8px 14px;
   background: var(--gris-50);
@@ -1297,6 +1319,12 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   .panel-marca { padding: 30px; }
   .mapa iframe { height: 300px; }
   .ficha__fila { grid-template-columns: 1fr; }
+  /* A dos columnas no cabe: se deshace la rejilla y vuelven a apilarse. */
+  .ficha--dos { grid-template-columns: 1fr; }
+  .ficha--dos .ficha__fila { grid-template-columns: 1fr; }
+  .ficha--dos .ficha__fila:nth-child(even) { border-left: 0; }
+  .ficha--dos .ficha__fila:nth-last-child(-n+2) { border-bottom: 1px solid var(--gris-200); }
+  .ficha--dos .ficha__fila:last-child { border-bottom: 0; }
   .ficha dt { border-right: 0; border-bottom: 1px solid var(--gris-200); padding-block: 10px; }
   .directorio__item { grid-template-columns: auto 1fr; }
   .directorio__item > :last-child { grid-column: 1 / -1; }
