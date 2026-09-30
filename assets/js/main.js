@@ -79,6 +79,7 @@
     /* Vuelve a pintar lo que se genera por JS */
     pintarNoticias();
     pintarLogros();
+    pintarDocumentos();
     pintarNoticiaDetalle();
     pintarDirectorio();
 
@@ -309,6 +310,143 @@
 
     var aviso = document.querySelector('[data-aviso-ejemplo]');
     if (aviso) aviso.hidden = !C.noticiasDeEjemplo;
+  }
+
+  /* ========================================================================
+     5 pre. Documentos de origen y su visor
+     ------------------------------------------------------------------------
+     Los documentos se sirven como imágenes por página, no como PDF (ver
+     contenido.js → documentos). El visor las muestra en una capa sobre la
+     página y se cierra con la ✕, con Escape o pulsando fuera.
+
+     Las imágenes se crean al abrir, no al cargar la página: son 35 y pesan
+     4,6 MB en total, así que cargarlas de entrada por si acaso sería
+     regalar el ancho de banda de todo el que entre en esta página.
+     ====================================================================== */
+
+  var visorDoc = null;      // el <dialog> una vez creado
+  var visorFoco = null;     // a quién devolver el foco al cerrar
+
+  function formatearFechaDoc(f) {
+    if (!f) return '';
+    var partes = f.split('-');
+    var meses = idiomaActual === 'fr'
+      ? ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']
+      : ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    var mes = meses[parseInt(partes[1], 10) - 1] || '';
+    /* Algunos documentos solo llevan mes y año: no se inventa un día. */
+    if (partes.length < 3) return mes + ' ' + partes[0];
+    var dia = partes[2].replace(/^0/, '');
+    /* En francés la fecha no lleva preposiciones: «25 août 2023», no
+       «25 de août de 2023», que es como salía al calcar el español. */
+    return idiomaActual === 'fr'
+      ? dia + ' ' + mes + ' ' + partes[0]
+      : dia + ' de ' + mes + ' de ' + partes[0];
+  }
+
+  /* La fuente casi siempre es la misma en los dos idiomas (MATD, MAEIAGE,
+     CGE-ES). Solo la Embajada cambia, así que lleva `fuenteFr`. */
+  function fuenteDe(d) {
+    return (idiomaActual === 'fr' && d.fuenteFr) ? d.fuenteFr : d.fuente;
+  }
+
+  function pintarDocumentos() {
+    var caja = document.querySelector('[data-documentos]');
+    if (!caja) return;
+
+    var lista = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.documentos) || [];
+    if (!lista.length) { caja.innerHTML = ''; return; }
+
+    /* El <summary> dice cuántos hay: colapsado y sin número, nadie lo abre. */
+    var resumen = caja.closest('details') && caja.closest('details').querySelector('summary');
+    if (resumen) {
+      resumen.textContent = (traducir('about.hitos.1.docs') || 'Documentos que lo amparan') +
+        ' (' + lista.length + ')';
+    }
+
+    caja.innerHTML = '<ul class="docs">' + lista.map(function (d) {
+      var titulo = d[idiomaActual] || d.es;
+      var hojas = d.paginas + ' ' + (d.paginas === 1
+        ? (traducir('doc.pagina') || 'página')
+        : (traducir('doc.paginas') || 'páginas'));
+      return '' +
+        '<li>' +
+          '<button class="docs__item" type="button" data-abrir-doc="' + d.id + '">' +
+            '<span class="docs__icono" aria-hidden="true">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>' +
+            '</span>' +
+            '<span class="docs__texto">' +
+              '<span class="docs__titulo">' + titulo + '</span>' +
+              '<span class="docs__meta">' + fuenteDe(d) + ' · ' + formatearFechaDoc(d.fecha) + ' · ' + hojas + '</span>' +
+            '</span>' +
+          '</button>' +
+        '</li>';
+    }).join('') + '</ul>';
+  }
+
+  function crearVisor() {
+    if (visorDoc) return visorDoc;
+    var d = document.createElement('dialog');
+    d.className = 'visor';
+    d.innerHTML =
+      '<div class="visor__barra">' +
+        '<div class="visor__titulo"></div>' +
+        '<button class="visor__cerrar" type="button" aria-label="Cerrar">&times;</button>' +
+      '</div>' +
+      '<div class="visor__hojas"></div>';
+    document.body.appendChild(d);
+
+    d.querySelector('.visor__cerrar').addEventListener('click', function () { cerrarVisor(); });
+    /* Pulsar el fondo cierra. Se compara con el propio <dialog> porque el
+       ::backdrop no recibe eventos: el click de fuera aterriza en él. */
+    d.addEventListener('click', function (e) { if (e.target === d) cerrarVisor(); });
+    d.addEventListener('cancel', function (e) { e.preventDefault(); cerrarVisor(); });
+    visorDoc = d;
+    return d;
+  }
+
+  function abrirVisor(id) {
+    var lista = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.documentos) || [];
+    var doc = lista.filter(function (x) { return x.id === id; })[0];
+    if (!doc) return;
+
+    var d = crearVisor();
+    var titulo = doc[idiomaActual] || doc.es;
+
+    d.querySelector('.visor__titulo').innerHTML =
+      '<strong>' + titulo + '</strong>' +
+      '<span>' + fuenteDe(doc) + ' · ' + formatearFechaDoc(doc.fecha) + '</span>';
+
+    var hojas = '';
+    for (var i = 1; i <= doc.paginas; i++) {
+      hojas += '<figure><img src="assets/img/docs/' + doc.id + '-' + i + '.webp"' +
+               ' alt="' + titulo + ' — ' + (traducir('doc.pagina') || 'página') + ' ' + i + '"' +
+               ' loading="' + (i === 1 ? 'eager' : 'lazy') + '" draggable="false">' +
+               '<figcaption>' + i + ' / ' + doc.paginas + '</figcaption></figure>';
+    }
+    d.querySelector('.visor__hojas').innerHTML = hojas;
+    d.querySelector('.visor__hojas').scrollTop = 0;
+
+    visorFoco = document.activeElement;
+    if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+    document.body.classList.add('visor-abierto');
+    d.querySelector('.visor__cerrar').focus();
+  }
+
+  function cerrarVisor() {
+    if (!visorDoc) return;
+    if (typeof visorDoc.close === 'function') visorDoc.close(); else visorDoc.removeAttribute('open');
+    document.body.classList.remove('visor-abierto');
+    /* Se vacía al cerrar para que el navegador suelte las imágenes. */
+    visorDoc.querySelector('.visor__hojas').innerHTML = '';
+    if (visorFoco && visorFoco.focus) visorFoco.focus();
+  }
+
+  function initDocumentos() {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-abrir-doc]');
+      if (b) { e.preventDefault(); abrirVisor(b.getAttribute('data-abrir-doc')); }
+    });
   }
 
   /* ========================================================================
@@ -758,6 +896,7 @@
     initAcordeon();
     initFiltros();
     initBuscadorEntidades();
+    initDocumentos();
     initFormulario();
 
     aplicarIdioma(detectarIdioma());

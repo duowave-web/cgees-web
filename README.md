@@ -160,6 +160,33 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
 - Fecha de «Última actualización».
 - **Revisión por una persona con formación jurídica** antes de publicar.
 
+### 13. Los documentos de origen
+
+En «El Consejo» → Origen y mandato hay diez documentos oficiales que se pueden consultar en
+un visor que se abre sobre la página.
+
+**El PDF no se publica.** De cada documento se generan imágenes por página en
+`assets/img/docs/<id>-<n>.webp`, y es eso lo que se sirve. Así se puede leer el documento sin
+que el archivo esté ahí para descargarlo.
+
+> Que quede claro: esto **no es inviolable**. Cualquiera puede guardar una imagen con el botón
+> derecho o hacer una captura. Lo que se consigue es que el PDF original no salga del
+> ordenador y que no haya ningún botón de descarga. Si hiciera falta protección de verdad, no
+> se publica en una web abierta.
+
+Las imágenes se cargan **al abrir** el documento, no al cargar la página: son 35 y pesan
+4,6 MB en total.
+
+**Para añadir un documento nuevo:**
+
+1. Añádelo a la lista `DOCS` de `dev/generar-documentos.py`, con su `id`, su ruta, su fecha,
+   la fuente y el título en los dos idiomas.
+2. Ejecuta `python dev/generar-documentos.py`. Necesita PyMuPDF y Pillow
+   (`pip install pymupdf pillow`).
+3. Copia la entrada al array `documentos` de `assets/js/contenido.js`.
+
+**No cambies el `id` de un documento ya publicado**: es el nombre de sus archivos de imagen.
+
 ### Fondos alternos
 
 Las secciones alternan blanco y gris (`seccion--gris`) para que cada bloque se despegue del
@@ -216,7 +243,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (417 claves)
+        ├── i18n.js         Traducción al francés (419 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

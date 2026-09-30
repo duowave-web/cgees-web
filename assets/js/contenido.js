@@ -285,6 +285,73 @@ window.CGE_CONTENIDO = {
     }
   ],
 
+
+  /* ======================================================================
+     C) DOCUMENTOS DE ORIGEN
+     ----------------------------------------------------------------------
+     Los documentos que amparan la creación del Consejo. Se ven en
+     «El Consejo» → Origen y mandato, en un visor que se abre sobre la
+     página.
+
+     OJO: el PDF **no se publica**. De cada documento se han generado
+     imágenes por página en assets/img/docs/<id>-<n>.webp y es eso lo que
+     se sirve. Así se puede consultar sin que el archivo esté ahí para
+     descargarlo. No es inviolable —cualquiera puede guardar una imagen con
+     el botón derecho— pero el documento en sí no sale del ordenador.
+
+     Para añadir uno nuevo hay que generar las imágenes. El script está en
+     el README, punto 13.
+
+       id      → nombre de los archivos de imagen. NO cambiarlo después.
+       fecha   → 'AAAA-MM-DD' o 'AAAA-MM' si solo consta el mes
+       fuente  → quién lo emite. `fuenteFr` solo si cambia en francés;
+                 si no está, se usa `fuente` en los dos idiomas
+       paginas → cuántas imágenes hay
+     ====================================================================== */
+
+  documentos: [
+    { id: 'tdr-assises-nationales', fecha: '2022-03', paginas: 15,
+      fuente: "MATD",
+      es: "Términos de referencia de las Asambleas Nacionales",
+      fr: "Termes de référence des Assises Nationales" },
+    { id: 'tdr-renovacion-mesas', fecha: '2022-06', paginas: 4,
+      fuente: "MAEIAGE",
+      es: "Términos de referencia para renovar las mesas del CGE",
+      fr: "Termes de référence pour le renouvellement des bureaux du CGE" },
+    { id: 'lettre-circulaire-1875', fecha: '2022-08-05', paginas: 3,
+      fuente: "MAEIAGE",
+      es: "Carta circular 001875: renovación de las mesas del CGE",
+      fr: "Lettre circulaire 001875 : renouvellement des bureaux du CGE" },
+    { id: 'comunicado-012', fecha: '2022-08', paginas: 1,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Comunicado 012: videoconferencia del 6 de agosto de 2022",
+      fr: "Communiqué 012 : visioconférence du 6 août 2022" },
+    { id: 'comunicado-013', fecha: '2022-08-09', paginas: 1,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Comunicado 013: prórroga del plazo para presentar listas",
+      fr: "Communiqué 013 : prorogation du délai de dépôt des listes" },
+    { id: 'nota-014', fecha: '2022-08-09', paginas: 2,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Nota 014: criterios de elegibilidad",
+      fr: "Note 014 : critères d'éligibilité" },
+    { id: 'comunicado-017', fecha: '2022-09-19', paginas: 2,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Comunicado 017: elección de la mesa del CGE",
+      fr: "Communiqué 017 : élection du bureau du CGE" },
+    { id: 'acta-congreso-constitutivo', fecha: '2022-10-08', paginas: 3,
+      fuente: "CGE-ES",
+      es: "Acta del congreso constitutivo del CGE-ES",
+      fr: "Procès-verbal du congrès constitutif du CGE-ES" },
+    { id: 'nota-045-acuse-acta', fecha: '2022-10-25', paginas: 2,
+      fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
+      es: "Nota 045: acuse de recibo del acta del congreso",
+      fr: "Note 045 : accusé de réception du procès-verbal du congrès" },
+    { id: 'convenio-cge-europa', fecha: '2023-08-25', paginas: 2,
+      fuente: "CGE-Europe",
+      es: "Convenio de entendimiento y coordinación del CGE en Europa",
+      fr: "Convention d'entente et de coordination du CGE en Europe" },
+  ],
+
   /* ======================================================================
      B) REPERTORIO DE ENTIDADES GUINEANAS
      ----------------------------------------------------------------------

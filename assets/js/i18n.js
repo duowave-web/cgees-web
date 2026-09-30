@@ -487,6 +487,8 @@ fr: {
 "noti.nohay.p": "Le lien est peut-être mal saisi, ou l'actualité n'est plus publiée.",
 "nav.sub.logros": "Réalisations et temps forts",
 "nav.sub.logros.d": "Ce qui a été obtenu depuis 2022",
+"doc.pagina": "page",
+"doc.paginas": "pages",
 "cont.req.t": "Vous inscrivez une entité ?",
 "cont.req.p": "Joignez ceci à votre premier message et nous éviterons quelques allers-retours :",
 }
