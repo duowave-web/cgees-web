@@ -89,14 +89,22 @@ las redes **Facebook** y **TikTok**.
 
 ### 📄 `quienes-somos.html`
 
-La página tiene cuatro apartados y nada más: **Origen y mandato**, **Logros**, **Junta
-Directiva** y **Ficha informativa**.
+La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato**,
+**Junta Directiva**, **Logros e hitos** y **Ficha informativa**.
 
 - **Origen y mandato**: ✅ completo, con las tres fechas clave (creación el 8/10/2022, RNA el
   24/9/2024 y RECEX el 18/6/2026) y los documentos que amparan la creación, plegados en un
   desplegable para que no estorben.
-- **Logros**: se pinta solo, a partir de las fichas de `contenido.js` que llevan
+- **Logros e hitos**: se pinta solo, con las fichas de `contenido.js` que llevan
   `tipo: 'logro'`. Para mover una a Actualidad, cambia esa palabra por `'noticia'`.
+  Dentro de esas fichas, el campo **`clase`** decide cómo se ve: `'logro'` sale con tick
+  verde, `'acto'` con estrella dorada. Se separan porque meterlo todo bajo «Logros» daba a
+  entender que todo son cosas conseguidas, y hay actos que no lo son.
+  Y **`destacado: true`** saca una ficha en grande delante de las demás: es el logro
+  principal, ahora la mejora en la tramitación de documentación. Solo debería llevarlo una.
+
+  > Los resúmenes de estas fichas son **cortos a propósito**: se ven en una celda de unos
+  > 370 px y el CSS los corta a dos líneas. Si escribes un párrafo de noticia, se trunca.
 - **Junta Directiva**: ✅ completa. **No se publican** los teléfonos, correos, códigos postales
   ni profesiones que figuran en la hoja: son datos personales.
   - **Tesorería**: consta **Fode Diakite** tachado y marcado como suspendido, y **Abdoulaye
@@ -184,7 +192,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (442 claves)
+        ├── i18n.js         Traducción al francés (441 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

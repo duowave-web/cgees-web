@@ -99,10 +99,10 @@
       sub: [
         { href: 'quienes-somos.html#origen',  key: 'nav.sub.origen', txt: 'Origen y mandato',
           dkey: 'nav.sub.origen.d',  d: 'Cómo y por qué nace el Consejo' },
-        { href: 'quienes-somos.html#logros',  key: 'nav.sub.logros', txt: 'Logros',
-          dkey: 'nav.sub.logros.d',  d: 'Lo conseguido desde 2022' },
         { href: 'quienes-somos.html#organos', key: 'nav.sub.organos', txt: 'Junta Directiva',
           dkey: 'nav.sub.organos.d', d: 'Elegida por votación de la comunidad' },
+        { href: 'quienes-somos.html#logros',  key: 'nav.sub.logros', txt: 'Logros e hitos',
+          dkey: 'nav.sub.logros.d',  d: 'Lo conseguido desde 2022' },
         { href: 'quienes-somos.html#ficha',   key: 'nav.sub.registro', txt: 'Ficha informativa',
           dkey: 'nav.sub.registro.d', d: 'Datos registrales, NIF y cuenta' }
       ]

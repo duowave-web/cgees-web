@@ -327,17 +327,24 @@
 
     if (!lista.length) { caja.innerHTML = ''; return; }
 
-    caja.innerHTML = lista.map(function (n) {
+    /* Dos marcas distintas: el tick es para lo conseguido, la estrella para
+       los actos y los hitos. Meterlo todo bajo el mismo tick daba a entender
+       que todo son logros, y no lo es. */
+    var MARCA = {
+      logro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+      acto:  '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6.1L12 16.8 6.6 19.7l1.2-6.1L3.3 9.4l6.1-.8z"/></svg>'
+    };
+
+    function insignia(n, grande) {
       var txt = n[idiomaActual] || n.es;
       var cat = (C.categorias && C.categorias[n.categoria]) || {};
       var etiqueta = cat[idiomaActual] || cat.es || n.categoria;
+      var clase = n.clase === 'acto' ? 'acto' : 'logro';
       return '' +
-        '<article class="logro revelar">' +
-          '<span class="logro__marca" aria-hidden="true">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' +
-          '</span>' +
-          '<div>' +
-            '<div class="logro__meta">' +
+        '<article class="insignia insignia--' + clase + (grande ? ' insignia--destacada' : '') + ' revelar">' +
+          '<span class="insignia__marca" aria-hidden="true">' + (MARCA[clase] || MARCA.logro) + '</span>' +
+          '<div class="insignia__cuerpo">' +
+            '<div class="insignia__meta">' +
               '<span class="etiqueta ' + (cat.clase || '') + '">' + etiqueta + '</span>' +
               (n.fecha ? '<time datetime="' + n.fecha + '">' + formatearFecha(n.fecha) + '</time>' : '') +
             '</div>' +
@@ -345,7 +352,16 @@
             '<p>' + txt.resumen + '</p>' +
           '</div>' +
         '</article>';
-    }).join('');
+    }
+
+    var destacado = lista.filter(function (n) { return n.destacado; })[0];
+    var resto = lista.filter(function (n) { return n !== destacado; });
+
+    caja.innerHTML =
+      (destacado ? insignia(destacado, true) : '') +
+      (resto.length ? '<div class="insignias">' + resto.map(function (n) {
+        return insignia(n, false);
+      }).join('') + '</div>' : '');
   }
 
   /* ========================================================================

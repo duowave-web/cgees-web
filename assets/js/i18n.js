@@ -134,10 +134,9 @@ fr: {
 "about.sub": "Ce qu'il est, d'où il vient, qui le dirige et avec quel fondement juridique il agit.",
 
 "about.org.eyebrow": "Origine et mandat",
-"about.orig.h2": "Un conseil, pas une association de plus",
-"about.orig.p1": "Le Conseil des Guinéens de l'Extérieur naît d'une décision du Gouvernement de la République de Guinée : donner à sa diaspora une structure stable dans chaque pays, au lieu de la laisser dispersée dans des associations qui ne se parlent pas.",
-"about.orig.p2": "Le CGE-ES en est le chapitre espagnol. Il ne s'est pas autoproclamé : ses responsables ont été <strong>élus par vote</strong> de la communauté guinéenne en Espagne. Cette double origine — mandat de départ et élection par les intéressés eux-mêmes — est ce qui nous permet de parler en son nom devant l'Ambassade et devant les administrations.",
-
+"about.orig.h2": "L'organe consultatif de la communauté guinéenne en Espagne",
+"about.orig.p1": "Le CGE-ES est l'organe auquel la communauté guinéenne résidant en Espagne transmet ses besoins, et celui qui les porte devant qui peut les résoudre : l'Ambassade, les autorités guinéennes et les administrations espagnoles. C'est aussi celui que ces institutions consultent lorsqu'elles veulent savoir ce qui se passe dans la communauté.",
+"about.orig.p2": "Il existe par décision du Gouvernement de la République de Guinée, qui a voulu doter sa diaspora d'une structure stable dans chaque pays. Son Conseil d'administration a été <strong>élu par vote</strong> de la communauté elle-même en Espagne. Cette double origine — mandat institutionnel et élection par les intéressés — est ce qui lui permet de parler en son nom.",
 "about.hitos.t": "Dates clés",
 "about.hitos.1.f": "8 octobre 2022",
 "about.hitos.1.t": "Création du Conseil",
@@ -183,7 +182,7 @@ fr: {
 "about.jd.r15": "2e projets avec la communauté locale",
 "about.jd.r16": "Conseil",
 "about.jd.interina": "Par intérim",
-"about.jd.nota": "Pour contacter un membre du Conseil d'administration, écrivez à l'adresse du Conseil en indiquant la fonction : nous transmettons le message.",
+"about.jd.nota": "La Trésorerie est suspendue en raison d'une procédure disciplinaire en cours et elle est assurée par intérim par la Vice-présidence ; nous le signalons pour qu'il n'y ait aucun doute sur qui signe. Pour contacter un membre du Conseil d'administration, écrivez à l'adresse du Conseil en indiquant la fonction : nous transmettons le message.",
 "about.jd.asamblea.t": "Assemblée générale",
 "about.jd.asamblea.p": "C'est l'organe suprême du Conseil. Elle réunit les entités enregistrées et les membres individuels. Elle se réunit au moins une fois par an pour approuver les comptes et le plan d'action et, le cas échéant, renouveler le Conseil d'administration par vote.",
 
@@ -485,12 +484,11 @@ fr: {
 
 /* --- Claves anadidas en la revision de septiembre de 2026 --------------- */
 "about.logros.eyebrow": "Depuis 2022",
-"about.logros.h2": "Réalisations",
-"about.logros.p": "Ce que le Conseil a mené à bien pour la communauté guinéenne depuis sa création.",
+"about.logros.h2": "Réalisations et temps forts",
+"about.logros.p": "Ce que le Conseil a mené à bien pour la communauté, et les moments qui ont marqué ces années.",
 "about.hitos.1.docs": "Documents de référence",
 "about.jd.r5b": "Trésorerie (titulaire)",
 "about.jd.suspendido": "Suspendu",
-"about.jd.suspnota": "La Trésorerie est suspendue en raison d'une procédure disciplinaire en cours et elle est assurée par intérim par la Vice-présidence. Nous le signalons pour qu'il n'y ait aucun doute sur qui signe à chaque moment.",
 "about.ficha.eyebrow": "Données officielles",
 "about.f.10": "Registre des collaborateurs en matière d'étrangers",
 "about.f.10v": "RECEX · Inscrit depuis le 18 juin 2026",
@@ -512,7 +510,7 @@ fr: {
 "noti.volver": "Retour aux actualités",
 "noti.nohay.t": "Nous ne trouvons pas cette actualité",
 "noti.nohay.p": "Le lien est peut-être mal saisi, ou l'actualité n'est plus publiée.",
-"nav.sub.logros": "Réalisations",
+"nav.sub.logros": "Réalisations et temps forts",
 "nav.sub.logros.d": "Ce qui a été obtenu depuis 2022",
 "cont.req.t": "Vous inscrivez une entité ?",
 "cont.req.p": "Joignez ceci à votre premier message et nous éviterons quelques allers-retours :",

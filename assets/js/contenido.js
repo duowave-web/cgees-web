@@ -12,7 +12,17 @@ window.CGE_CONTENIDO = {
        tipo: 'noticia' → sale en Actualidad y en la portada, y se puede
                          abrir y leer entera en noticia.html
        tipo: 'logro'   → sale en «El Consejo» → Logros. No se abre: es una
-                         ficha corta de algo conseguido
+                         insignia corta.
+
+     Dentro de los `tipo: 'logro'`, el campo `clase` dice qué es:
+
+       clase: 'logro'  → algo conseguido que mejora la vida de la comunidad
+       clase: 'acto'   → un acto o un hito importante, pero que no es un
+                         logro en sí. Sale con otro color, porque meterlo
+                         todo bajo «Logros» era faltar a la verdad.
+
+       destacado: true → lo saca en grande delante de los demás. Solo
+                         debería llevarlo uno
 
      Para mover una ficha de un sitio al otro basta con cambiar esa palabra.
 
@@ -49,110 +59,119 @@ window.CGE_CONTENIDO = {
 
   noticias: [
     {
+      /* El logro principal. `destacado: true` lo saca en grande, delante
+         de los demás. Solo debería haber uno. */
+      id: 'tramitacion-documentacion',
+      tipo: 'logro',
+      clase: 'logro',
+      destacado: true,
+      fecha: '',
+      categoria: 'consular',
+      autor: '',
+      fotos: [],
+      es: {
+        titulo: "Tramitar documentación guineana es hoy más fácil",
+        resumen: "La colaboración con la Embajada ha agilizado los trámites de documentación guineana y ha hecho mucho más transparente qué papeles hacen falta en cada caso. Es el resultado que más se nota en el día a día de la comunidad.",
+        cuerpo: []
+      },
+      fr: {
+        titulo: "Les démarches de documents guinéens sont aujourd'hui plus simples",
+        resumen: "La collaboration avec l'Ambassade a accéléré les démarches de documentation guinéenne et rendu bien plus claire la liste des pièces nécessaires dans chaque cas. C'est le résultat qui se remarque le plus au quotidien.",
+        cuerpo: []
+      }
+    },
+    {
       id: 'censo-ravec-2025',
       tipo: 'logro',
+      clase: 'logro',
       fecha: '',                       // PENDIENTE  AAAA-MM-DD
       categoria: 'consular',
       autor: '',                       // PENDIENTE
       fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
       es: {
         titulo: "Censo RAVEC 2025",
-        resumen: "Campaña del censo administrativo con fines de estado civil (RAVEC). Informamos sobre quién puede inscribirse, qué documentación hace falta y dónde hacerlo.",
+        resumen: "Campaña del censo administrativo con fines de estado civil.",
         cuerpo: []                     // PENDIENTE
       },
       fr: {
         titulo: "Recensement RAVEC 2025",
-        resumen: "Campagne du recensement administratif à vocation d'état civil (RAVEC). Nous informons sur qui peut s'inscrire, quels documents sont nécessaires et où le faire.",
+        resumen: "Campagne du recensement administratif à vocation d'état civil.",
         cuerpo: []
       }
     },
     {
       id: 'kits-enrolamiento',
       tipo: 'logro',
+      clase: 'logro',
       fecha: '',                       // PENDIENTE  AAAA-MM-DD
       categoria: 'consular',
       autor: '',                       // PENDIENTE
       fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
       es: {
         titulo: "Kits de enrolamiento",
-        resumen: "Despliegue de los kits de enrolamiento para la inscripción de la comunidad guineana residente en España.",
+        resumen: "Kits desplegados para inscribir a la comunidad residente en España.",
         cuerpo: []                     // PENDIENTE
       },
       fr: {
         titulo: "Kits d'enrôlement",
-        resumen: "Déploiement des kits d'enrôlement pour l'inscription de la communauté guinéenne résidant en Espagne.",
+        resumen: "Kits déployés pour inscrire la communauté résidant en Espagne.",
         cuerpo: []
       }
     },
     {
-      id: 'enrolamiento-malta',
+      id: 'malta',
       tipo: 'logro',
+      clase: 'logro',
       fecha: '',                       // PENDIENTE  AAAA-MM-DD
       categoria: 'consular',
       autor: '',                       // PENDIENTE
       fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
       es: {
-        titulo: "Enrolamiento en Malta",
-        resumen: "Jornada de enrolamiento e inscripción consular para la comunidad guineana residente en Malta.",
+        titulo: "Atención a la comunidad en Malta",
+        resumen: "Viaje del Consejo con jornada de enrolamiento e inscripción consular.",
         cuerpo: []                     // PENDIENTE
       },
       fr: {
-        titulo: "Enrôlement à Malte",
-        resumen: "Journée d'enrôlement et d'inscription consulaire pour la communauté guinéenne résidant à Malte.",
-        cuerpo: []
-      }
-    },
-    {
-      id: 'viaje-malta',
-      tipo: 'logro',
-      fecha: '',                       // PENDIENTE  AAAA-MM-DD
-      categoria: 'institucional',
-      autor: '',                       // PENDIENTE
-      fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
-      es: {
-        titulo: "Viaje a Malta",
-        resumen: "Desplazamiento del Consejo a Malta para atender a la comunidad guineana del país y coordinar con la representación diplomática.",
-        cuerpo: []                     // PENDIENTE
-      },
-      fr: {
-        titulo: "Voyage à Malte",
-        resumen: "Déplacement du Conseil à Malte pour accompagner la communauté guinéenne du pays et assurer la coordination avec la représentation diplomatique.",
+        titulo: "Accompagnement de la communauté à Malte",
+        resumen: "Déplacement du Conseil avec une journée d'enrôlement et d'inscription.",
         cuerpo: []
       }
     },
     {
       id: 'formacion',
       tipo: 'logro',
+      clase: 'logro',
       fecha: '',                       // PENDIENTE  AAAA-MM-DD
       categoria: 'comunidad',
       autor: '',                       // PENDIENTE
       fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
       es: {
         titulo: "Formación",
-        resumen: "Sesiones de formación dirigidas a la comunidad guineana y a las entidades registradas en el Consejo.",
+        resumen: "Sesiones para la comunidad y para las entidades registradas.",
         cuerpo: []                     // PENDIENTE
       },
       fr: {
         titulo: "Formation",
-        resumen: "Sessions de formation destinées à la communauté guinéenne et aux entités enregistrées auprès du Conseil.",
+        resumen: "Sessions pour la communauté et les entités enregistrées.",
         cuerpo: []
       }
     },
     {
       id: 'satisfecit-consul-sabadell',
       tipo: 'logro',
+      clase: 'acto',
       fecha: '',                       // PENDIENTE  AAAA-MM-DD
       categoria: 'institucional',
       autor: '',                       // PENDIENTE
       fotos: [],                       // ej. ['assets/img/noticias/malta-1.jpg']
       es: {
         titulo: "Satisfecit al cónsul en Sabadell",
-        resumen: "Entrega de un satisfecit al cónsul en reconocimiento a su labor con la comunidad guineana, en Sabadell (Barcelona).",
+        resumen: "Reconocimiento a su labor con la comunidad, en Sabadell (Barcelona).",
         cuerpo: []                     // PENDIENTE
       },
       fr: {
         titulo: "Satisfecit au consul à Sabadell",
-        resumen: "Remise d'un satisfecit au consul en reconnaissance de son travail auprès de la communauté guinéenne, à Sabadell (Barcelone).",
+        resumen: "Reconnaissance de son travail auprès de la communauté, à Sabadell.",
         cuerpo: []
       }
     },

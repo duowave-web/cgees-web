@@ -758,7 +758,7 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
    -------------------------------------------------------------------------- */
 .tabla-envoltorio { overflow-x: auto; border: 1px solid var(--gris-200); border-radius: var(--radio); }
 table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 560px; }
-.tabla th, .tabla td { padding: 15px 20px; text-align: left; border-bottom: 1px solid var(--gris-200); }
+.tabla th, .tabla td { padding: 9px 16px; text-align: left; border-bottom: 1px solid var(--gris-200); }
 .tabla thead th {
   background: var(--gris-50);
   font-size: .74rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
@@ -940,7 +940,7 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 }
 .ficha__fila:last-child { border-bottom: 0; }
 .ficha dt {
-  padding: 10px 16px;
+  padding: 8px 14px;
   background: var(--gris-50);
   font-size: .74rem; font-weight: 800;
   letter-spacing: .07em; text-transform: uppercase;
@@ -949,7 +949,7 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   display: flex; align-items: center;
 }
 .ficha dd {
-  margin: 0; padding: 14px 20px;
+  margin: 0; padding: 8px 16px;
   font-size: .95rem; font-weight: 600; color: var(--navy);
   display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
 }
@@ -1306,27 +1306,61 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
    22 bis. Logros, noticia completa, buscador del repertorio
    -------------------------------------------------------------------------- */
 
-/* Logros: lista con marca de verificado. No son tarjetas porque son textos
-   cortos y en rejilla quedaban con mucho aire dentro y poco que decir. */
-.logros { display: grid; gap: 4px; }
-.logro {
-  display: grid; grid-template-columns: auto 1fr; gap: 18px;
+/* Logros e hitos: insignias en rejilla horizontal.
+
+   Antes era una lista a lo ancho, una fila por elemento: seis elementos
+   ocupaban casi mil píxeles. En rejilla de tres caben en dos filas.
+
+   Dos variantes según `clase` en contenido.js: verde con tick para lo
+   conseguido, oro con estrella para los actos y los hitos. */
+.logros { display: grid; gap: 14px; }
+
+.insignias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
   align-items: start;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--gris-200);
 }
-.logro:last-child { border-bottom: 0; }
-.logro__marca {
+
+.insignia {
+  display: grid; grid-template-columns: auto 1fr; gap: 12px;
+  align-items: start;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-radius: var(--radio-sm);
+}
+.insignia__marca {
   display: grid; place-items: center;
-  width: 34px; height: 34px; border-radius: 50%;
-  background: rgba(0,158,73,.12); color: var(--verde-osc);
+  width: 28px; height: 28px; border-radius: 50%;
   flex-shrink: 0;
 }
-.logro__marca svg { width: 18px; height: 18px; }
-.logro__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
-.logro__meta time { font-size: .8rem; color: var(--texto-suave); }
-.logro h3 { font-size: 1rem; margin: 0 0 4px; }
-.logro p { margin: 0; color: var(--texto-suave); }
+.insignia__marca svg { width: 15px; height: 15px; }
+.insignia--logro .insignia__marca { background: rgba(0,158,73,.12); color: var(--verde-osc); }
+.insignia--acto  .insignia__marca { background: rgba(252,209,22,.24); color: #8a6a00; }
+
+.insignia__meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 5px; }
+.insignia__meta time { font-size: .76rem; color: var(--texto-suave); }
+.insignia h3 { font-size: .95rem; margin: 0 0 3px; line-height: 1.3; }
+/* Tope de dos líneas. Si alguien escribe un resumen largo en
+   contenido.js, la insignia no se estira: se corta. */
+.insignia p {
+  margin: 0; font-size: .86rem; color: var(--texto-suave); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.insignia--destacada p { -webkit-line-clamp: unset; overflow: visible; }
+
+/* El logro principal: a todo lo ancho y con algo más de peso. */
+.insignia--destacada {
+  padding: 22px 24px;
+  border-color: rgba(0,158,73,.35);
+  background: linear-gradient(120deg, rgba(0,158,73,.07), rgba(0,158,73,.02) 60%, #fff);
+}
+.insignia--destacada .insignia__marca { width: 36px; height: 36px; }
+.insignia--destacada .insignia__marca svg { width: 19px; height: 19px; }
+.insignia--destacada h3 { font-size: 1.15rem; margin-bottom: 5px; }
+.insignia--destacada p { font-size: .94rem; }
 
 /* Documentos que amparan un hito. Plegados por defecto. */
 .hitos__fuentes { margin-top: 10px; font-size: .84rem; }
@@ -1401,8 +1435,7 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .directorio__item--sincotejar .directorio__sigla { background: var(--gris-200); color: var(--texto-suave); }
 
 @media (max-width: 720px) {
-  .logro { grid-template-columns: 1fr; gap: 12px; }
-  .logro__marca { width: 28px; height: 28px; }
+  .insignia--destacada { padding: 18px; }
 }
 
 /* --------------------------------------------------------------------------
