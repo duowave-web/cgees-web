@@ -165,6 +165,42 @@
     });
   }
 
+  /* Empujón al vídeo de fondo del hero.
+
+     `autoplay muted` basta en condiciones normales, pero no siempre arranca:
+     un documento oculto —pestaña en segundo plano, ventana minimizada— no
+     reproduce vídeo, y algunos modos de ahorro de datos rechazan el play().
+     Cuando eso pasa se queda el primer fotograma congelado y parece que el
+     vídeo no está.
+
+     Así que se reintenta cuando la pestaña se hace visible y al primer gesto
+     del usuario. Si el play() se rechaza igualmente, queda el `poster`, que
+     es una imagen del propio vídeo: el fondo nunca se ve vacío. */
+  function initVideoHero() {
+    var v = document.querySelector('.hero__video');
+    if (!v) return;
+    /* Si el sistema pide menos animación, el CSS lo esconde: no se toca. */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var intentos = 0;
+    function arrancar() {
+      if (!v.paused || intentos > 6) return;
+      intentos++;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { /* queda el poster */ });
+    }
+
+    arrancar();
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') arrancar();
+    });
+    window.addEventListener('pageshow', arrancar);
+    /* Un gesto cualquiera desbloquea el play en los navegadores que lo piden */
+    ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+      document.addEventListener(ev, arrancar, { once: true, passive: true });
+    });
+  }
+
   function initCabeceraFija() {
     var cabecera = document.querySelector('.cabecera');
     if (!cabecera) return;
@@ -1204,6 +1240,7 @@
 
     initNavegacion();
     initCabeceraFija();
+    initVideoHero();
     initAcordeon();
     initFiltros();
     initBuscadorEntidades();
