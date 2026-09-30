@@ -134,6 +134,15 @@
       if (e.key === 'Escape' && nav.classList.contains('abierto')) { cerrar(); boton.focus(); }
     });
 
+    /* Con el visor abierto, + y - hacen zoom y 0 lo devuelve al 100 %. */
+    document.addEventListener('keydown', function (e) {
+      if (!visorDoc || !visorDoc.hasAttribute('open')) return;
+      if (visorDoc.querySelector('[data-visor-opciones]').hidden) return;
+      if (e.key === '+' || e.key === '=') { e.preventDefault(); aplicarZoom(1); }
+      if (e.key === '-') { e.preventDefault(); aplicarZoom(-1); }
+      if (e.key === '0') { e.preventDefault(); visorZoom = 2; visorVista = 'ancho'; pintarEstadoVisor(); }
+    });
+
     /* En móvil, el enlace con submenú despliega en lugar de navegar */
     nav.querySelectorAll('.nav__item--desplegable > .nav__enlace').forEach(function (enlace) {
       enlace.addEventListener('click', function (e) {
@@ -300,8 +309,13 @@
     return 'noticia.html?id=' + encodeURIComponent(n.id);
   }
 
+  /* `oculto: true` deja una ficha fuera de la web sin borrarla, para lo que
+     todavía no tiene material. Se filtra aquí, en un solo sitio, para que no
+     se cuele en la portada, en Actualidad ni en los logros. */
+  function visible(n) { return !n.oculto; }
+
   function soloNoticias(lista) {
-    return lista.filter(function (n) { return n.tipo !== 'logro'; });
+    return lista.filter(function (n) { return n.tipo !== 'logro' && visible(n); });
   }
 
   function pintarNoticias() {
@@ -346,6 +360,43 @@
 
   var visorDoc = null;      // el <dialog> una vez creado
   var visorFoco = null;     // a quién devolver el foco al cerrar
+
+  /* Zoom y modo de vista del visor.
+
+     El zoom no usa transform: scale() porque entonces la hoja se sale del
+     contenedor y el scroll no la alcanza. Se cambia el ANCHO de la hoja, que
+     es lo que reflowea de verdad y deja el scroll funcionando. */
+  var ZOOMS = [50, 75, 100, 125, 150, 200, 300];
+  var visorZoom = 2;        // índice en ZOOMS: 100%
+  var visorVista = 'ancho'; // 'ancho' | 'pagina' | 'doble'
+
+  function pintarEstadoVisor() {
+    if (!visorDoc) return;
+    var hojas = visorDoc.querySelector('.visor__hojas');
+    hojas.setAttribute('data-vista', visorVista);
+    hojas.style.setProperty('--zoom', ZOOMS[visorZoom] + '%');
+    visorDoc.querySelector('[data-visor-nivel]').textContent = ZOOMS[visorZoom] + '%';
+    visorDoc.querySelectorAll('[data-vista]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-vista') === visorVista ? 'true' : 'false');
+    });
+    /* En «página completa» el zoom lo manda la altura, así que los botones
+       de ampliar y reducir no pintan nada y se apagan. */
+    visorDoc.querySelectorAll('[data-zoom]').forEach(function (b) {
+      b.disabled = visorVista === 'pagina';
+    });
+  }
+
+  function aplicarZoom(delta) {
+    visorZoom = Math.max(0, Math.min(ZOOMS.length - 1, visorZoom + delta));
+    if (visorVista === 'pagina') visorVista = 'ancho';
+    pintarEstadoVisor();
+  }
+
+  function aplicarVista(v) {
+    visorVista = v;
+    if (v === 'pagina' || v === 'doble') visorZoom = 2;
+    pintarEstadoVisor();
+  }
 
   function formatearFechaDoc(f) {
     if (!f) return '';
@@ -411,12 +462,35 @@
     d.innerHTML =
       '<div class="visor__barra">' +
         '<div class="visor__titulo"></div>' +
+        '<div class="visor__opciones" data-visor-opciones>' +
+          '<button class="visor__op" type="button" data-zoom="-1" aria-label="' + (traducir('vis.menos') || 'Reducir') + '">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg>' +
+          '</button>' +
+          '<span class="visor__nivel" data-visor-nivel>100%</span>' +
+          '<button class="visor__op" type="button" data-zoom="1" aria-label="' + (traducir('vis.mas') || 'Ampliar') + '">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>' +
+          '</button>' +
+          '<span class="visor__sep" aria-hidden="true"></span>' +
+          '<button class="visor__op visor__op--txt" type="button" data-vista="ancho">' +
+            (traducir('vis.ancho') || 'Ajustar al ancho') + '</button>' +
+          '<button class="visor__op visor__op--txt" type="button" data-vista="pagina">' +
+            (traducir('vis.pagina') || 'Página completa') + '</button>' +
+          '<button class="visor__op visor__op--txt" type="button" data-vista="doble">' +
+            (traducir('vis.doble') || 'Dos columnas') + '</button>' +
+        '</div>' +
         '<button class="visor__cerrar" type="button" aria-label="Cerrar">&times;</button>' +
       '</div>' +
       '<div class="visor__hojas"></div>';
     document.body.appendChild(d);
 
     d.querySelector('.visor__cerrar').addEventListener('click', function () { cerrarVisor(); });
+
+    d.querySelector('[data-visor-opciones]').addEventListener('click', function (e) {
+      var z = e.target.closest('[data-zoom]');
+      if (z) { aplicarZoom(parseInt(z.getAttribute('data-zoom'), 10)); return; }
+      var v = e.target.closest('[data-vista]');
+      if (v) aplicarVista(v.getAttribute('data-vista'));
+    });
     /* Pulsar el fondo cierra. Se compara con el propio <dialog> porque el
        ::backdrop no recibe eventos: el click de fuera aterriza en él. */
     d.addEventListener('click', function (e) { if (e.target === d) cerrarVisor(); });
@@ -447,6 +521,9 @@
     d.querySelector('.visor__hojas').className = 'visor__hojas';
     d.querySelector('.visor__hojas').innerHTML = hojas;
     d.querySelector('.visor__hojas').scrollTop = 0;
+    d.querySelector('[data-visor-opciones]').hidden = false;
+    visorZoom = 2; visorVista = 'ancho';
+    pintarEstadoVisor();
 
     visorFoco = document.activeElement;
     if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
@@ -460,6 +537,9 @@
     var d = crearVisor();
     d.querySelector('.visor__titulo').innerHTML = '<strong>' + (alt || '') + '</strong>' +
       (pos ? '<span>' + pos + '</span>' : '');
+    /* Para una foto suelta la barra no tiene sentido: no hay páginas ni
+       columnas, y el navegador ya deja ampliarla. */
+    d.querySelector('[data-visor-opciones]').hidden = true;
     d.querySelector('.visor__hojas').className = 'visor__hojas visor__hojas--foto';
     d.querySelector('.visor__hojas').innerHTML =
       '<figure><img src="' + src + '" alt="' + (alt || '') + '" draggable="false"></figure>';
@@ -527,7 +607,7 @@
     var C = window.CGE_CONTENIDO;
     var id = new URLSearchParams(window.location.search).get('id');
     var ev = ((C && C.noticias) || []).filter(function (x) {
-      return x.id === id && x.tipo === 'evento';
+      return x.id === id && x.tipo === 'evento' && visible(x);
     })[0];
 
     if (!ev) {
@@ -568,6 +648,18 @@
     var cuerpo = (txt.cuerpo || []);
     if (cuerpo.length) {
       html += cuerpo.map(function (par) { return '<p>' + par + '</p>'; }).join('');
+    }
+
+    /* Vídeo. `preload="none"`: no se descargan los 4,9 MB hasta que alguien
+       le da al play. El poster es una imagen de 28 KB. */
+    if (ev.video) {
+      html += '<section class="ev-video">' +
+        '<h2 class="ev-subtitulo">' + (traducir('ev.video') || 'Vídeo') + '</h2>' +
+        '<video controls preload="none" playsinline' +
+          (ev.videoPoster ? ' poster="' + ev.videoPoster + '"' : '') + '>' +
+          '<source src="' + ev.video + '" type="video/mp4">' +
+        '</video>' +
+      '</section>';
     }
 
     /* Carrusel */
@@ -639,6 +731,14 @@
       if (paso) { moverCarrusel(parseInt(paso.getAttribute('data-carrusel-paso'), 10)); return; }
       var punto = e.target.closest('[data-ir]');
       if (punto) { carrusel.i = parseInt(punto.getAttribute('data-ir'), 10); pintarCarrusel(); return; }
+      /* El cartel de la Fiesta se amplía en el mismo visor, para poder
+         escanear el QR desde la pantalla. */
+      var cartel = e.target.closest('[data-ampliar-cartel]');
+      if (cartel) {
+        var img = cartel.querySelector('img');
+        abrirFoto(img.getAttribute('src'), img.getAttribute('alt') || '');
+        return;
+      }
       var ampliar = e.target.closest('[data-ampliar]');
       if (ampliar && carrusel.fotos.length) {
         abrirFoto(carrusel.fotos[carrusel.i], carrusel.titulo,
@@ -668,7 +768,7 @@
     if (!caja) return;
 
     var C = window.CGE_CONTENIDO;
-    var lista = ((C && C.noticias) || []).filter(function (n) { return n.tipo === 'logro'; });
+    var lista = ((C && C.noticias) || []).filter(function (n) { return n.tipo === 'logro' && visible(n); });
 
     if (!lista.length) { caja.innerHTML = ''; return; }
 
@@ -725,7 +825,7 @@
     var C = window.CGE_CONTENIDO;
     var id = new URLSearchParams(window.location.search).get('id');
     var n = ((C && C.noticias) || []).filter(function (x) {
-      return x.id === id && x.tipo !== 'logro';
+      return x.id === id && x.tipo !== 'logro' && visible(x);
     })[0];
 
     var txt = n && (n[idiomaActual] || n.es);

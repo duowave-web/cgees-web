@@ -160,6 +160,23 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
 - Fecha de «Última actualización».
 - **Revisión por una persona con formación jurídica** antes de publicar.
 
+### La Fiesta de la Independencia
+
+La edición en curso va **en la portada**, en el bloque de la Fiesta, no en Actualidad:
+mientras no se haya celebrado es una convocatoria, no una noticia. Ahí están la fecha, el
+lugar, el cartel con el QR del formulario y un botón a Contacto.
+
+Cuando el acto pase, se monta como evento con fotos en Actualidad, igual que los demás.
+
+> El cartel se sirve a 1800 px y con calidad 90, más alta que el resto de imágenes:
+> **dentro va un QR** y la compresión agresiva lo deja sin escanear.
+
+### Fichas ocultas
+
+`oculto: true` deja una ficha fuera de la web sin borrarla, para lo que todavía no tiene
+material. Ahora lo llevan «Referéndum de la nueva Constitución» y «El CGE-ES queda inscrito en
+el Registro Nacional de Asociaciones». Quita el campo y vuelven a salir.
+
 ### 13. Los eventos
 
 Los diez eventos están en Actualidad y cada uno tiene su página (`evento.html?id=...`) con el
@@ -186,8 +203,17 @@ en el archivo y no se han publicado; y el del embajador Framoï Mara porque no h
    documentos al array `documentos`.
 
 Campos propios de un evento: `portada`, `fotos` (array de rutas), `documentos` (array de `id`
-del array `documentos`) y `proximo: true` si todavía no ha ocurrido, que le pone la etiqueta
-«Próximo».
+del array `documentos`), y `video` con `videoPoster` si hay vídeo.
+
+El vídeo va con `preload="none"`: no se descargan sus megas hasta que alguien le da al play, y
+hasta entonces solo se carga el fotograma de cartel, que pesa 28 KB. El de París se recomprimió
+de 15,8 a 4,9 MB sin tocar la resolución, porque venía de WhatsApp a un bitrate muy por encima
+de lo que 640×352 necesita.
+
+**El visor de documentos tiene barra de opciones**: ampliar y reducir (del 50 % al 300 %),
+ajustar al ancho, página completa y dos columnas. Con el visor abierto, `+` y `−` hacen zoom y
+`0` lo devuelve al 100 %. El zoom cambia el **ancho** de la hoja, no la escala con
+`transform`, porque con `scale()` la hoja se sale del contenedor y el scroll no la alcanza.
 
 ### 14. Los documentos de origen
 
@@ -273,7 +299,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (427 claves)
+        ├── i18n.js         Traducción al francés (437 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

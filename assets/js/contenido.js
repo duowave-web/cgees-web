@@ -34,6 +34,10 @@ window.CGE_CONTENIDO = {
                    igual, solo que sin fecha.
        categoria → 'institucional' | 'consular' | 'comunidad' | 'asociaciones'
        autor     → quién lo firma. Si está vacío, no se muestra.
+       oculto    → true la deja fuera de la web sin borrarla. Para fichas
+                   que todavía no tienen material.
+       video     → ruta del vídeo (solo eventos). `videoPoster`, el
+                   fotograma que se ve antes de darle al play.
        fotos     → rutas de imagen. La primera hace de portada.
        es / fr   → { titulo, resumen, cuerpo }
                    `resumen` es lo que se lee en la tarjeta.
@@ -62,33 +66,6 @@ window.CGE_CONTENIDO = {
   },
 
   noticias: [
-    {
-      id: '68-aniversario-independencia',
-      tipo: 'evento',
-      fecha: '2026-10-02',
-      categoria: 'comunidad',
-      proximo: true,          // aún no ha ocurrido
-      autor: '',
-      portada: 'assets/img/eventos/68-aniversario-independencia/portada.webp',
-      fotos: ['assets/img/eventos/68-aniversario-independencia/01.webp', 'assets/img/eventos/68-aniversario-independencia/02.webp', 'assets/img/eventos/68-aniversario-independencia/03.webp', 'assets/img/eventos/68-aniversario-independencia/04.webp'],
-      documentos: [],
-      es: {
-        titulo: "68.º aniversario de la independencia de Guinea",
-        resumen: "Acto conmemorativo del 2 de octubre, organizado por el Consejo. Aquí están los carteles de la convocatoria.",
-        cuerpo: [
-          "La organización en España del acto conmemorativo del aniversario de la independencia corresponde al Consejo. Es la cita del año: el momento en que las entidades guineanas de todo el territorio coinciden en un mismo sitio.",
-          "Los carteles de esta edición están abajo. Si tu entidad quiere participar en la organización, aportar una actuación o montar un puesto, escríbenos."
-        ]
-      },
-      fr: {
-        titulo: "68e anniversaire de l'indépendance de la Guinée",
-        resumen: "Cérémonie commémorative du 2 octobre, organisée par le Conseil. Les affiches de l'appel à participation sont ici.",
-        cuerpo: [
-          "L'organisation en Espagne de la commémoration de l'anniversaire de l'indépendance revient au Conseil. C'est le rendez-vous de l'année : le moment où les entités guinéennes de tout le territoire se retrouvent au même endroit.",
-          "Les affiches de cette édition sont ci-dessous. Si votre entité souhaite participer à l'organisation, proposer une prestation ou tenir un stand, écrivez-nous."
-        ]
-      }
-    },
     {
       id: 'jornada-legislativas',
       tipo: 'evento',
@@ -221,8 +198,8 @@ window.CGE_CONTENIDO = {
       fecha: '2023-09-13',
       categoria: 'institucional',
       autor: '',
-      portada: '',
-      fotos: [],
+      portada: 'assets/img/eventos/forum-diaspora-conakry/portada.webp',
+      fotos: ['assets/img/eventos/forum-diaspora-conakry/01.webp', 'assets/img/eventos/forum-diaspora-conakry/02.webp', 'assets/img/eventos/forum-diaspora-conakry/03.webp'],
       documentos: ['ev-circular-3131-forum'],
       es: {
         titulo: "Foro Nacional de la Diáspora en Conakry",
@@ -271,6 +248,11 @@ window.CGE_CONTENIDO = {
       fecha: '2023-03-19',
       categoria: 'institucional',
       autor: '',
+      /* El vídeo va delante del carrusel. `poster` es el fotograma que se
+         ve antes de darle al play: sin él el navegador enseña un cuadro
+         negro. Nada se descarga hasta que alguien pulsa (preload none). */
+      video: 'assets/video/presidentes-europa-paris.mp4',
+      videoPoster: 'assets/video/presidentes-europa-paris-poster.webp',
       portada: '',
       fotos: ['assets/img/eventos/presidentes-europa-paris/01.webp'],
       documentos: ['ev-informe-paris'],
@@ -437,6 +419,7 @@ window.CGE_CONTENIDO = {
     {
       id: 'referendum-constitucion',
       tipo: 'noticia',
+      oculto: true,           // sin material todavía; ver README
       fecha: '',                       // PENDIENTE  AAAA-MM-DD
       categoria: 'institucional',
       autor: '',                       // PENDIENTE
@@ -455,6 +438,7 @@ window.CGE_CONTENIDO = {
     {
       id: 'inscripcion-rna',
       tipo: 'noticia',
+      oculto: true,           // sin material todavía; ver README
       fecha: '2024-09-24',
       categoria: 'institucional',
       autor: '',                       // PENDIENTE

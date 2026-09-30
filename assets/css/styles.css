@@ -303,12 +303,7 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   transition: color var(--t-rapida), background var(--t-rapida);
 }
 .selector-idioma__btn:hover { color: var(--navy); background: var(--gris-100); }
-/* El idioma activo va en el rojo de la bandera, no en verde: el verde es el
-   del botón de Contacto, que está justo al lado, y los dos juntos parecían
-   dos piezas de lo mismo. El amarillo se probó y llamaba más la atención que
-   la propia llamada a la acción. Blanco sobre #CE1126 da 5,6:1 de contraste,
-   por encima del 4,5:1 que pide la norma. */
-.selector-idioma__btn[aria-current="true"] { color: #fff; background: var(--rojo); }
+/* El botón del idioma activo lleva los colores de su bandera: ver más abajo. */
 
 /* El contenedor que rellena layout.js no debe formar caja propia: si la forma,
    la cabecera sticky queda atrapada dentro de sus 115 px y se despega al bajar. */
@@ -1727,6 +1722,116 @@ body.visor-abierto { overflow: hidden; }
   .carrusel__paso--atras { left: 6px; }
   .carrusel__paso--adelante { right: 6px; }
   .carrusel__imagen { aspect-ratio: 1/1; }
+}
+
+/* --------------------------------------------------------------------------
+   22 quinquies. Barra del visor, vídeo y cartel de la Fiesta
+   -------------------------------------------------------------------------- */
+
+.visor__opciones {
+  display: flex; align-items: center; gap: 4px;
+  flex-shrink: 0; flex-wrap: wrap;
+}
+.visor__op {
+  display: grid; place-items: center;
+  min-width: 30px; height: 30px; padding: 0 7px;
+  border: 1px solid var(--gris-200); border-radius: var(--radio-xs);
+  background: #fff; color: var(--texto-suave);
+  font-family: inherit; font-size: .76rem; font-weight: 700;
+  cursor: pointer;
+  transition: background var(--t-rapida), color var(--t-rapida), border-color var(--t-rapida);
+}
+.visor__op svg { width: 15px; height: 15px; }
+.visor__op:hover:not(:disabled) { background: var(--gris-100); color: var(--navy); }
+.visor__op:disabled { opacity: .4; cursor: default; }
+.visor__op--txt { white-space: nowrap; }
+.visor__op[aria-pressed="true"] {
+  background: var(--navy); border-color: var(--navy); color: #fff;
+}
+.visor__nivel {
+  min-width: 44px; text-align: center;
+  font-size: .74rem; font-weight: 800; color: var(--texto-suave);
+  font-variant-numeric: tabular-nums;
+}
+.visor__sep { width: 1px; height: 20px; background: var(--gris-200); margin-inline: 4px; }
+
+/* El zoom cambia el ANCHO de la hoja, no la escala: con transform: scale()
+   la hoja se sale del contenedor y el scroll no la alcanza. */
+.visor__hojas { --zoom: 100%; }
+.visor__hojas figure { margin: 0; position: relative; }
+
+.visor__hojas[data-vista="ancho"] figure { width: var(--zoom); margin-inline: auto; }
+
+/* Página completa: manda la altura del hueco, para ver la hoja entera. */
+.visor__hojas[data-vista="pagina"] { place-items: start center; }
+.visor__hojas[data-vista="pagina"] figure { width: auto; }
+.visor__hojas[data-vista="pagina"] img { height: calc(100vh - 210px); width: auto; max-width: 100%; }
+
+/* Dos columnas: para documentos de varias páginas, verlas de dos en dos. */
+.visor__hojas[data-vista="doble"] {
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+.visor__hojas[data-vista="doble"] figure { width: 100%; }
+
+/* Vídeo del evento */
+.ev-video { margin-top: 34px; }
+.ev-video video {
+  width: 100%; height: auto; display: block;
+  background: #000;
+  border-radius: var(--radio);
+  border: 1px solid var(--gris-200);
+}
+
+/* Cartel de la Fiesta, en la portada */
+.fiesta-cartel {
+  display: block;
+  border-radius: var(--radio);
+  overflow: hidden;
+  border: 1px solid var(--gris-200);
+  box-shadow: var(--sombra-sm);
+  transition: box-shadow var(--t), transform var(--t);
+  cursor: zoom-in;
+  padding: 0; background: none; width: 100%;
+}
+.fiesta-cartel:hover { box-shadow: var(--sombra); transform: translateY(-2px); }
+.fiesta-cartel img { width: 100%; height: auto; display: block; }
+.fiesta-datos { display: grid; gap: 10px; margin: 0 0 22px; }
+.fiesta-dato { display: grid; grid-template-columns: auto 1fr; gap: 11px; align-items: start; }
+.fiesta-dato svg { width: 17px; height: 17px; color: var(--amarillo-osc); margin-top: 3px; flex-shrink: 0; }
+.fiesta-dato strong { display: block; color: var(--navy); font-size: .95rem; }
+.fiesta-dato span { font-size: .89rem; color: var(--texto-suave); }
+
+/* --------------------------------------------------------------------------
+   Selector de idioma con los colores de cada bandera
+   --------------------------------------------------------------------------
+   El botón activo se pinta con las bandas de su bandera y la etiqueta va
+   centrada sobre la banda central, que es la ancha: amarilla en España y
+   blanca en Francia. En las dos el texto queda en navy sobre fondo claro,
+   muy por encima del contraste que pide la norma.
+   -------------------------------------------------------------------------- */
+.selector-idioma__btn[aria-current="true"] {
+  color: var(--navy);
+  text-shadow: 0 1px 0 rgba(255,255,255,.45);
+}
+/* España: rojo, amarillo, rojo en bandas horizontales */
+.selector-idioma__btn[data-idioma="es"][aria-current="true"] {
+  background: linear-gradient(to bottom,
+    #AA151B 0 24%, #F1BF00 24% 76%, #AA151B 76% 100%);
+}
+/* Francia: azul, blanco, rojo en bandas verticales */
+.selector-idioma__btn[data-idioma="fr"][aria-current="true"] {
+  background: linear-gradient(to right,
+    #000091 0 24%, #FFFFFF 24% 76%, #E1000F 76% 100%);
+}
+
+@media (max-width: 900px) {
+  /* La barra de opciones no cabe al lado del título: pasa debajo. */
+  .visor__barra { flex-wrap: wrap; }
+  .visor__opciones { order: 3; width: 100%; }
+  .visor__op--txt { font-size: .72rem; }
+  .visor__hojas[data-vista="doble"] { grid-template-columns: 1fr; }
+  .visor__hojas[data-vista="pagina"] img { height: auto; width: 100%; }
 }
 
 /* --------------------------------------------------------------------------

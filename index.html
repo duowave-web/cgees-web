@@ -231,26 +231,58 @@
   </section>
 
   <!-- ================= FIESTA DE LA INDEPENDENCIA ================= -->
-  <section class="seccion seccion--compacta">
+  <!-- Aquí va la edición en curso, no en Actualidad: mientras no se haya
+       celebrado es una convocatoria, no una noticia. Cuando pase, se monta
+       el evento con fotos en Actualidad (ver README, punto 13).
+
+       El cartel lleva el QR del formulario dentro, y se puede ampliar en el
+       visor para escanearlo desde la pantalla. -->
+  <section class="seccion seccion--compacta" id="fiesta">
     <div class="contenedor">
       <div class="duo revelar" style="align-items:center">
         <div>
-          <span class="eyebrow" data-i18n="home.fiesta.eyebrow">2 de octubre</span>
-          <h2 data-i18n="home.fiesta.h2">La Fiesta de la Independencia de Guinea</h2>
+          <span class="eyebrow" data-i18n="home.fiesta.eyebrow">Sábado 10 de octubre de 2026</span>
+          <h2 data-i18n="home.fiesta.h2">Les Rencontres de Guinée</h2>
           <p data-i18n="home.fiesta.p1">
-            Organizar el acto del aniversario de la independencia en España corresponde al
-            Consejo: es la cita del año. Si tu asociación quiere participar, aportar una
-            actuación o montar un puesto, escríbenos con tiempo.
+            El 68.º aniversario de la independencia de Guinea se celebra en Mataró, organizado
+            por el Consejo junto con doce entidades guineanas. Está abierto a toda la comunidad.
           </p>
-          <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
-            <a class="btn btn--oro btn--sm" href="contacto.html" data-i18n="home.fiesta.cta">Quiero participar</a>
+
+          <div class="fiesta-datos">
+            <div class="fiesta-dato">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
+              <div>
+                <strong data-i18n="home.fiesta.d1">Sábado 10 de octubre de 2026, a partir de las 16:00</strong>
+              </div>
+            </div>
+            <div class="fiesta-dato">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>
+                <strong data-i18n="home.fiesta.d2">Centre de Congressos i Reunions — Parc TecnoCampus</strong>
+                <span data-i18n="home.fiesta.d2b">Avinguda Ernest Lluch, 32 · 08302 Mataró (Barcelona)</span>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:.9rem" data-i18n="home.fiesta.p2">
+            Si tu entidad quiere participar en la organización, aportar una actuación o montar
+            un puesto, escríbenos. También puedes inscribirte con el código QR del cartel.
+          </p>
+
+          <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn--oro btn--sm" href="contacto.html" data-i18n="home.fiesta.cta">Quiero inscribirme</a>
           </div>
         </div>
+
         <div class="duo__media">
-          <div class="panel-nota" style="border-left-color:var(--rojo)">
-            <strong data-i18n="home.fiesta.nota.t">Edición en preparación</strong>
-            <span class="pendiente" data-i18n="home.fiesta.nota.p">Indica aquí la fecha, la hora y el lugar del acto en cuanto estén cerrados, y publica también la convocatoria en la página de Actualidad.</span>
-          </div>
+          <button class="fiesta-cartel" type="button" data-ampliar-cartel
+                  data-i18n-attr="aria-label:home.fiesta.cartel" aria-label="Ampliar el cartel">
+            <img src="assets/img/fiesta/cartel-68-horizontal.webp"
+                 alt="Cartel de Les Rencontres de Guinée: sábado 10 de octubre de 2026 a las 16:00, Parc TecnoCampus de Mataró, con el código QR del formulario de participación"
+                 width="1800" height="1013" loading="lazy">
+          </button>
+          <p style="text-align:center;font-size:.8rem;color:var(--texto-suave);margin:10px 0 0"
+             data-i18n="home.fiesta.qr">Pulsa el cartel para ampliarlo y escanear el QR</p>
         </div>
       </div>
     </div>
