@@ -139,6 +139,10 @@ Directiva** y **Ficha informativa**.
 La web se ajustó para ocupar menos: cuerpo de letra 15,5 px, interlineado 1,58 y menos aire
 entre secciones. Entre un 21 % y un 34 % menos de scroll por página.
 
+La portada pasó de 5695 a 2891 px (−49 %): se quitaron «La red» y «Puertas abiertas»,
+las tarjetas de servicios perdieron el párrafo que repetía su propia lista, y la banda de
+imagen de las noticias dejó de ser un 16/9 cuando lo único que hay dentro es el emblema.
+
 **No hay bloques de «¿Hablamos?» al final de las páginas.** Se quitaron todos a propósito:
 Contacto va resaltado como botón verde en la barra fija de todas las páginas, así que
 repetirlo abajo no añadía nada y alargaba el scroll. Si alguna vez se vuelve a añadir uno,
@@ -180,7 +184,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (460 claves)
+        ├── i18n.js         Traducción al francés (442 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

@@ -161,6 +161,8 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
 .seccion--gris { background: var(--gris-50); }
 .seccion--navy { background: var(--navy); color: rgba(255,255,255,.82); }
 .seccion--navy h2, .seccion--navy h3 { color: #fff; }
+/* …salvo dentro de una tarjeta blanca, donde quedaría invisible. */
+.seccion--navy .tarjeta h3, .seccion--navy .panel-nota strong { color: var(--navy); }
 
 .cabecera-seccion { max-width: 760px; margin-bottom: 28px; }
 .cabecera-seccion--centro { margin-inline: auto; text-align: center; }
@@ -579,10 +581,10 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
 .tarjeta p { color: var(--texto-suave); font-size: .92rem; }
 
 .tarjeta__icono {
-  width: 54px; height: 54px;
+  width: 42px; height: 42px;
   display: grid; place-items: center;
-  border-radius: 14px;
-  margin-bottom: 20px;
+  border-radius: 11px;
+  margin-bottom: 13px;
   background: var(--gris-100); color: var(--navy);
 }
 .tarjeta__icono svg { width: 26px; height: 26px; }
@@ -778,12 +780,19 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   transition: transform var(--t), box-shadow var(--t);
 }
 .noticia:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
+/* Sin foto, esto es solo el emblema sobre un fondo: no merece un 16/9, que
+   son más de 200 px de decoración en cada tarjeta. Se queda en una banda.
+   Cuando la noticia SÍ trae foto (.noticia__media--foto) vuelve al 16/9,
+   porque entonces hay algo que enseñar. */
 .noticia__media {
-  aspect-ratio: 16/9;
+  height: 72px;
   background: linear-gradient(140deg, var(--navy), var(--navy-700));
   position: relative;
   display: grid; place-items: center;
 }
+.noticia__media img { width: 42px; height: 42px; }
+.noticia__media--foto { height: auto; aspect-ratio: 16/9; }
+.noticia__media--foto img { width: 100%; height: 100%; }
 .noticia__media::after {
   content: "";
   position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
