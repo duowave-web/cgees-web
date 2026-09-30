@@ -248,6 +248,13 @@ no romper si se cambia:
   centrado se quedaba fuera: en escritorio va al `50% 28%` y en móvil al `72% 30%`, porque ahí
   el recorte es horizontal. Si se cambia el vídeo, hay que revisar esos dos valores.
 
+**El hero ocupa la pantalla entera** menos la cabecera
+(`min-height: calc(100svh - var(--alto-header))`), para que el vídeo no quede cortado con la
+siguiente sección asomando. Va con `min-height` y no `height`: si el contenido crece —un
+titular más largo, una pantalla muy baja— el hero se estira en lugar de recortarlo. Y con
+`100svh`, no `100vh`, porque en móvil `vh` no descuenta la barra del navegador y da un salto
+al hacer scroll; la línea con `vh` que va justo antes es el respaldo para navegadores viejos.
+
 **El bucle es de ida y vuelta**: el vídeo va seguido de sí mismo al revés, así que el último
 fotograma es igual al primero y el salto del loop no se ve. Medido: los dos fotogramas se
 diferencian en 2,8 sobre 255. Si se cambia el vídeo hay que volver a generarlo así; el comando

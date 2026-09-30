@@ -446,7 +446,25 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   color: rgba(255,255,255,.86);
   overflow: hidden;
   padding-block: clamp(38px, 2.6vw + 24px, 64px);
+
+  /* Ocupa la pantalla entera menos la cabecera, para que el vídeo no quede
+     cortado con la siguiente sección asomando por abajo.
+
+     `min-height` y no `height`: si el contenido crece —un titular más largo,
+     una pantalla muy baja— el hero se estira en lugar de recortarlo.
+
+     `100svh` es la altura *pequeña* del viewport: en móvil descuenta la barra
+     del navegador, así que no hay el salto que da `100vh` cuando esa barra
+     aparece y desaparece al hacer scroll. El `100vh` de la línea anterior es
+     el respaldo para los navegadores que no entienden svh. */
+  min-height: calc(100vh - var(--alto-header));
+  min-height: calc(100svh - var(--alto-header));
+  display: flex;
+  align-items: center;
 }
+/* Al hacer flex el hero, el contenedor pasa a ser un elemento flexible y
+   perdería su ancho: se le devuelve. */
+.hero > .hero__inner { width: 100%; }
 .hero::before {
   content: "";
   position: absolute; inset: 0;
