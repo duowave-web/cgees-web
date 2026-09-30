@@ -200,29 +200,9 @@ fr: {
 "asoc.dir.web": "Site web",
 "asoc.dir.registrada": "Enregistrée",
 
-"asoc.adh.eyebrow": "Inscription",
-"asoc.adh.h2": "Comment inscrire votre entité",
-"asoc.adh.p": "La procédure est simple. Ce que nous demandons, c'est simplement de pouvoir vérifier que l'entité existe et qu'elle représente réellement des personnes d'origine guinéenne.",
-"asoc.adh.1.t": "Écrivez-nous",
-"asoc.adh.1.d": "À l'adresse du Conseil, en indiquant le nom de l'entité, son type, la province et une personne de contact.",
-"asoc.adh.2.t": "Envoyez les documents",
-"asoc.adh.2.d": "Sans eux nous ne pouvons pas enregistrer l'entité, car ce sont eux qui nous permettent de vérifier que les données publiées sont les bonnes :",
-"asoc.adh.3.t": "Nous faisons connaissance",
-"asoc.adh.3.d": "Une réunion, en présentiel ou en visioconférence, pour savoir ce que vous faites et ce dont vous avez besoin.",
-"asoc.adh.4.t": "Le Conseil d'administration approuve l'inscription",
-"asoc.adh.4.d": "L'entité figure alors au répertoire et est convoquée aux assemblées.",
-"asoc.adh.q.t": "Ce que votre entité y gagne",
-"asoc.adh.q.1": "Présence au répertoire public du Conseil",
-"asoc.adh.q.2": "Orientation des personnes de votre province",
-"asoc.adh.q.3": "Voix et vote à l'Assemblée générale",
-"asoc.adh.q.4": "Voie directe pour transmettre des dossiers au Conseil",
-"asoc.adh.q.5": "Participation à la Fête de l'Indépendance",
-"asoc.adh.q.6": "Appui institutionnel auprès des administrations",
-"asoc.adh.n.t": "Ce que cela n'implique pas",
-"asoc.adh.n.p": "L'adhésion ne suppose ni fusion, ni perte de personnalité juridique, ni cession de patrimoine. Chaque entité reste maîtresse d'elle-même et de sa propre activité.",
-"asoc.adh.cta": "Engager l'inscription",
-
-
+"asoc.adh.h2": "Vous voulez inscrire votre entité ?",
+"asoc.adh.p": "Écrivez-nous et nous vous expliquons comment. Le formulaire de contact indique les documents à joindre.",
+"asoc.adh.cta": "Inscrire mon entité",
 /* --- Affaires consulaires ------------------------------------------------ */
 "meta.cons.t": "Affaires consulaires · CGE-ES",
 "meta.cons.d": "Guide d'orientation sur les démarches consulaires guinéennes en Espagne : passeport, carte consulaire, actes d'état civil, légalisations et rapatriement. Coordonnées de l'Ambassade de Guinée à Madrid.",
@@ -511,7 +491,6 @@ fr: {
 "nav.sub.logros.d": "Ce qui a été obtenu depuis 2022",
 "cont.req.t": "Vous inscrivez une entité ?",
 "cont.req.p": "Joignez ceci à votre premier message et nous éviterons quelques allers-retours :",
-"cont.req.cta": "Voir la procédure complète"
 }
 
 };

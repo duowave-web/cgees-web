@@ -280,9 +280,9 @@
               '<ul>' +
                 '<li><a href="quienes-somos.html#origen"' + i18n('pie.origen', 'Origen y mandato') + '</a></li>' +
                 '<li><a href="quienes-somos.html#organos"' + i18n('pie.organos', 'Junta Directiva') + '</a></li>' +
-                '<li><a href="quienes-somos.html#registro"' + i18n('pie.acred', 'Datos registrales') + '</a></li>' +
+                '<li><a href="quienes-somos.html#ficha"' + i18n('pie.acred', 'Datos registrales') + '</a></li>' +
                 '<li><a href="asociaciones.html"' + i18n('pie.asoc', 'Entidades guineanas') + '</a></li>' +
-                '<li><a href="asociaciones.html#adherirse"' + i18n('pie.adherirse', 'Cómo inscribirse') + '</a></li>' +
+                '<li><a href="contacto.html"' + i18n('pie.adherirse', 'Cómo inscribirse') + '</a></li>' +
               '</ul>' +
             '</div>' +
 

@@ -140,6 +140,10 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
   enlace, a propósito, para que nadie llegue a una página en blanco. En cuanto escribáis el
   cuerpo, el enlace aparece solo. Cuando estén todas completas, pon `noticiasDeEjemplo: false`
   para quitar el aviso amarillo de Actualidad.
+- **La inscripción se hace desde Contacto.** La página de Entidades solo tiene un botón que
+  lleva allí; los documentos que hay que adjuntar están junto al formulario. Antes el
+  procedimiento estaba en las dos páginas y había dos sitios donde mirar lo mismo. Si añades
+  requisitos, van en `contacto.html`.
 - **Entidades**: dos campos nuevos. `cotejada: false` marca la entidad como «datos por
   verificar» y la enseña atenuada y sin acción; si no pones el campo, se entiende que sí está
   cotejada. Y las **siglas ya no se inventan**: si el campo `sigla` está vacío se pone la
@@ -208,7 +212,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (438 claves)
+        ├── i18n.js         Traducción al francés (419 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 
