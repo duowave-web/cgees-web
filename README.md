@@ -115,7 +115,11 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
 
   El orden es el **jerárquico de los estatutos** y los números **los pone el CSS** con un
   contador, no están escritos en el HTML: si reordenas o añades un cargo, se recolocan solos.
-  No toques ningún número al editar la lista. **No se publican** los teléfonos, correos, códigos postales
+  No toques ningún número al editar la lista.
+
+  La **Asesoría no se numera**: lleva `ficha__fila--sinnumero`, que además impide que consuma
+  número, así que la cuenta acaba en 15 y no salta ninguno. No es un cargo electo de la
+  jerarquía. Si añades otra figura asesora, ponle esa misma clase. **No se publican** los teléfonos, correos, códigos postales
   ni profesiones que figuran en la hoja: son datos personales.
   - **Tesorería**: consta **Fode Diakite** tachado y marcado como suspendido, y **Abdoulaye
     Soumah** como tesorero en funciones.
@@ -212,7 +216,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (419 claves)
+        ├── i18n.js         Traducción al francés (417 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

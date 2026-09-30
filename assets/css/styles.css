@@ -968,6 +968,11 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   font-variant-numeric: tabular-nums;
 }
 .ficha--dos .ficha__fila--suspendida dt::before { color: var(--texto-suave); }
+
+/* La Asesoría no lleva número: no es un cargo electo de la jerarquía, así que
+   numerarla la contaba como uno más. `counter-increment: none` además impide
+   que consuma número, de modo que la cuenta acaba en 15 y no salta ninguno. */
+.ficha--dos .ficha__fila--sinnumero dt::before { content: none; counter-increment: none; }
 .ficha--dos .ficha__fila { grid-template-columns: minmax(130px, 42%) 1fr; }
 .ficha--dos .ficha__fila:nth-child(even) { border-left: 1px solid var(--gris-200); }
 .ficha--dos .ficha__fila:nth-last-child(-n+2) { border-bottom: 0; }

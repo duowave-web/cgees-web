@@ -179,9 +179,7 @@ fr: {
 "about.jd.r15": "2e projets avec la communauté locale",
 "about.jd.r16": "Conseil",
 "about.jd.interina": "Trésorerie par intérim",
-"about.jd.nota": "La Trésorerie est suspendue en raison d'une procédure disciplinaire en cours et elle est assurée par intérim par la Vice-présidence ; nous le signalons pour qu'il n'y ait aucun doute sur qui signe. Pour contacter un membre du Conseil d'administration, écrivez à l'adresse du Conseil en indiquant la fonction : nous transmettons le message.",
-"about.jd.asamblea.t": "Assemblée générale",
-"about.jd.asamblea.p": "C'est l'organe suprême du Conseil. Elle réunit les entités enregistrées et les membres individuels. Elle se réunit au moins une fois par an pour approuver les comptes et le plan d'action et, le cas échéant, renouveler le Conseil d'administration par vote.",
+"about.jd.nota": "La Trésorerie est suspendue en raison d'une procédure disciplinaire et elle est assurée par intérim par la Vice-présidence.",
 
 /* --- Associations -------------------------------------------------------- */
 "meta.asoc.t": "Entités guinéennes · CGE-ES",
