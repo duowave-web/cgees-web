@@ -952,7 +952,22 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
    quitar el último borde inferior porque ahora hay DOS últimas filas: se
    usa :nth-last-child(-n+2), que coge las dos de abajo. Con un número
    impar de filas la última ocupa el ancho de su columna y ya está. */
-.ficha--dos { display: grid; grid-template-columns: 1fr 1fr; }
+.ficha--dos { display: grid; grid-template-columns: 1fr 1fr; counter-reset: cargo; }
+
+/* Los cargos van numerados, y el número lo pone este contador. No está
+   escrito en el HTML a propósito: así reordenar o añadir un cargo no obliga
+   a renumerar a mano, que es como se acaba con dos «7.» y ningún «8.». */
+.ficha--dos dt::before {
+  counter-increment: cargo;
+  content: counter(cargo);
+  flex-shrink: 0;
+  min-width: 17px;
+  margin-right: 8px;
+  color: var(--verde-osc);
+  font-size: .72rem; font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.ficha--dos .ficha__fila--suspendida dt::before { color: var(--texto-suave); }
 .ficha--dos .ficha__fila { grid-template-columns: minmax(130px, 42%) 1fr; }
 .ficha--dos .ficha__fila:nth-child(even) { border-left: 1px solid var(--gris-200); }
 .ficha--dos .ficha__fila:nth-last-child(-n+2) { border-bottom: 0; }

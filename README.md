@@ -111,7 +111,11 @@ La página tiene cuatro apartados y nada más, en este orden: **Origen y mandato
   una sola columna.
 
   Abdoulaye Soumah aparece **una sola vez**, en su fila de Vicepresidencia, con la etiqueta
-  «Tesorería en funciones». Antes tenía dos filas y parecían dos personas. **No se publican** los teléfonos, correos, códigos postales
+  «Tesorería en funciones». Antes tenía dos filas y parecían dos personas.
+
+  El orden es el **jerárquico de los estatutos** y los números **los pone el CSS** con un
+  contador, no están escritos en el HTML: si reordenas o añades un cargo, se recolocan solos.
+  No toques ningún número al editar la lista. **No se publican** los teléfonos, correos, códigos postales
   ni profesiones que figuran en la hoja: son datos personales.
   - **Tesorería**: consta **Fode Diakite** tachado y marcado como suspendido, y **Abdoulaye
     Soumah** como tesorero en funciones.
@@ -204,7 +208,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (437 claves)
+        ├── i18n.js         Traducción al francés (438 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

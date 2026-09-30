@@ -131,8 +131,13 @@
       </div>
 
       <!-- Mismo formato que la ficha informativa del final de la página, pero
-           a dos columnas: son dieciséis cargos y en una sola columna la
-           página se iba de largo. En móvil vuelve a una columna sola. -->
+           a dos columnas: son dieciséis cargos y en una sola la página se iba
+           de largo. En móvil vuelve a una columna sola.
+
+           EL ORDEN ES EL JERÁRQUICO DE LOS ESTATUTOS y la numeración la pone
+           el CSS con un contador, no está escrita a mano: si se reordena o se
+           añade un cargo, los números se recolocan solos. Por eso no hay que
+           tocar ningún número al editar esta lista. -->
       <dl class="ficha ficha--dos revelar">
         <div class="ficha__fila">
           <dt data-i18n="about.jd.r1">Presidencia</dt>
@@ -142,10 +147,6 @@
           <dt data-i18n="about.jd.r2">Vicepresidencia</dt>
           <dd><strong>Abdoulaye Soumah</strong> <span class="etiqueta etiqueta--oro" data-i18n="about.jd.interina">Tesorería en funciones</span><span class="ficha__prov">Barcelona</span></dd>
         </div>
-        <div class="ficha__fila ficha__fila--suspendida">
-          <dt data-i18n="about.jd.r5">Tesorería</dt>
-          <dd><s>Fode Diakite</s> <span class="etiqueta etiqueta--rojo" data-i18n="about.jd.suspendido">Suspendido</span></dd>
-        </div>
         <div class="ficha__fila">
           <dt data-i18n="about.jd.r3">Secretaría administrativa 1.ª</dt>
           <dd><strong>Mamady Cherif</strong><span class="ficha__prov">Girona</span></dd>
@@ -153,6 +154,10 @@
         <div class="ficha__fila">
           <dt data-i18n="about.jd.r4">Secretaría administrativa 2.ª</dt>
           <dd><strong>Alioune Sangare</strong><span class="ficha__prov">Barcelona</span></dd>
+        </div>
+        <div class="ficha__fila ficha__fila--suspendida">
+          <dt data-i18n="about.jd.r5">Tesorería</dt>
+          <dd><s>Fode Diakite</s> <span class="etiqueta etiqueta--rojo" data-i18n="about.jd.suspendido">Suspendido</span></dd>
         </div>
         <div class="ficha__fila">
           <dt data-i18n="about.jd.r6">Relaciones exteriores e institucionales</dt>
@@ -304,6 +309,10 @@
         <div class="ficha__fila" data-si-valor="banco.bic">
           <dt>BIC / SWIFT</dt>
           <dd><span class="mono" data-sitio="banco.bic"></span></dd>
+        </div>
+        <div class="ficha__fila" data-si-valor="banco.entidad">
+          <dt data-i18n="cont.banco.entidad">Entidad</dt>
+          <dd data-sitio="banco.entidad">Banco Santander</dd>
         </div>
       </dl>
       <p style="font-size:.85rem;color:var(--texto-suave);margin-top:12px" data-i18n="about.banco.nota">

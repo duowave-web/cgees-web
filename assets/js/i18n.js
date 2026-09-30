@@ -491,6 +491,7 @@ fr: {
 "about.f.11": "Téléphones",
 "about.f.12": "Courriel",
 "about.f.7nota": "Aux fins de notifications. Il n'y a pas d'accueil sur place.",
+"cont.banco.entidad": "Établissement",
 "about.banco.t": "Compte bancaire",
 "about.banco.nota": "Vérifiez toujours que le titulaire et le NIF correspondent à ceux de cette page avant d'effectuer un virement.",
 "asoc.adh.req.1": "Résolution d'inscription, avec date et numéro de registre",
