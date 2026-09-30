@@ -248,13 +248,17 @@ window.CGE_CONTENIDO = {
       fecha: '2023-03-19',
       categoria: 'institucional',
       autor: '',
+      /* La única foto es de 452x230, muy ancha. Vale de portada, pero en el
+         carrusel salía con bandas enormes arriba y abajo, así que `fotos`
+         va vacío: la foto se ve grande en la cabecera del evento y no se
+         repite dentro. */
       /* El vídeo va delante del carrusel. `poster` es el fotograma que se
          ve antes de darle al play: sin él el navegador enseña un cuadro
          negro. Nada se descarga hasta que alguien pulsa (preload none). */
       video: 'assets/video/presidentes-europa-paris.mp4',
       videoPoster: 'assets/video/presidentes-europa-paris-poster.webp',
-      portada: '',
-      fotos: ['assets/img/eventos/presidentes-europa-paris/01.webp'],
+      portada: 'assets/img/eventos/presidentes-europa-paris/portada.webp',
+      fotos: [],
       documentos: ['ev-informe-paris'],
       es: {
         titulo: "Encuentro de presidentes del CGE en Europa",
@@ -473,6 +477,10 @@ window.CGE_CONTENIDO = {
      Para añadir uno nuevo hay que generar las imágenes. El script está en
      el README, punto 13.
 
+       origen  → true solo en los diez que amparan la creación del Consejo.
+                 Son los que salen en «El Consejo» → Origen y mandato. Los
+                 de los eventos NO lo llevan: esos se ven en la página de
+                 su evento y nada más.
        id      → nombre de los archivos de imagen. NO cambiarlo después.
        fecha   → 'AAAA-MM-DD' o 'AAAA-MM' si solo consta el mes
        fuente  → quién lo emite. `fuenteFr` solo si cambia en francés;
@@ -525,43 +533,43 @@ window.CGE_CONTENIDO = {
       fuente: "CENI",
       es: "Modelo de papeleta de las listas nacionales",
       fr: "Spécimen de bulletin des listes nationales" },
-    { id: 'tdr-assises-nationales', fecha: '2022-03', paginas: 15,
+    { origen: true, id: 'tdr-assises-nationales', fecha: '2022-03', paginas: 15,
       fuente: "MATD",
       es: "Términos de referencia de las Asambleas Nacionales",
       fr: "Termes de référence des Assises Nationales" },
-    { id: 'tdr-renovacion-mesas', fecha: '2022-06', paginas: 4,
+    { origen: true, id: 'tdr-renovacion-mesas', fecha: '2022-06', paginas: 4,
       fuente: "MAEIAGE",
       es: "Términos de referencia para renovar las mesas del CGE",
       fr: "Termes de référence pour le renouvellement des bureaux du CGE" },
-    { id: 'lettre-circulaire-1875', fecha: '2022-08-05', paginas: 3,
+    { origen: true, id: 'lettre-circulaire-1875', fecha: '2022-08-05', paginas: 3,
       fuente: "MAEIAGE",
       es: "Carta circular 001875: renovación de las mesas del CGE",
       fr: "Lettre circulaire 001875 : renouvellement des bureaux du CGE" },
-    { id: 'comunicado-012', fecha: '2022-08', paginas: 1,
+    { origen: true, id: 'comunicado-012', fecha: '2022-08', paginas: 1,
       fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
       es: "Comunicado 012: videoconferencia del 6 de agosto de 2022",
       fr: "Communiqué 012 : visioconférence du 6 août 2022" },
-    { id: 'comunicado-013', fecha: '2022-08-09', paginas: 1,
+    { origen: true, id: 'comunicado-013', fecha: '2022-08-09', paginas: 1,
       fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
       es: "Comunicado 013: prórroga del plazo para presentar listas",
       fr: "Communiqué 013 : prorogation du délai de dépôt des listes" },
-    { id: 'nota-014', fecha: '2022-08-09', paginas: 2,
+    { origen: true, id: 'nota-014', fecha: '2022-08-09', paginas: 2,
       fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
       es: "Nota 014: criterios de elegibilidad",
       fr: "Note 014 : critères d'éligibilité" },
-    { id: 'comunicado-017', fecha: '2022-09-19', paginas: 2,
+    { origen: true, id: 'comunicado-017', fecha: '2022-09-19', paginas: 2,
       fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
       es: "Comunicado 017: elección de la mesa del CGE",
       fr: "Communiqué 017 : élection du bureau du CGE" },
-    { id: 'acta-congreso-constitutivo', fecha: '2022-10-08', paginas: 3,
+    { origen: true, id: 'acta-congreso-constitutivo', fecha: '2022-10-08', paginas: 3,
       fuente: "CGE-ES",
       es: "Acta del congreso constitutivo del CGE-ES",
       fr: "Procès-verbal du congrès constitutif du CGE-ES" },
-    { id: 'nota-045-acuse-acta', fecha: '2022-10-25', paginas: 2,
+    { origen: true, id: 'nota-045-acuse-acta', fecha: '2022-10-25', paginas: 2,
       fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
       es: "Nota 045: acuse de recibo del acta del congreso",
       fr: "Note 045 : accusé de réception du procès-verbal du congrès" },
-    { id: 'convenio-cge-europa', fecha: '2023-08-25', paginas: 2,
+    { origen: true, id: 'convenio-cge-europa', fecha: '2023-08-25', paginas: 2,
       fuente: "CGE-Europe",
       es: "Convenio de entendimiento y coordinación del CGE en Europa",
       fr: "Convention d'entente et de coordination du CGE en Europe" },

@@ -215,6 +215,21 @@ ajustar al ancho, página completa y dos columnas. Con el visor abierto, `+` y `
 `0` lo devuelve al 100 %. El zoom cambia el **ancho** de la hoja, no la escala con
 `transform`, porque con `scale()` la hoja se sale del contenedor y el scroll no la alcanza.
 
+### El vídeo de fondo del hero
+
+La portada lleva un vídeo de fondo en `assets/video/hero-fondo.mp4`. Tres cosas que conviene
+no romper si se cambia:
+
+- **Sin pista de audio.** No es solo por educación: un vídeo con audio no arranca solo en
+  ningún navegador. Se quita al convertir (`-an`).
+- **El velo de `.hero::before`** es lo que mantiene legible el texto blanco. Va por delante del
+  vídeo, más denso a la izquierda, donde está el texto, y se aclara a la derecha para que se vea
+  la imagen. Si se quita, sobre un fotograma claro el titular desaparece.
+- Con `prefers-reduced-motion` el vídeo se esconde y queda el poster: un bucle detrás del
+  titular es justo lo que molesta a quien activa ese ajuste.
+
+Pesa 506 KB después de quitarle el audio y recomprimirlo desde los 3,4 MB del original.
+
 ### 14. Los documentos de origen
 
 En «El Consejo» → Origen y mandato hay diez documentos oficiales que se pueden consultar en
@@ -241,6 +256,10 @@ Las imágenes se cargan **al abrir** el documento, no al cargar la página: son 
 3. Copia la entrada al array `documentos` de `assets/js/contenido.js`.
 
 **No cambies el `id` de un documento ya publicado**: es el nombre de sus archivos de imagen.
+
+Los diez documentos de origen llevan **`origen: true`** y son los únicos que salen en «El
+Consejo». Los documentos de los eventos están en el mismo array pero sin ese campo: se ven en
+la página de su evento y nada más.
 
 ### Fondos alternos
 
@@ -299,7 +318,7 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
-        ├── i18n.js         Traducción al francés (437 claves)
+        ├── i18n.js         Traducción al francés (436 claves)
         └── main.js         Idiomas, menú, acordeón, filtros, directorio, formulario
 ```
 

@@ -77,6 +77,15 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero">
+    <!-- Vídeo de fondo. `muted` y sin pista de audio, que es lo que hace que
+         los navegadores dejen arrancarlo solos; `playsinline` para que en
+         iPhone no salte a pantalla completa. El poster es lo que se ve
+         mientras carga, y lo único que se ve si el sistema pide menos
+         animación (ver la regla de prefers-reduced-motion en el CSS). -->
+    <video class="hero__video" autoplay muted loop playsinline preload="metadata"
+           poster="assets/video/hero-fondo-poster.webp" aria-hidden="true" tabindex="-1">
+      <source src="assets/video/hero-fondo.mp4" type="video/mp4">
+    </video>
     <div class="contenedor hero__inner">
       <div class="hero__rejilla hero__rejilla--simple">
 
@@ -96,20 +105,7 @@
             </a>
           </div>
 
-          <div class="hero__pies">
-            <span class="hero__pie">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span data-i18n="home.hero.f1">Inscrito en el RNA y en el RECEX</span>
-            </span>
-            <span class="hero__pie">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-              <span data-i18n="home.hero.f2">Registro Nacional de Asociaciones nº 629208</span>
-            </span>
-            <span class="hero__pie">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>
-              <span data-i18n="home.hero.f3">Ámbito estatal · Atención en español y francés</span>
-            </span>
-          </div>
+        </div>
         </div>
 
       </div>

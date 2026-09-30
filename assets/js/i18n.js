@@ -60,6 +60,8 @@ fr: {
 "pie.desc": "Organe de représentation de la diaspora guinéenne en Espagne. Association à but non lucratif inscrite au Registre national des associations du ministère de l'Intérieur.",
 "pie.nif": "NIF",
 "pie.rna": "RNA Section 1re nº",
+"pie.recex": "Inscrit au RECEX",
+"pie.ambito": "Compétence nationale · Accueil en espagnol et en français",
 "pie.entidad": "Le Conseil",
 "pie.origen": "Origine et mandat",
 "pie.organos": "Conseil d'administration",
@@ -85,9 +87,6 @@ fr: {
 "home.hero.h1": "La voix organisée de la <em>diaspora guinéenne</em> en Espagne",
 "home.hero.p": "Nous réunissons et représentons les entités guinéennes réparties sur le territoire espagnol. Nous sommes nés d'une impulsion du Gouvernement de la République de Guinée et notre Conseil d'administration a été élu par vote de la communauté elle-même.",
 "home.hero.cta1": "Affaires consulaires",
-"home.hero.f1": "Inscrit au RNA et au RECEX",
-"home.hero.f2": "Registre national des associations nº 629208",
-"home.hero.f3": "Compétence nationale · Accueil en espagnol et en français",
 
 "home.cons.eyebrow": "Ce qu'on nous demande le plus",
 "home.cons.h2": "Papiers et affaires consulaires",

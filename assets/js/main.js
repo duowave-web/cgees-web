@@ -425,7 +425,11 @@
     var caja = document.querySelector('[data-documentos]');
     if (!caja) return;
 
-    var lista = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.documentos) || [];
+    /* Solo los de origen. Los documentos de los eventos están en el mismo
+       array, pero se ven en la página de su evento: aquí desordenaban una
+       lista que es la de los papeles que amparan la creación del Consejo. */
+    var lista = ((window.CGE_CONTENIDO && window.CGE_CONTENIDO.documentos) || [])
+      .filter(function (d) { return d.origen; });
     if (!lista.length) { caja.innerHTML = ''; return; }
 
     /* El <summary> dice cuántos hay: colapsado y sin número, nadie lo abre. */

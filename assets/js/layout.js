@@ -268,10 +268,15 @@
                 'Órgano de representación de la diáspora guineana en España. Asociación sin ' +
                 'ánimo de lucro inscrita en el Registro Nacional de Asociaciones del Ministerio ' +
                 'del Interior.') + '</p>' +
+              /* Los datos que antes iban en la franja del hero de la portada.
+                 Aquí salen en las once páginas, que es donde se buscan. */
               '<p class="pie__registro">' +
                 '<span' + i18n('pie.nif', 'NIF') + '</span> ' + SITIO.cif + ' · ' +
                 '<span' + i18n('pie.rna', 'RNA Sección 1ª nº') + '</span> ' + SITIO.registroNum +
+                ' · ' + '<span' + i18n('pie.recex', 'Inscrito en el RECEX') + '</span>' +
               '</p>' +
+              '<p class="pie__ambito"' + i18n('pie.ambito',
+                'Ámbito estatal · Atención en español y francés') + '</p>' +
               bloqueRedes +
             '</div>' +
 

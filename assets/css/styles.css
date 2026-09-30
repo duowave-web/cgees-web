@@ -451,6 +451,14 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
   content: "";
   position: absolute; inset: 0;
   background:
+    /* Velo de izquierda a derecha, por delante de los demás. El texto vive
+       a la izquierda y sobre un fotograma claro del vídeo el blanco se
+       perdía; a la derecha se deja ver el paisaje. */
+    linear-gradient(100deg,
+      rgba(14,20,28,.84) 0%,
+      rgba(14,20,28,.62) 38%,
+      rgba(14,20,28,.28) 68%,
+      rgba(14,20,28,.10) 100%),
     radial-gradient(1100px 620px at 84% -18%, rgba(0,158,73,.34), transparent 64%),
     radial-gradient(820px 520px at -6% 112%, rgba(206,17,38,.24), transparent 62%),
     radial-gradient(560px 360px at 96% 96%, rgba(252,209,22,.12), transparent 66%);
@@ -467,7 +475,34 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
     transparent 68% 100%);
   pointer-events: none;
 }
-.hero__inner { position: relative; z-index: 1; }
+/* Vídeo de fondo del hero.
+
+   Va detrás de los dos degradados de .hero::before y ::after, que son los
+   que mantienen legible el texto blanco: sin ellos, un fotograma claro del
+   vídeo se lo come. Por eso el vídeo lleva z-index 0 y los pseudoelementos
+   quedan por encima.
+
+   `object-fit: cover` para que llene el hueco a cualquier proporción sin
+   deformarse, y `pointer-events: none` para que no capture clics. */
+.hero__video {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: .5;
+}
+.hero::before, .hero::after { z-index: 1; }
+.hero__inner { position: relative; z-index: 2; }
+
+/* Si el sistema pide menos animación, se esconde el vídeo y se queda el
+   poster de fondo: un vídeo en bucle detrás del titular es justo lo que
+   molesta a quien activa ese ajuste. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__video { display: none; }
+  .hero { background-image: url("../video/hero-fondo-poster.webp"); background-size: cover; background-position: center; }
+}
+
+.pie__ambito { margin: 6px 0 0; font-size: .82rem; color: rgba(255,255,255,.55); }
 .hero__borde {
   position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
   background: linear-gradient(90deg, var(--rojo) 0 33.33%, var(--amarillo) 33.33% 66.66%, var(--verde) 66.66% 100%);
