@@ -31,9 +31,6 @@ fr: {
 "migas.actualidad": "Actualités",
 "migas.contacto": "Contact",
 
-"cta.h2": "On en parle ?",
-"cta.p": "Écrivez-nous en espagnol ou en français. Si vous représentez une association guinéenne, indiquez-le dans votre premier message.",
-"cta.b1": "Écrire au Conseil",
 
 /* --- En-tête et pied de page -------------------------------------------- */
 "marca.nombre": "Conseil des Guinéens de l'Extérieur en Espagne",
@@ -101,19 +98,6 @@ fr: {
 "home.cons.emb.p": "Les documents consulaires guinéens sont délivrés par l'Ambassade de la République de Guinée. Son adresse, ses téléphones et ses horaires d'accueil sont publiés par elle-même : mieux vaut les consulter là-bas avant de se déplacer.",
 "home.cons.web": "Site officiel",
 
-"home.como.eyebrow": "Le réseau",
-"home.como.h2": "Le Conseil et les entités guinéennes",
-"home.como.p1": "Il existe des entités guinéennes dans de nombreuses provinces, certaines avec des années d'existence et d'autres tout juste constituées. Le Conseil les réunit et coordonne ce qui se fait en commun.",
-"home.como.p3": "Si votre entité n'y figure pas encore, écrivez-nous. L'intégrer est simple et ne change rien à son fonctionnement interne.",
-"home.como.cta1": "Voir les entités",
-"home.como.1.t": "Un recensement vivant",
-"home.como.1.d": "Nous savons quelles entités guinéennes existent en Espagne, où elles sont et ce qu'elles font.",
-"home.como.2.t": "Des rencontres régulières",
-"home.como.2.d": "Les entités enregistrées se réunissent et mettent en commun ce qu'elles observent sur leur territoire.",
-"home.como.3.t": "Une seule voix",
-"home.como.3.d": "Ce qui est décidé est transmis aux institutions au nom de l'ensemble de la communauté.",
-"home.como.4.t": "Des événements communs",
-"home.como.4.d": "De la Fête de l'Indépendance aux campagnes d'information à l'échelle nationale.",
 
 "home.serv.eyebrow": "Ce que nous faisons",
 "home.serv.h2": "En quoi nous pouvons vous aider",
@@ -197,10 +181,6 @@ fr: {
 "about.jd.eyebrow": "Gouvernance",
 "about.jd.h2": "Conseil d'administration",
 "about.jd.p": "Fonctions élues par vote de la communauté guinéenne en Espagne. Toutes sont bénévoles et non rémunérées. Ses membres résident à Madrid, Barcelone, Gérone, Lleida, Navarre et Huesca, ce qui permet au Conseil de travailler réellement sur tout le territoire.",
-"about.jd.c1": "Présidence",
-"about.jd.d1": "Assure la représentation légale de l'entité, préside le Conseil d'administration et signe les documents officiels.",
-"about.jd.c2": "Vice-présidence",
-"about.jd.d2": "Remplace la Présidence en cas d'absence et coordonne la relation avec les entités enregistrées par territoire.",
 "about.jd.th1": "Fonction",
 "about.jd.th2": "Nom",
 "about.jd.th3": "Province",
@@ -264,9 +244,6 @@ fr: {
 "asoc.adh.n.p": "L'adhésion ne suppose ni fusion, ni perte de personnalité juridique, ni cession de patrimoine. Chaque entité reste maîtresse d'elle-même et de sa propre activité.",
 "asoc.adh.cta": "Engager l'inscription",
 
-"asoc.pers.h2": "Et si je n'appartiens à aucune entité ?",
-"asoc.pers.p": "Alors écrivez-nous quand même. Nous vous dirons s'il existe une entité guinéenne dans votre province et, s'il n'y en a pas, ce qu'il faut pour en créer une. Vous pouvez aussi adhérer directement au Conseil à titre individuel.",
-"asoc.pers.cta": "Écrire au Conseil",
 
 /* --- Affaires consulaires ------------------------------------------------ */
 "meta.cons.t": "Affaires consulaires · CGE-ES",
@@ -316,9 +293,6 @@ fr: {
 "cons.nos.no.4": "Remplacer les conseils d'un avocat en droit des étrangers",
 "cons.nos.no.p": "Et méfiez-vous toujours de qui vous promet un passeport rapide ou un rendez-vous contre de l'argent : personne ne peut le garantir.",
 
-"cons.cta.h2": "Vous avez une question précise ?",
-"cons.cta.p": "Exposez-la nous et nous vous dirons par où commencer. Si vous appartenez à une association guinéenne, indiquez-le dans votre message : cela nous aide à mieux situer la demande.",
-"cons.cta.b1": "Écrire au Conseil",
 
 /* --- Services ------------------------------------------------------------ */
 "meta.serv.t": "Services · CGE-ES",
@@ -367,9 +341,6 @@ fr: {
 "serv.4.a3.p": "Activités avec les jeunes Guinéens nés ou grandis en Espagne, pour que le lien avec la Guinée ne se perde pas en une génération.",
 "serv.4.cta": "Proposer une activité",
 
-"serv.cta.h2": "Vous ne savez pas par où commencer ?",
-"serv.cta.p": "Écrivez-nous en résumant votre situation en deux lignes. Nous vous dirons laquelle de ces voies vous concerne et, si aucune ne convient, nous vous dirons aussi où vous adresser.",
-"serv.cta.b1": "Écrire au Conseil",
 
 /* --- Actualités ---------------------------------------------------------- */
 "meta.news.t": "Actualités · CGE-ES",
@@ -384,10 +355,6 @@ fr: {
 "news.f.com": "Communauté",
 "news.f.asoc": "Associations",
 "news.vacio": "Il n'y a pas d'actualité dans cette catégorie pour le moment.",
-"news.avisos.eyebrow": "Restez informé",
-"news.avisos.h2": "Vous souhaitez recevoir nos avis ?",
-"news.avisos.p": "Écrivez-nous en indiquant que vous souhaitez recevoir des informations sur les événements, les délais et les activités du Conseil. Nous n'envoyons que des communications pertinentes et vous pouvez vous désinscrire à tout moment.",
-"news.avisos.cta": "Écrire au Conseil",
 
 /* --- Contact ------------------------------------------------------------- */
 "meta.cont.t": "Contact · CGE-ES",
@@ -416,8 +383,6 @@ fr: {
 "cont.f.rgpd": "J'ai lu et j'accepte la politique de confidentialité et je consens au traitement de mes données pour la gestion de cette demande.",
 "cont.f.enviar": "Envoyer le message",
 "cont.f.legal": "Responsable : Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES), NIF G26752907. Finalité : répondre à votre demande. Base légale : votre consentement. Vous pouvez exercer vos droits d'accès, de rectification et de suppression en écrivant à notre adresse électronique.",
-"cont.datos.email": "Adresse électronique",
-"cont.datos.tel": "Téléphone",
 "cont.banco.titular": "Titulaire",
 
 /* --- Formulaire : messages ------------------------------------------------ */
@@ -566,7 +531,10 @@ fr: {
 "noti.nohay.t": "Nous ne trouvons pas cette actualité",
 "noti.nohay.p": "Le lien est peut-être mal saisi, ou l'actualité n'est plus publiée.",
 "nav.sub.logros": "Réalisations",
-"nav.sub.logros.d": "Ce qui a été obtenu depuis 2022"
+"nav.sub.logros.d": "Ce qui a été obtenu depuis 2022",
+"cont.req.t": "Vous inscrivez une entité ?",
+"cont.req.p": "Joignez ceci à votre premier message et nous éviterons quelques allers-retours :",
+"cont.req.cta": "Voir la procédure complète"
 }
 
 };

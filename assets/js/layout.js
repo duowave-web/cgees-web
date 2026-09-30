@@ -93,9 +93,9 @@
      2. MENÚ DE NAVEGACIÓN  ←←← EDITA AQUÍ para añadir o quitar páginas
      ---------------------------------------------------------------------- */
   var NAV = [
-    { href: 'index.html', key: 'nav.inicio', txt: 'Inicio' },
+    { href: 'index.html', key: 'nav.inicio', txt: 'Inicio', ico: 'icoInicio' },
     {
-      href: 'quienes-somos.html', key: 'nav.quienes', txt: 'El Consejo',
+      href: 'quienes-somos.html', key: 'nav.quienes', txt: 'El Consejo', ico: 'icoConsejo',
       sub: [
         { href: 'quienes-somos.html#origen',  key: 'nav.sub.origen', txt: 'Origen y mandato',
           dkey: 'nav.sub.origen.d',  d: 'Cómo y por qué nace el Consejo' },
@@ -107,9 +107,9 @@
           dkey: 'nav.sub.registro.d', d: 'Datos registrales, NIF y cuenta' }
       ]
     },
-    { href: 'asociaciones.html', key: 'nav.asociaciones', txt: 'Entidades' },
+    { href: 'asociaciones.html', key: 'nav.asociaciones', txt: 'Entidades', ico: 'icoEntidades' },
     {
-      href: 'servicios.html', key: 'nav.servicios', txt: 'Servicios',
+      href: 'servicios.html', key: 'nav.servicios', txt: 'Servicios', ico: 'icoServicios',
       sub: [
         { href: 'asuntos-consulares.html',      key: 'nav.sub.consular', txt: 'Asuntos consulares',
           dkey: 'nav.sub.consular.d', d: 'Pasaporte, documentos y Embajada' },
@@ -121,11 +121,11 @@
           dkey: 'nav.sub.comunidad.d',d: 'Fiesta de la Independencia y actos' }
       ]
     },
-    { href: 'actualidad.html', key: 'nav.actualidad', txt: 'Actualidad' },
+    { href: 'actualidad.html', key: 'nav.actualidad', txt: 'Actualidad', ico: 'icoActualidad' },
     /* `destacado` pinta este enlace como botón verde en escritorio. En el
        cajón de móvil sigue siendo una fila más del menú, que es donde la
        gente lo busca. */
-    { href: 'contacto.html',   key: 'nav.contacto',   txt: 'Contacto', destacado: true }
+    { href: 'contacto.html',   key: 'nav.contacto',   txt: 'Contacto', destacado: true, ico: 'icoContacto' }
   ];
 
   /* ------------------------------------------------------------------------
@@ -136,6 +136,16 @@
     tel:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z"/></svg>',
     pin:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
     reloj: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+    /* Un icono por apartado del menú. Van en el propio NAV, no en el CSS,
+       porque así el nombre del icono se lee al lado del enlace al que
+       pertenece y no hay que buscarlo en otro archivo. */
+    icoInicio: '<svg class="nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>',
+    icoConsejo: '<svg class="nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M4 21V10h16v11"/><path d="M12 3 21 8H3l9-5z"/><path d="M9 21v-6M15 21v-6"/></svg>',
+    icoEntidades: '<svg class="nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1"/><path d="M17 7.5a2.6 2.6 0 0 1 0 5"/><path d="M19 20v-1a4 4 0 0 0-2.5-3.7"/></svg>',
+    icoServicios: '<svg class="nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-7-9.5A3.8 3.8 0 0 1 12 9a3.8 3.8 0 0 1 7 2.5C19 16.4 12 21 12 21z"/></svg>',
+    icoActualidad: '<svg class="nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14a2 2 0 0 1-2 2H5a1 1 0 0 1-1-1V5z"/><path d="M17 8h3v11a2 2 0 0 1-2 2"/><path d="M7 9h7M7 13h7M7 17h4"/></svg>',
+    icoContacto: '<svg class="nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m2.5 7.5 9.5 6 9.5-6"/></svg>',
+
     caret: '<svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
     fb:    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>',
     ig:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>',
@@ -167,11 +177,14 @@
     var itemsNav = NAV.map(function (item) {
       var activo = esActiva(item.href) ? ' aria-current="page"' : '';
 
+      var icono = item.ico && ICO[item.ico] ? ICO[item.ico] : '';
+
       if (!item.sub) {
         var extra = item.destacado ? ' nav__enlace--destacado' : '';
         return '<div class="nav__item">' +
-          '<a class="nav__enlace' + extra + '" href="' + item.href + '"' + activo +
-          i18n(item.key, item.txt) + '</a></div>';
+          '<a class="nav__enlace nav__enlace--icono' + extra + '" href="' + item.href + '"' + activo + '>' +
+            icono + '<span' + i18n(item.key, item.txt) + '</span>' +
+          '</a></div>';
       }
 
       /* Una página hija marcada como activa también resalta el padre */
@@ -187,8 +200,8 @@
       }).join('');
 
       return '<div class="nav__item nav__item--desplegable">' +
-        '<a class="nav__enlace" href="' + item.href + '"' + activo + ' aria-haspopup="true">' +
-        '<span' + i18n(item.key, item.txt) + '</span>' + ICO.caret + '</a>' +
+        '<a class="nav__enlace nav__enlace--icono" href="' + item.href + '"' + activo + ' aria-haspopup="true">' +
+        icono + '<span' + i18n(item.key, item.txt) + '</span>' + ICO.caret + '</a>' +
         '<ul class="submenu">' + sub + '</ul>' +
         '</div>';
     }).join('');
