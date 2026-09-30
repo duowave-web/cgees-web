@@ -774,7 +774,10 @@
       if (punto) { carrusel.i = parseInt(punto.getAttribute('data-ir'), 10); pintarCarrusel(); return; }
       /* El cartel de la Fiesta se amplía en el mismo visor, para poder
          escanear el QR desde la pantalla. */
-      var cartel = e.target.closest('[data-ampliar-cartel]');
+      /* Vale para el cartel de la Fiesta y para cualquier otra foto suelta
+         que quiera poder ampliarse: la del grupo en «El Consejo», por
+         ejemplo, que tiene veinte caras y se agradece verla grande. */
+      var cartel = e.target.closest('[data-ampliar-cartel], [data-ampliar-imagen]');
       if (cartel) {
         var img = cartel.querySelector('img');
         abrirFoto(img.getAttribute('src'), img.getAttribute('alt') || '');

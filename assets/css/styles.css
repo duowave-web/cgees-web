@@ -1587,6 +1587,25 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .docs--rejilla .docs__item:hover { border-color: var(--gris-300); background: var(--gris-50); }
 .docs--rejilla .docs__icono { margin-top: 1px; }
 
+/* Foto a lo ancho, con pie. El botón existe para poder ampliarla en el
+   visor; se le quitan los estilos de botón para que no parezca uno. */
+.foto-ancha { margin: 34px 0 0; }
+.foto-ancha > button {
+  display: block; width: 100%; padding: 0; border: 0; background: none;
+  border-radius: var(--radio); overflow: hidden;
+  cursor: zoom-in;
+  box-shadow: var(--sombra-sm);
+  transition: box-shadow var(--t);
+}
+.foto-ancha > button:hover { box-shadow: var(--sombra); }
+.foto-ancha > button:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
+.foto-ancha img { width: 100%; height: auto; display: block; }
+.foto-ancha figcaption {
+  margin-top: 10px;
+  font-size: .84rem; color: var(--texto-suave);
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+
 /* El desplegable de los documentos. El <summary> hace de titular, así que
    lleva el tamaño de un h2 y no la flecha por defecto del navegador, que se
    quita con `list-style: none` más la regla de ::-webkit-details-marker. */

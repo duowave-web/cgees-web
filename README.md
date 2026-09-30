@@ -231,6 +231,21 @@ aparece una más, se sustituye la de Servicios.
 
 Las páginas legales (aviso legal y privacidad) se quedan con el fondo navy, a propósito.
 
+### La foto de grupo de Origen y mandato
+
+En «El Consejo» → Origen y mandato hay una foto a lo ancho
+(`assets/img/consejo/grupo-origen.webp`). Se puede ampliar en el mismo visor de los documentos:
+el `<button data-ampliar-imagen>` que la envuelve existe solo para eso, y el CSS le quita todo
+lo que lo haría parecer un botón.
+
+**El original es cuadrado (2000 × 2000) y está recortado a mano**, del 20,5 % al 88,5 % de la
+altura, para dejarlo en 1600 × 1088. Ese recorte no es arbitrario: quita los fluorescentes del
+techo y la mesa del primer plano, y **deja entero el retrato del presidente de la República que
+está en la pared del fondo**, arriba a la derecha. Si se vuelve a recortar, hay que respetarlo.
+
+Al pie le falta de qué acto es y de qué fecha: va marcado con `class="pendiente"` (resaltado en
+amarillo en la web) hasta que alguien lo confirme.
+
 ### El vídeo de fondo del hero
 
 La portada lleva un vídeo de fondo en `assets/video/hero-fondo.mp4`. Tres cosas que conviene
