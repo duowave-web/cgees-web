@@ -653,25 +653,45 @@ se distinguen y solo ensucian.
 
 ### Propuestas de emblema (sin decidir)
 
-En `dev/emblemas/` hay tres propuestas de emblema circular, hechas a partir de una propuesta
-externa que llegó en octubre de 2026. **No están en uso**: la web sigue con el emblema oficial
-de `assets/img/logo.svg`, y la decisión está pendiente de la Junta.
+En `dev/emblemas/` hay cuatro propuestas de emblema circular, hechas a partir de la propuesta
+externa que llegó en octubre de 2026. **No están en uso**: la web sigue con el emblema oficial de
+`assets/img/logo.svg`, y la decisión está pendiente de la Junta.
 
 Se comparan abiertas en `dev/logos.html`, que se publica con la web:
 <https://duowave-web.github.io/cgees-web/dev/logos.html>
 
-Las tres reutilizan las piezas vectorizadas del emblema oficial —el texto del aro, el «CGE», el
-«ES» y el apretón de manos—, así que la tipografía es la del original y no una imitación. Lo que
-cambia es cómo se reparte el color. Las regenera `python dev/construir-emblemas.py`, que las lee
-del propio `logo.svg`: si algún día se rehace el emblema oficial, basta con volver a ejecutarlo.
+Todas parten del **escudo** con las tres franjas de la bandera y el acrónimo, y **ninguna lleva
+apretón de manos**: lo llevan muchas asociaciones y no distingue. Reutilizan las piezas
+vectorizadas del emblema oficial —el texto del aro, el «CGE» y el «ES»—, así que la tipografía es
+la del original y no una imitación. Lo que cambia de una a otra es el aro:
 
-El criterio de diseño fue **el tamaño pequeño**, que es donde se ve de verdad: 44 px en la
-cabecera y 22 en la pestaña del navegador. Ahí el emblema actual es una mancha, porque tiene
-todo el disco saturado. El hueco blanco entre el aro y el centro es lo que lo aligera.
+| | Aro | Interior |
+|---|---|---|
+| E1 | borde exterior tricolor | blanco |
+| E2 | borde exterior tricolor | relleno en navy |
+| E3 | solo navy | relleno en navy |
+| E4 | rojo oficial | relleno en navy |
+
+Las regenera `python dev/construir-emblemas.py`, que las lee del propio `logo.svg`: si algún día
+se rehace el emblema oficial, basta con volver a ejecutarlo.
 
 Cada propuesta trae cuatro archivos: completo, `-pequeno` (sin el texto del aro, para cabecera y
 favicon), y los dos en `-negativo`, con el aro en blanco. **El negativo no es un extra**: el pie
 de la web es navy y un aro navy sobre fondo navy desaparece.
+
+Cuatro cosas que se midieron y cambiaron el diseño, por si hay que retomarlo:
+
+- **El criterio es el tamaño pequeño**: 44 px en la cabecera y 22 en la pestaña del navegador. El
+  emblema actual ahí es una mancha, porque tiene todo el disco saturado. Y la propuesta externa,
+  con escudo, dos mapas, ramas de olivo, estrella y cinta, sería peor: a 44 px dos mapas son dos
+  manchas grises indistinguibles. Por eso aquí no hay mapas.
+- **El texto del aro ocupa de r194,3 a r249,3 de un radio de 250**, es decir casi toda la banda.
+  Para meter el borde tricolor por fuera hay que escalarlo al 86 % desde el centro; no cabe de
+  otra forma.
+- **El borde tricolor tiene que ser grueso.** Con 14 unidades de 512 no llegaba a un píxel a
+  44 px, justo donde se quería el color. Está en 26.
+- **Sobre campo relleno, el escudo necesita contorno dorado.** En navy se confundía con el fondo
+  y la silueta se perdía. El dorado además es el contorno que llevaba la propuesta externa.
 
 **Para adoptar una**, cuando se decida:
 
@@ -684,7 +704,7 @@ de la web es navy y un aro navy sobre fondo navy desaparece.
 
 > Antes de cambiarlo, una cosa a tener en cuenta: el emblema actual es **el mismo que aparece en
 > los documentos oficiales** que se publican en «El Consejo». Si la web cambia de marca, deja de
-> coincidir con los papeles sellados. Con la propuesta de aro rojo el salto es mucho menor.
+> coincidir con los papeles sellados. Con E4, que mantiene el aro rojo, el salto es menor.
 
 ### Versiones en PNG
 

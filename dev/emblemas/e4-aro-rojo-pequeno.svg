@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"
+     role="img" aria-labelledby="t">
+<title id="t">Conseil des Guinéens de l’Étranger — Espagne</title>
+<circle cx="256" cy="256" r="250" fill="#D60A07"/><circle cx="256" cy="256" r="205.0" fill="#1F2A37"/><g transform="translate(256.00 256.00) scale(1.2188) translate(-256.00 -256.00)"><clipPath id="e4arorojopequeno"><path d="M256 120 L370 159 L370 299 Q370 370 256 416 Q142 370 142 299 L142 159 Z"/></clipPath><g clip-path="url(#e4arorojopequeno)"><rect x="142" y="112" width="76" height="312" fill="#D60A07"/><rect x="218" y="112" width="76" height="312" fill="#FCC803"/><rect x="294" y="112" width="76" height="312" fill="#37960E"/></g><path d="M256 120 L370 159 L370 299 Q370 370 256 416 Q142 370 142 299 L142 159 Z" fill="none" stroke="#FCC803" stroke-width="8"/></g>
+</svg>
