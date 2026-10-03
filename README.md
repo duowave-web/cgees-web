@@ -653,45 +653,54 @@ se distinguen y solo ensucian.
 
 ### Propuestas de emblema (sin decidir)
 
-En `dev/emblemas/` hay cuatro propuestas de emblema circular, hechas a partir de la propuesta
-externa que llegó en octubre de 2026. **No están en uso**: la web sigue con el emblema oficial de
-`assets/img/logo.svg`, y la decisión está pendiente de la Junta.
+En `dev/emblemas/` está el emblema circular siguiendo **la composición de la propuesta que trajo
+la Junta** en octubre de 2026, en dos variantes: `f1-fiel` (con ramas de olivo) y `f2-sin-ramas`.
+**No están en uso**: la web sigue con el emblema oficial de `assets/img/logo.svg`.
 
-Se comparan abiertas en `dev/logos.html`, que se publica con la web:
+Se ven abiertas en `dev/logos.html`, que se publica con la web:
 <https://duowave-web.github.io/cgees-web/dev/logos.html>
 
-Todas parten del **escudo** con las tres franjas de la bandera y el acrónimo, y **ninguna lleva
-apretón de manos**: lo llevan muchas asociaciones y no distingue. Reutilizan las piezas
-vectorizadas del emblema oficial —el texto del aro, el «CGE» y el «ES»—, así que la tipografía es
-la del original y no una imitación. Lo que cambia de una a otra es el aro:
+Las regenera `python dev/construir-emblemas.py`, que lee del propio `logo.svg` el texto del aro,
+el «CGE» y el «ES»: la tipografía es la del original y nada depende de ninguna fuente instalada.
 
-| | Aro | Interior |
-|---|---|---|
-| E1 | borde exterior tricolor | blanco |
-| E2 | borde exterior tricolor | relleno en navy |
-| E3 | solo navy | relleno en navy |
-| E4 | rojo oficial | relleno en navy |
+**Lo que le da el carácter a la propuesta de la Junta**, y que hubo que entender antes de
+reproducirla, son cuatro cosas. Si se vuelve a tocar el diseño, no se pierdan:
 
-Las regenera `python dev/construir-emblemas.py`, que las lee del propio `logo.svg`: si algún día
-se rehace el emblema oficial, basta con volver a ejecutarlo.
+1. **El campo va blanco y la letra del aro en navy sobre blanco**, no al revés. Es lo que más
+   cambia: con una banda de color y la letra en blanco sale un sello macizo, que es otra cosa.
+2. **El borde son dos aros finos**, no una banda gruesa.
+3. **Ramas de olivo** flanqueando el escudo y **una estrella dorada dentro del círculo**, abajo,
+   más **los dos puntos** a los lados que separan el arco de arriba del de abajo.
+4. El escudo lleva **filete dorado por dentro del contorno navy** y una **cinta** con el
+   acrónimo, no una barra recta.
 
-Cada propuesta trae cuatro archivos: completo, `-pequeno` (sin el texto del aro, para cabecera y
-favicon), y los dos en `-negativo`, con el aro en blanco. **El negativo no es un extra**: el pie
-de la web es navy y un aro navy sobre fondo navy desaparece.
+Sin apretón de manos: lo llevan muchas asociaciones y no distingue.
 
-Cuatro cosas que se midieron y cambiaron el diseño, por si hay que retomarlo:
+Cuatro detalles de ejecución que costaron un intento cada uno:
 
-- **El criterio es el tamaño pequeño**: 44 px en la cabecera y 22 en la pestaña del navegador. El
-  emblema actual ahí es una mancha, porque tiene todo el disco saturado. Y la propuesta externa,
-  con escudo, dos mapas, ramas de olivo, estrella y cinta, sería peor: a 44 px dos mapas son dos
-  manchas grises indistinguibles. Por eso aquí no hay mapas.
-- **El texto del aro ocupa de r194,3 a r249,3 de un radio de 250**, es decir casi toda la banda.
-  Para meter el borde tricolor por fuera hay que escalarlo al 86 % desde el centro; no cabe de
-  otra forma.
-- **El borde tricolor tiene que ser grueso.** Con 14 unidades de 512 no llegaba a un píxel a
-  44 px, justo donde se quería el color. Está en 26.
-- **Sobre campo relleno, el escudo necesita contorno dorado.** En navy se confundía con el fondo
-  y la silueta se perdía. El dorado además es el contorno que llevaba la propuesta externa.
+- **El texto oficial llega hasta r249,3 de un radio de 250**, así que pisa los aros. Va escalado
+  al 90 % desde el centro: pasa a ocupar r175-224.
+- **El filete dorado se dibuja recortado por la silueta del escudo** y con el doble de grosor del
+  que se quiere ver, porque solo asoma la mitad de dentro del trazo. Con 12 de grosor y un
+  contorno navy de 9, el navy se lo comía entero; está en 24 y 8.
+- **La cinta lleva el pico recortado dentro de cada extremo.** Escrito del tirón, la línea entre
+  los dos picos se llevaba por delante la mitad inferior de la cinta y quedaba una flecha negra.
+- **En formato pequeño el aro va de una pieza y gordo.** Con los dos aros finos de la versión
+  grande, a 44 px eran dos hilos de medio píxel: el círculo desaparecía y quedaba un escudo
+  flotando, que es justo lo que no se quería.
+
+Cada variante trae cuatro archivos: completo, `-pequeno` (sin texto, ramas ni cinta, para
+cabecera y favicon), y los dos en `-negativo`, para el pie, que es navy.
+
+**Lo que falta para que sea del todo la propuesta de la Junta:**
+
+- **Los dos mapas** (Guinea en colores, España en gris). No están porque hacen falta siluetas
+  geográficas de verdad: las del folleto parecen generadas con IA y salen deformadas. Habría que
+  partir de datos de fronteras reales, lo que implica descargar un archivo de fronteras.
+- **La denominación.** El folleto dice «CONSEIL DES GUINÉENS DE L'EXTÉRIEUR / EN ESPAGNE» y el
+  emblema oficial dice «DE L'ÉTRANGER / ESPAGNE». Aquí va la del emblema oficial, porque es la
+  que está en los documentos sellados. Cambiarla obliga a rehacer la letra con la tipografía
+  Montserrat, y eso sí es una decisión de la Junta: es el nombre de la entidad.
 
 **Para adoptar una**, cuando se decida:
 
@@ -699,12 +708,11 @@ Cuatro cosas que se midieron y cambiaron el diseño, por si hay que retomarlo:
 2. La `-pequeno` hace falta aparte: hay que decidir dónde entra, porque hoy la cabecera (44 px)
    usa el mismo archivo que el pie. Lo razonable es `assets/img/logo-pequeno.svg` y cambiar el
    `<img>` de la cabecera en `layout.js`.
-3. La `-negativo` va en el pie, que es el único sitio con fondo oscuro.
+3. La `-negativo` va en el pie, el único sitio con fondo oscuro.
 4. Repasa el favicon y las versiones en PNG de más abajo.
 
-> Antes de cambiarlo, una cosa a tener en cuenta: el emblema actual es **el mismo que aparece en
-> los documentos oficiales** que se publican en «El Consejo». Si la web cambia de marca, deja de
-> coincidir con los papeles sellados. Con E4, que mantiene el aro rojo, el salto es menor.
+> El emblema actual es **el mismo que aparece en los documentos oficiales** que se publican en
+> «El Consejo». Si la web cambia de marca, deja de coincidir con los papeles sellados.
 
 ### Versiones en PNG
 
