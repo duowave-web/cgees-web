@@ -651,6 +651,41 @@ que rehacerlo desde el archivo original.
 `favicon.svg` es el emblema reducido a los tres aros: a 16 px el texto y el apretón de manos no
 se distinguen y solo ensucian.
 
+### Propuestas de emblema (sin decidir)
+
+En `dev/emblemas/` hay tres propuestas de emblema circular, hechas a partir de una propuesta
+externa que llegó en octubre de 2026. **No están en uso**: la web sigue con el emblema oficial
+de `assets/img/logo.svg`, y la decisión está pendiente de la Junta.
+
+Se comparan abiertas en `dev/logos.html`, que se publica con la web:
+<https://duowave-web.github.io/cgees-web/dev/logos.html>
+
+Las tres reutilizan las piezas vectorizadas del emblema oficial —el texto del aro, el «CGE», el
+«ES» y el apretón de manos—, así que la tipografía es la del original y no una imitación. Lo que
+cambia es cómo se reparte el color. Las regenera `python dev/construir-emblemas.py`, que las lee
+del propio `logo.svg`: si algún día se rehace el emblema oficial, basta con volver a ejecutarlo.
+
+El criterio de diseño fue **el tamaño pequeño**, que es donde se ve de verdad: 44 px en la
+cabecera y 22 en la pestaña del navegador. Ahí el emblema actual es una mancha, porque tiene
+todo el disco saturado. El hueco blanco entre el aro y el centro es lo que lo aligera.
+
+Cada propuesta trae cuatro archivos: completo, `-pequeno` (sin el texto del aro, para cabecera y
+favicon), y los dos en `-negativo`, con el aro en blanco. **El negativo no es un extra**: el pie
+de la web es navy y un aro navy sobre fondo navy desaparece.
+
+**Para adoptar una**, cuando se decida:
+
+1. Copia la versión completa a `assets/img/logo.svg`.
+2. La `-pequeno` hace falta aparte: hay que decidir dónde entra, porque hoy la cabecera (44 px)
+   usa el mismo archivo que el pie. Lo razonable es `assets/img/logo-pequeno.svg` y cambiar el
+   `<img>` de la cabecera en `layout.js`.
+3. La `-negativo` va en el pie, que es el único sitio con fondo oscuro.
+4. Repasa el favicon y las versiones en PNG de más abajo.
+
+> Antes de cambiarlo, una cosa a tener en cuenta: el emblema actual es **el mismo que aparece en
+> los documentos oficiales** que se publican en «El Consejo». Si la web cambia de marca, deja de
+> coincidir con los papeles sellados. Con la propuesta de aro rojo el salto es mucho menor.
+
 ### Versiones en PNG
 
 En `assets/img/png/`, con **fondo transparente**:
