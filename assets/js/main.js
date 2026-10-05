@@ -314,7 +314,7 @@
               (flecha ? '<div style="margin-top:auto;padding-top:14px">' + flecha + '</div>' : '') +
             '</div>'
           : '<div class="noticia__media">' +
-              '<img src="assets/img/logo.svg" alt="" width="62" height="62" loading="lazy">' +
+              '<img src="assets/img/logo-escudo.png" alt="" width="336" height="512" loading="lazy">' +
             '</div>' +
             '<div class="noticia__cuerpo">' +
               '<div class="noticia__meta">' + etiquetaHTML +

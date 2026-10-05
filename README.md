@@ -412,9 +412,11 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
 └── assets/
     ├── css/styles.css        TODO el diseño
     ├── img/
-    │   ├── logo.svg                 El emblema. Único, se usa en todo el sitio
-    │   ├── favicon.svg              Icono de la pestaña (emblema simplificado)
-    │   └── png/                     El emblema en PNG (ver punto 12)
+    │   ├── logo.png                 Emblema completo (404 y vista previa al compartir)
+    │   ├── logo-escudo.png          Solo el escudo (cabecera, pie, tarjetas)
+    │   ├── favicon.png              Icono de la pestaña
+    │   ├── apple-touch-icon.png     Icono de iOS (fondo blanco, obligado)
+    │   └── png/                     El emblema para documentos (ver punto 12)
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
         ├── contenido.js    Noticias y repertorio de asociaciones        ← EDITAR AQUÍ
@@ -520,8 +522,10 @@ elemento. Si una traducción no existe, se muestra el español: nunca se rompe.
 bloque en `i18n.js`.
 
 ### Cambiar los colores
-`assets/css/styles.css`, sección 1: `--rojo #CE1126`, `--amarillo #FCD116`,
-`--verde #009E49`, `--navy #1F2A37`.
+`assets/css/styles.css`, sección 1. Son los seis de la carta gráfica del logo: `--navy #003566`
+(el azul institucional, el que manda), `--oro #C9A13B`, `--rojo #CE1126`, `--amarillo #FCD116`,
+`--verde #009460` y `--gris-mapa #9EA3A8`. **No inventes tonos nuevos**; y antes de mover
+cualquiera, lee el punto 12: hay tres decisiones que vienen de medir el contraste, no del gusto.
 
 ---
 
@@ -616,121 +620,108 @@ Se edita en `assets/js/layout.js` → `SITIO.embajada`.
 
 ## 12. Identidad visual
 
-| Color | Código |
-|---|---|
-| Rojo | `#CE1126` |
-| Amarillo | `#FCD116` |
-| Verde | `#009E49` |
-| Rojo del emblema | `#D60A07` |
+### El logo
 
-El **idioma activo** del selector va en el rojo de la bandera (`--rojo`), no en verde: el
-verde es el del botón de Contacto, que está justo al lado, y juntos parecían dos piezas de
-lo mismo. El amarillo se probó y llamaba más la atención que la propia llamada a la acción.
-| Amarillo del emblema | `#FCC803` |
-| Verde del emblema | `#37960E` |
-| Gris oscuro | `#1F2A37` |
-| Gris claro | `#E6E6E6` |
+El emblema oficial es el aprobado por la Junta en **octubre de 2026** y viene definido por la
+**carta gráfica** (`Charte_logo_CGE-ES.pdf`, documento interno). Dos archivos:
+
+| Archivo | Qué es | Dónde se usa |
+|---|---|---|
+| `assets/img/logo.png` | Emblema completo | Página 404 y vista previa al compartir. Es el que va en cartas, certificados y carteles |
+| `assets/img/logo-escudo.png` | Solo el escudo | Cabecera, pie y las tarjetas de actualidad sin foto |
+| `assets/img/favicon.png` | Escudo, 64 px | Pestaña del navegador |
+| `assets/img/apple-touch-icon.png` | Escudo, 180 px, fondo blanco | Icono al guardar en la pantalla de inicio |
+
+**El reparto no es arbitrario: lo manda la carta.** El emblema completo es el que vale por
+defecto, y el escudo solo se usa **por debajo de 3 cm o 150 px** —ahí dentro caen la cabecera
+(52 px), el pie (60) y el favicon—, además de las fotos de perfil. El icono de iOS lleva fondo
+blanco a propósito: Apple no admite transparencia y la rellena de negro.
+
+El escudo **no es cuadrado** (336 × 512). Las reglas del CSS lo mandan por la altura con el ancho
+en `auto`; con una medida cuadrada, como la que tenía el emblema anterior, sale aplastado.
+
+**Los archivos salen del PDF de la carta** con `python dev/extraer-logo.py`. El PDF guarda cada
+imagen en dos piezas —los colores por un lado, con NEGRO donde debería no haber nada, y la
+transparencia aparte, en una máscara `SMask`—, así que extrayendo solo la primera el campo blanco
+del escudo sale negro. El script las junta.
+
+> **Pendiente:** la carta dice que el logo debería existir también en SVG, y para la web sería lo
+> suyo. No lo tenemos: en el PDF solo hay PNG. Cuando aparezca el SVG, sustituye los dos archivos
+> y listo, no hay que tocar nada más. Mientras tanto el PNG de 2000 px da de sobra: en la web no
+> se usa por encima de 150.
+
+**Nunca deformar, recolorear, recortar ni añadirle elementos**, dice la carta. Y el logo existe
+**solo en francés**, también en la versión española de la web.
+
+### Los colores
+
+Los seis de la carta, tal cual. **No inventar tonos nuevos**: si hace falta un intermedio, se saca
+de estos.
+
+| Color | Código | Papel en la web |
+|---|---|---|
+| Azul CGE-ES | `#003566` | El institucional y el que manda: enlaces, botones, cabeceras, pie |
+| Dorado | `#C9A13B` | Filetes y detalles. **Solo sobre fondo oscuro** |
+| Rojo | `#CE1126` | Bandera e idioma activo |
+| Amarillo | `#FCD116` | Bandera y foco sobre fondo oscuro |
+| Verde | `#009460` | Bandera y lo que significa «conseguido» |
+| Gris | `#9EA3A8` | Neutro ligado al mapa del emblema |
+
+Están en `styles.css` como `--navy` (el azul), `--oro`, `--rojo`, `--amarillo`, `--verde` y
+`--gris-mapa`. **El azul sigue llamándose `--navy`** porque es lo que es, un azul marino, y así no
+hubo que tocar las 74 reglas que ya lo usaban.
+
+Tres cosas que se midieron y condicionan dónde va cada color:
+
+- **El dorado sobre blanco da 2,6:1 y no se puede leer.** Sobre el azul oscuro del pie da 5,5:1,
+  así que ahí sí: los títulos de columna del pie van en dorado, que es además como lo usa el
+  emblema, de filete sobre el azul. En texto sobre blanco, nunca.
+- **El botón dorado se ACLARA al pasar el ratón, no se oscurece.** Con el dorado oscuro el texto
+  azul se queda en 3,4:1; aclarando sube a 6,3:1.
+- **El anillo de foco pasó de amarillo a azul.** En amarillo sobre blanco daba 1,47:1: estaba
+  ahí, pero no se veía, que para un indicador de foco es igual que no estar. En azul da 12:1, y
+  sobre los fondos oscuros —hero, pie, visor— se vuelve amarillo, que ahí da 8,4:1.
+
+**El verde ya no es el color de interacción.** Lo era en la versión anterior (botones, enlaces,
+pestaña activa, foco); ahora lo es el azul, porque es el del emblema. El verde se quedó en la
+bandera y en lo semántico: entidades cotejadas, logros, aviso de formulario enviado.
+
+El **idioma activo** del selector va con los colores de su bandera (España y Francia), no con los
+de la web.
 
 **Tipografía:** Montserrat (400–800), desde Google Fonts. Si prefieres no depender de Google
 (ver política de privacidad, punto 7), descarga la fuente a `assets/fonts/` y sustituye el
 `<link>` de cada `.html` por un `@font-face` en `styles.css`.
 
-**Logo:** `assets/img/logo.svg` es el emblema oficial, reconstruido en vectorial a partir del
-archivo que nos pasasteis. Lleva «CONSEIL DES GUINÉENS DE L'ÉTRANGER» arriba y «ESPAGNE» abajo.
+> La carta pide **Oswald** para el nombre y el sigla, pero eso es la tipografía *del logo*, que ya
+> va dibujada dentro de la imagen. La web usa Montserrat para su propio texto. Si algún día se
+> quiere Oswald también en los titulares de la web, se cambia en un sitio.
 
-Es **el mismo en toda la web**: cabecera, pie y páginas interiores. Al ser redondo y llevar el
-aro rojo por fuera, se ve igual sobre blanco que sobre el fondo oscuro del pie, así que ya no
-hacen falta versiones clara y oscura.
+### Volver al diseño anterior
 
-Va todo en trazos, sin texto tipográfico: la letra del original es una gruesa condensada que no
-tenemos, y sustituirla por Montserrat se notaba en el ancho. La ventaja es que se ve idéntico en
-cualquier sitio (navegador, Word, PDF) sin depender de ninguna fuente instalada. La pega es que
-**no se puede reescribir el texto editando el SVG**: si algún día cambia la denominación, hay
-que rehacerlo desde el archivo original.
+La versión con el emblema del apretón de manos y la gama verde está guardada en la etiqueta
+**`v1-emblema-antiguo`** y en la rama **`emblema-antiguo`**, las dos en GitHub:
 
-`favicon.svg` es el emblema reducido a los tres aros: a 16 px el texto y el apretón de manos no
-se distinguen y solo ensucian.
+```bash
+git checkout v1-emblema-antiguo            # mirarla
+git checkout -b vuelta-atras v1-emblema-antiguo   # retomarla como rama
+```
 
-### Propuestas de emblema (sin decidir)
-
-En `dev/emblemas/` está el emblema circular siguiendo **la composición de la propuesta que trajo
-la Junta** en octubre de 2026, en dos variantes: `f1-fiel` (con ramas de olivo) y `f2-sin-ramas`.
-**No están en uso**: la web sigue con el emblema oficial de `assets/img/logo.svg`.
-
-Se ven abiertas en `dev/logos.html`, que se publica con la web:
-<https://duowave-web.github.io/cgees-web/dev/logos.html>
-
-Las regenera `python dev/construir-emblemas.py`, que lee del propio `logo.svg` el texto del aro,
-el «CGE» y el «ES»: la tipografía es la del original y nada depende de ninguna fuente instalada.
-
-**Lo que le da el carácter a la propuesta de la Junta**, y que hubo que entender antes de
-reproducirla, son cuatro cosas. Si se vuelve a tocar el diseño, no se pierdan:
-
-1. **El campo va blanco y la letra del aro en navy sobre blanco**, no al revés. Es lo que más
-   cambia: con una banda de color y la letra en blanco sale un sello macizo, que es otra cosa.
-2. **El borde son dos aros finos**, no una banda gruesa.
-3. **Ramas de olivo** flanqueando el escudo y **una estrella dorada dentro del círculo**, abajo,
-   más **los dos puntos** a los lados que separan el arco de arriba del de abajo.
-4. El escudo lleva **filete dorado por dentro del contorno navy** y una **cinta** con el
-   acrónimo, no una barra recta.
-
-Sin apretón de manos: lo llevan muchas asociaciones y no distingue.
-
-Cuatro detalles de ejecución que costaron un intento cada uno:
-
-- **El texto oficial llega hasta r249,3 de un radio de 250**, así que pisa los aros. Va escalado
-  al 90 % desde el centro: pasa a ocupar r175-224.
-- **El filete dorado se dibuja recortado por la silueta del escudo** y con el doble de grosor del
-  que se quiere ver, porque solo asoma la mitad de dentro del trazo. Con 12 de grosor y un
-  contorno navy de 9, el navy se lo comía entero; está en 24 y 8.
-- **La cinta lleva el pico recortado dentro de cada extremo.** Escrito del tirón, la línea entre
-  los dos picos se llevaba por delante la mitad inferior de la cinta y quedaba una flecha negra.
-- **En formato pequeño el aro va de una pieza y gordo.** Con los dos aros finos de la versión
-  grande, a 44 px eran dos hilos de medio píxel: el círculo desaparecía y quedaba un escudo
-  flotando, que es justo lo que no se quería.
-
-Cada variante trae cuatro archivos: completo, `-pequeno` (sin texto, ramas ni cinta, para
-cabecera y favicon), y los dos en `-negativo`, para el pie, que es navy.
-
-**Lo que falta para que sea del todo la propuesta de la Junta:**
-
-- **Los dos mapas** (Guinea en colores, España en gris). No están porque hacen falta siluetas
-  geográficas de verdad: las del folleto parecen generadas con IA y salen deformadas. Habría que
-  partir de datos de fronteras reales, lo que implica descargar un archivo de fronteras.
-- **La denominación.** El folleto dice «CONSEIL DES GUINÉENS DE L'EXTÉRIEUR / EN ESPAGNE» y el
-  emblema oficial dice «DE L'ÉTRANGER / ESPAGNE». Aquí va la del emblema oficial, porque es la
-  que está en los documentos sellados. Cambiarla obliga a rehacer la letra con la tipografía
-  Montserrat, y eso sí es una decisión de la Junta: es el nombre de la entidad.
-
-**Para adoptar una**, cuando se decida:
-
-1. Copia la versión completa a `assets/img/logo.svg`.
-2. La `-pequeno` hace falta aparte: hay que decidir dónde entra, porque hoy la cabecera (44 px)
-   usa el mismo archivo que el pie. Lo razonable es `assets/img/logo-pequeno.svg` y cambiar el
-   `<img>` de la cabecera en `layout.js`.
-3. La `-negativo` va en el pie, el único sitio con fondo oscuro.
-4. Repasa el favicon y las versiones en PNG de más abajo.
-
-> El emblema actual es **el mismo que aparece en los documentos oficiales** que se publican en
-> «El Consejo». Si la web cambia de marca, deja de coincidir con los papeles sellados.
-
-### Versiones en PNG
+### Versiones en PNG para documentos
 
 En `assets/img/png/`, con **fondo transparente**:
 
 | Archivo | Tamaño | Para qué |
 |---|---|---|
-| `cge-es-logo-512.png` | 512 px | Firmas de correo, redes sociales, documentos |
-| `cge-es-logo-1024.png` | 1024 px | Uso general, presentaciones |
-| `cge-es-logo-2048.png` | 2048 px | Imprenta, carteles, camisetas |
+| `cge-es-logo-512.png` | 512 px | Firmas de correo, redes sociales |
+| `cge-es-logo-1024.png` | 1024 px | Documentos, presentaciones |
+| `cge-es-logo-2000.png` | 2000 px | Imprenta, carteles, camisetas |
+| `cge-es-escudo-512.png` | 512 px de alto | Foto de perfil, sellos pequeños |
+| `cge-es-escudo-1024.png` | 1024 px de alto | Bordados, placas |
 
-**Para documentos oficiales, cartas o cualquier cosa que vaya a imprimirse, usa el SVG si el
-programa lo admite** (Word y Google Docs sí): no pierde nitidez a ningún tamaño. El PNG solo
-donde no quede otro remedio.
+**No hay versión de 2048**: el original mide 2000 px y por encima de eso solo se estaría
+inventando detalle. Los regenera `python dev/extraer-logo.py` junto con los de la web.
 
-Si hace falta otro tamaño, se regenera con Chrome sin instalar nada; pídemelo y lo hago.
-
----
 
 ## 13. Accesibilidad y privacidad
 

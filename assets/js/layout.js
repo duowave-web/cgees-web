@@ -218,7 +218,11 @@
           '<a class="marca" href="index.html" aria-label="' + SITIO.sigla + ' — ' + SITIO.nombre + '">' +
             /* Un único logo en todo el sitio, también en el pie: el emblema es
                redondo y funciona igual sobre blanco que sobre el navy oscuro. */
-            '<img class="marca__escudo" src="assets/img/logo.svg" alt="" width="52" height="52">' +
+            /* El escudo, no el emblema completo: la carta gráfica lo reserva
+               para todo lo que mida menos de 150 px. El ancho y el alto van
+               con la proporción real del archivo para que no baile la
+               maqueta al cargar; el tamaño lo pone el CSS. */
+            '<img class="marca__escudo" src="assets/img/logo-escudo.png" alt="" width="336" height="512">' +
             '<span class="marca__texto">' +
               '<span class="marca__sigla">' + SITIO.sigla + '</span>' +
               '<span class="marca__nombre"' + i18n('marca.nombre', SITIO.nombre) + '</span>' +
@@ -258,7 +262,7 @@
 
             '<div>' +
               '<a class="pie__marca" href="index.html">' +
-                '<img src="assets/img/logo.svg" alt="" width="58" height="58">' +
+                '<img src="assets/img/logo-escudo.png" alt="" width="336" height="512">' +
                 '<span class="pie__marca-texto">' +
                   '<span class="pie__marca-sigla">' + SITIO.sigla + '</span>' +
                   '<span class="pie__marca-nombre"' + i18n('marca.nombre.pie', SITIO.nombre) + '</span>' +
