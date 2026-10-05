@@ -15,7 +15,7 @@ carta en la carpeta de Descargas. Si el PDF se mueve, cambia CARTA.
 import io, os, sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 import fitz
-from PIL import Image
+from PIL import Image, ImageFilter
 
 CARTA = os.path.expanduser(r'~\Downloads\Charte_logo_CGE-ES.pdf')
 RAIZ  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -66,10 +66,21 @@ os.makedirs(PNG, exist_ok=True)
 hechos = []
 
 # ── Los que usa la web ────────────────────────────────────────────────
-# 512 da de sobra: la carta reserva el emblema completo para más de 150 px
-# y en la web no se usa por encima de 200.
+# El emblema completo va en dos tamaños a propósito:
+#
+#   logo-192.png  cabecera (52 px), pie (62) y tarjetas (50). Reducir el de
+#                 512 para eso era descargar 164 KB y usar una décima parte.
+#                 192 cubre hasta pantallas de densidad 3 y pesa 42 KB. Lleva
+#                 un poco de máscara de enfoque porque al bajar de 2000 a 192
+#                 el texto del aro se empasta.
+#   logo.png      512 px, para la página 404 y la vista previa al compartir.
+hechos.append((os.path.join(IMG, 'logo-192.png'),
+               a_lado(emblema, 192).filter(
+                   ImageFilter.UnsharpMask(radius=1.1, percent=55, threshold=2))))
 hechos.append((os.path.join(IMG, 'logo.png'), a_lado(emblema, 512)))
-hechos.append((os.path.join(IMG, 'logo-escudo.png'), a_lado(escudo, 512)))
+# Del escudo, en la web, solo salen los iconos: la Junta quiere el emblema
+# redondo en cabecera y pie. El escudo a tamaño grande está en img/png/,
+# para fotos de perfil y sellos.
 hechos.append((os.path.join(IMG, 'favicon.png'), cuadrado(escudo, 64)))
 # El icono de iOS no admite transparencia: el sistema la rellena de negro.
 hechos.append((os.path.join(IMG, 'apple-touch-icon.png'),

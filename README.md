@@ -412,10 +412,10 @@ atributo, o desactiva el estilo en `assets/css/styles.css` (sección 20).
 └── assets/
     ├── css/styles.css        TODO el diseño
     ├── img/
-    │   ├── logo.png                 Emblema completo (404 y vista previa al compartir)
-    │   ├── logo-escudo.png          Solo el escudo (cabecera, pie, tarjetas)
-    │   ├── favicon.png              Icono de la pestaña
-    │   ├── apple-touch-icon.png     Icono de iOS (fondo blanco, obligado)
+    │   ├── logo-192.png            Emblema redondo (cabecera, pie, tarjetas)
+    │   ├── logo.png                 Emblema redondo a 512 (404 y vista previa)
+    │   ├── favicon.png              Icono de la pestaña (el escudo)
+    │   ├── apple-touch-icon.png     Icono de iOS (el escudo, fondo blanco obligado)
     │   └── png/                     El emblema para documentos (ver punto 12)
     └── js/
         ├── layout.js       Datos de la entidad + menú + cabecera + pie  ← EDITAR AQUÍ
@@ -623,22 +623,31 @@ Se edita en `assets/js/layout.js` → `SITIO.embajada`.
 ### El logo
 
 El emblema oficial es el aprobado por la Junta en **octubre de 2026** y viene definido por la
-**carta gráfica** (`Charte_logo_CGE-ES.pdf`, documento interno). Dos archivos:
+**carta gráfica** (`Charte_logo_CGE-ES.pdf`, documento interno). Los archivos:
 
 | Archivo | Qué es | Dónde se usa |
 |---|---|---|
-| `assets/img/logo.png` | Emblema completo | Página 404 y vista previa al compartir. Es el que va en cartas, certificados y carteles |
-| `assets/img/logo-escudo.png` | Solo el escudo | Cabecera, pie y las tarjetas de actualidad sin foto |
-| `assets/img/favicon.png` | Escudo, 64 px | Pestaña del navegador |
-| `assets/img/apple-touch-icon.png` | Escudo, 180 px, fondo blanco | Icono al guardar en la pantalla de inicio |
+| `assets/img/logo-192.png` | Emblema completo, 192 px | Cabecera (52 px), pie (62) y tarjetas de actualidad sin foto (50) |
+| `assets/img/logo.png` | Emblema completo, 512 px | Página 404 y vista previa al compartir |
+| `assets/img/favicon.png` | **Escudo**, 64 px | Pestaña del navegador |
+| `assets/img/apple-touch-icon.png` | **Escudo**, 180 px, fondo blanco | Icono al guardar en la pantalla de inicio |
 
-**El reparto no es arbitrario: lo manda la carta.** El emblema completo es el que vale por
-defecto, y el escudo solo se usa **por debajo de 3 cm o 150 px** —ahí dentro caen la cabecera
-(52 px), el pie (60) y el favicon—, además de las fotos de perfil. El icono de iOS lleva fondo
-blanco a propósito: Apple no admite transparencia y la rellena de negro.
+**En la web va el emblema redondo, por decisión de la Junta.** La carta gráfica reserva el escudo
+solo para todo lo que baje de 3 cm o 150 px —ahí caerían la cabecera y el pie—, pero se prefirió
+el circular, que es el que identifica a la entidad. El escudo se queda en los dos iconos, donde
+el redondo no se distinguiría: a 16 px, el aro con el nombre es una mancha.
 
-El escudo **no es cuadrado** (336 × 512). Las reglas del CSS lo mandan por la altura con el ancho
-en `auto`; con una medida cuadrada, como la que tenía el emblema anterior, sale aplastado.
+El emblema es cuadrado, así que las medidas del CSS son cuadradas. **El escudo no lo es**
+(336 × 512): si alguna vez se vuelve a usar en la web, hay que mandarlo por la altura con el
+ancho en `auto`, o sale aplastado.
+
+**Dos tamaños del mismo emblema, a propósito.** En la cabecera se ve a 52 px: servir ahí el de
+512 era descargar 164 KB para usar una décima parte. El de 192 pesa 42 KB, cubre hasta pantallas
+de densidad 3 (62 × 3 = 186) y lleva un poco de máscara de enfoque, porque al bajar de 2000 a
+192 el texto del aro se empasta.
+
+El icono de iOS lleva fondo blanco a propósito: Apple no admite transparencia y la rellena de
+negro.
 
 **Los archivos salen del PDF de la carta** con `python dev/extraer-logo.py`. El PDF guarda cada
 imagen en dos piezas —los colores por un lado, con NEGRO donde debería no haber nada, y la

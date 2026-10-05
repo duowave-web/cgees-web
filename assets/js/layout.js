@@ -218,11 +218,14 @@
           '<a class="marca" href="index.html" aria-label="' + SITIO.sigla + ' — ' + SITIO.nombre + '">' +
             /* Un único logo en todo el sitio, también en el pie: el emblema es
                redondo y funciona igual sobre blanco que sobre el navy oscuro. */
-            /* El escudo, no el emblema completo: la carta gráfica lo reserva
-               para todo lo que mida menos de 150 px. El ancho y el alto van
-               con la proporción real del archivo para que no baile la
-               maqueta al cargar; el tamaño lo pone el CSS. */
-            '<img class="marca__escudo" src="assets/img/logo-escudo.png" alt="" width="336" height="512">' +
+            /* El emblema circular, por decisión de la Junta: la carta gráfica
+               reserva el escudo para lo que baje de 150 px, pero quieren el
+               redondo en la web y el escudo solo en el favicon.
+
+               Va el archivo de 192 px y no el de 512: aquí se ve a 52, así
+               que el de 512 eran 164 KB para reducirlos a una décima parte.
+               192 cubre hasta pantallas de densidad 3 y pesa 42 KB. */
+            '<img class="marca__escudo" src="assets/img/logo-192.png" alt="" width="192" height="192">' +
             '<span class="marca__texto">' +
               '<span class="marca__sigla">' + SITIO.sigla + '</span>' +
               '<span class="marca__nombre"' + i18n('marca.nombre', SITIO.nombre) + '</span>' +
@@ -262,7 +265,7 @@
 
             '<div>' +
               '<a class="pie__marca" href="index.html">' +
-                '<img src="assets/img/logo-escudo.png" alt="" width="336" height="512">' +
+                '<img src="assets/img/logo-192.png" alt="" width="192" height="192">' +
                 '<span class="pie__marca-texto">' +
                   '<span class="pie__marca-sigla">' + SITIO.sigla + '</span>' +
                   '<span class="pie__marca-nombre"' + i18n('marca.nombre.pie', SITIO.nombre) + '</span>' +

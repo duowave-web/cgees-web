@@ -371,13 +371,9 @@ hr { border: 0; border-top: 1px solid var(--gris-200); margin: 2.5rem 0; }
 }
 
 .marca { display: flex; align-items: center; gap: 13px; text-decoration: none; flex-shrink: 0; }
-/* El escudo es más alto que ancho (336x512), así que se manda por la
-   altura y el ancho sale solo. Con la medida cuadrada de antes se
-   veía aplastado. */
-/* 52 y no 46: el escudo es estrecho y al lado del «CGE-ES» se quedaba
-   corto de presencia. A 52 de alto mide 34 de ancho y sigue cabiendo
-   en los 64 px de la cabecera. */
-.marca__escudo { height: 52px; width: auto; flex-shrink: 0; }
+/* El emblema es cuadrado, así que medida cuadrada. 52 px es lo que cabe
+   en los 64 de la cabecera dejando aire arriba y abajo. */
+.marca__escudo { width: 52px; height: 52px; flex-shrink: 0; }
 .marca__texto { display: flex; flex-direction: column; line-height: 1.15; }
 .marca__sigla {
   font-size: 1.28rem; font-weight: 800; color: var(--navy);
@@ -944,7 +940,7 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
   position: relative;
   display: grid; place-items: center;
 }
-.noticia__media img { height: 48px; width: auto; }
+.noticia__media img { width: 50px; height: 50px; }
 .noticia__media--foto { height: auto; aspect-ratio: 16/9; }
 .noticia__media--foto img { width: 100%; height: 100%; }
 .noticia__media::after {
@@ -1323,7 +1319,7 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .pie a:hover { color: var(--amarillo); }
 
 .pie__marca { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; text-decoration: none; }
-.pie__marca svg, .pie__marca img { height: 60px; width: auto; flex-shrink: 0; }
+.pie__marca svg, .pie__marca img { width: 62px; height: 62px; flex-shrink: 0; }
 .pie__marca-texto { display: flex; flex-direction: column; line-height: 1.2; }
 .pie__marca-sigla { font-size: 1.3rem; font-weight: 800; color: #fff; }
 .pie__marca-nombre { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: rgba(255,255,255,.55); max-width: 26ch; }
