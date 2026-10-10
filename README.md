@@ -588,17 +588,67 @@ uno toca los textos de los `.html` y otro los datos de `assets/js/`).
 
 ## 10. Publicar
 
-**Netlify (lo más sencillo):** entra en [app.netlify.com/drop](https://app.netlify.com/drop),
-arrastra la carpeta entera y conecta el dominio en *Domain settings*.
+**La web está publicada en <https://www.cge-es.org>** desde el 10 de octubre de 2026. Se sirve
+desde GitHub Pages, con el dominio de Hostinger apuntando allí. No hay FTP, ni panel, ni nada que
+subir a mano: **se publica haciendo `git push`**, y en un par de minutos está en el dominio.
 
-**Hosting clásico:** sube todo a `public_html/` por FTP. No hace falta PHP ni base de datos.
+### Cómo está montado
 
-**Después:** comprueba que el HTTPS está activo y da de alta la web en
-[Google Search Console](https://search.google.com/search-console) enviando
-`https://www.cge-es.org/sitemap.xml`.
+| Pieza | Dónde | Valor |
+|---|---|---|
+| Dominio | Hostinger (`hpanel.hostinger.com`) | `cge-es.org` |
+| Nameservers | Hostinger | `apollo.dns-parking.com`, `athena.dns-parking.com` |
+| `A` `@` | Zona DNS | `185.199.108.153` · `.109.153` · `.110.153` · `.111.153` |
+| `CNAME` `www` | Zona DNS | `duowave-web.github.io` |
+| Dominio del sitio | Archivo `CNAME` del repositorio | `www.cge-es.org` |
+| Certificado | GitHub, automático | Let's Encrypt, se renueva solo |
 
-Si el dominio final no fuera `www.cge-es.org`, busca y reemplaza esa cadena en los `.html`,
-en `robots.txt` y en `sitemap.xml`.
+Las cuatro IP son las de GitHub Pages. **El dominio bueno es `www.cge-es.org`**: `cge-es.org` a
+secas redirige al www, y eso lo hace GitHub solo por tener las cuatro A apuntando a su red.
+
+**Antes de esto el dominio estaba aparcado** con un `A @ 2.57.91.91` y un `CNAME www` que
+apuntaba al propio dominio. Si alguna vez hay que deshacer el cambio, esos son los dos valores a
+restaurar. No había registros MX ni TXT, así que el correo —que es Gmail y no va por el
+dominio— nunca estuvo en juego.
+
+### El interruptor de verdad: el `noindex`
+
+Hasta la publicación, todas las páginas llevaban `<meta name="robots" content="noindex">`. Eso
+**le pide a Google que no indexe la web**, así que podía estar perfectamente colgada del dominio
+y seguir sin existir para nadie que la buscara. Al publicar se quitó de las nueve páginas de
+contenido.
+
+Siguen con `noindex` a propósito **`evento.html` y `noticia.html`** —son plantillas que se
+rellenan con `?id=`, y sin ese parámetro no son más que un armazón vacío— y la **`404.html`**.
+
+### Si el despliegue no llega al dominio
+
+Pasó dos veces: se hace `push`, el commit está en GitHub y el sitio sigue con lo anterior. **Lo
+primero a mirar no es el código, es el despliegue:**
+
+```bash
+gh run list --limit 3 --repo duowave-web/cgees-web
+```
+
+Si el último sale `cancelled` o se queda encolado sin runner, el atajo que funciona es pedirle a
+Pages un build directamente, que no pasa por Actions:
+
+```bash
+gh api -X POST repos/duowave-web/cgees-web/pages/builds
+```
+
+Y ten en cuenta que GitHub Pages manda `Cache-Control: max-age=600`: aunque el sitio ya esté
+actualizado, tu navegador puede seguir diez minutos con la versión vieja. **Ctrl+F5.**
+
+### Lo que queda por hacer
+
+- **Darla de alta en [Google Search Console](https://search.google.com/search-console)** y enviar
+  `https://www.cge-es.org/sitemap.xml`. Hasta que no se haga, Google tardará mucho más en
+  encontrarla.
+- **El formulario de contacto sigue siendo `mailto:`** (ver punto 8): abre el programa de correo
+  del visitante en vez de enviar nada. Ahora que la web es pública, esto se nota más.
+- **Los textos legales** (aviso legal y privacidad) están redactados pero **no los ha revisado un
+  abogado**.
 
 ---
 
