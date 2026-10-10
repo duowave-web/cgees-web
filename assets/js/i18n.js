@@ -393,7 +393,7 @@ fr: {
 "legal.8.h": "8. Droit applicable et juridiction",
 "legal.8.p": "Les présentes conditions sont régies par le droit espagnol. Pour la résolution de tout litige découlant de l'accès ou de l'utilisation de ce site web, les parties se soumettent aux tribunaux du domicile du titulaire, sauf disposition impérative contraire.",
 "legal.actualizado": "Dernière mise à jour",
-"legal.fecha": "à préciser",
+"legal.fecha": "10 octobre 2026",
 
 /* --- Confidentialité ------------------------------------------------------ */
 "meta.priv.t": "Politique de confidentialité et cookies · CGE-ES",
