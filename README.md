@@ -531,14 +531,35 @@ cualquiera, lee el punto 12: hay tres decisiones que vienen de medir el contrast
 
 ## 8. Hacer que el formulario envíe correos de verdad
 
-Ahora mismo abre el programa de correo del usuario con el mensaje redactado. Funciona sin
-configurar nada, pero es mejor recibirlo directamente:
+**Ahora mismo el formulario NO envía nada.** Abre el programa de correo del visitante con el
+mensaje ya redactado, y es él quien tiene que pulsar Enviar. Con la web ya publicada, esto es lo
+más urgente que queda por arreglar.
 
-1. Regístrate en [formspree.io](https://formspree.io) (plan gratuito hasta 50 mensajes/mes).
-2. Crea un formulario. Te dará una URL tipo `https://formspree.io/f/xxxxxxx`.
-3. En `contacto.html`, busca `data-endpoint=""` y pega la URL dentro.
+Son cinco minutos y **no hay que tocar código**:
 
-El formulario ya lleva campo trampa antispam, validación en los dos idiomas y casilla RGPD.
+1. Entra en <https://formspree.io> y crea una cuenta gratuita con
+   `conseil.guineen.espagne@gmail.com`.
+2. Crea un formulario nuevo. Te dará una dirección del estilo
+   `https://formspree.io/f/xxxxxxxx`.
+3. Abre `contacto.html`, busca `data-endpoint=""` y pega ahí esa dirección:
+   `data-endpoint="https://formspree.io/f/xxxxxxxx"`.
+4. Sube el cambio. A partir de ese momento los mensajes llegan al correo del Consejo y el
+   visitante ve «Hemos recibido tu consulta» sin salir de la web.
+
+El plan gratuito da 50 mensajes al mes, que para empezar sobra.
+
+### Mientras tanto
+
+El método actual tiene un fallo que no se ve: **`mailto:` no avisa de si ha funcionado**. En un
+móvil sin aplicación de correo configurada —que es medio público— al pulsar «Enviar mensaje» no
+pasa absolutamente nada, y la persona se queda creyendo que ha escrito.
+
+Por eso el aviso no da por hecho que se haya abierto nada: dice que *si no se ha abierto*, copie
+el mensaje, y ofrece un botón para copiarlo. Y si el navegador bloquea el portapapeles, el botón
+se convierte en un cuadro con el mensaje entero ya seleccionado, para copiarlo a mano. **Lo que
+no puede pasar es que el visitante pulse algo y no ocurra nada.**
+
+Eso es un parche, no la solución. La solución es el endpoint de arriba.
 
 ---
 

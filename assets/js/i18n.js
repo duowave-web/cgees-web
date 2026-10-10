@@ -349,7 +349,9 @@ fr: {
 "form.err.corto": "Donnez-nous un peu plus de détails (20 caractères minimum).",
 "form.err.rgpd": "Vous devez accepter la politique de confidentialité.",
 "form.err.general": "Vérifiez les champs signalés avant d'envoyer.",
-"form.ok.mailto": "Votre logiciel de messagerie s'est ouvert avec le message prêt. Il ne vous reste qu'à appuyer sur Envoyer.",
+"form.ok.mailto": "Nous avons préparé le message dans votre logiciel de messagerie. S'il ne s'est pas ouvert, copiez le message et envoyez-le à conseil.guineen.espagne@gmail.com.",
+"form.copiar": "Copier le message",
+"form.copiado": "Message copié",
 "form.ok": "Nous avons bien reçu votre message. Nous vous répondrons dès que possible. Merci de nous avoir écrit.",
 "form.err.envio": "Nous n'avons pas pu envoyer le message. Écrivez-nous directement à notre adresse électronique.",
 

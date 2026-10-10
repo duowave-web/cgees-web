@@ -1093,6 +1093,8 @@
      6. Formulario de contacto
      ====================================================================== */
 
+  var NL = String.fromCharCode(10);
+
   function initFormulario() {
     var form = document.querySelector('[data-formulario]');
     if (!form) return;
@@ -1203,9 +1205,73 @@
           '?subject=' + encodeURIComponent(asunto) +
           '&body='    + encodeURIComponent(cuerpoMensaje());
 
+        /* `mailto:` no avisa de si ha funcionado. En un móvil sin app de
+           correo configurada —que es medio público— no pasa absolutamente
+           nada, y el visitante se queda creyendo que ha escrito. Así que
+           el texto no da por hecho que se haya abierto, y se ofrece copiar
+           el mensaje para pegarlo donde sea. */
         aviso.setAttribute('data-estado', 'ok');
-        aviso.textContent = msg('form.ok.mailto',
-          'Se ha abierto tu programa de correo con el mensaje preparado. Solo tienes que pulsar Enviar.');
+        aviso.innerHTML = '';
+        var linea = document.createElement('span');
+        linea.textContent = msg('form.ok.mailto',
+          'Hemos preparado el mensaje en tu programa de correo. Si no se ha abierto, ' +
+          'copia el mensaje y envíalo a ' + destino + '.');
+        aviso.appendChild(linea);
+
+        var copiar = document.createElement('button');
+        copiar.type = 'button';
+        copiar.className = 'btn btn--contorno btn--sm';
+        copiar.style.marginTop = '12px';
+        copiar.textContent = msg('form.copiar', 'Copiar el mensaje');
+        copiar.addEventListener('click', function () {
+          var texto = 'Para: ' + destino + NL +
+                      'Asunto: ' + asunto + NL + NL + cuerpoMensaje();
+
+          function hecho() {
+            copiar.textContent = msg('form.copiado', 'Mensaje copiado');
+            copiar.disabled = true;
+          }
+
+          /* Si no se puede copiar —el navegador lo bloquea, o la página no
+             va por https— se enseña el mensaje en un cuadro y se
+             selecciona entero, para copiarlo a mano. Lo que no puede pasar
+             es que el botón no haga nada y el visitante no se entere. */
+          function aMano() {
+            var ta = document.createElement('textarea');
+            ta.className = 'campo__area-copiar';
+            ta.readOnly = true;
+            ta.rows = 6;
+            ta.value = texto;
+            ta.style.cssText = 'width:100%;margin-top:10px';
+            copiar.replaceWith(ta);
+            ta.focus();
+            ta.select();
+          }
+
+          function conExecCommand() {
+            var ta = document.createElement('textarea');
+            ta.value = texto;
+            ta.style.cssText = 'position:fixed;top:-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            var ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(ta);
+            return ok;
+          }
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(texto).then(hecho, function () {
+              if (conExecCommand()) hecho(); else aMano();
+            });
+          } else if (conExecCommand()) {
+            hecho();
+          } else {
+            aMano();
+          }
+        });
+        aviso.appendChild(document.createElement('br'));
+        aviso.appendChild(copiar);
         return;
       }
 
