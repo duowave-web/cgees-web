@@ -292,7 +292,7 @@
               '<ul>' +
                 '<li><a href="quienes-somos.html#origen"' + i18n('pie.origen', 'Origen y mandato') + '</a></li>' +
                 '<li><a href="quienes-somos.html#organos"' + i18n('pie.organos', 'Junta Directiva') + '</a></li>' +
-                '<li><a href="quienes-somos.html#ficha"' + i18n('pie.acred', 'Datos registrales') + '</a></li>' +
+                '<li><a href="quienes-somos.html#ficha"' + i18n('pie.acred', 'Ficha informativa') + '</a></li>' +
                 '<li><a href="asociaciones.html"' + i18n('pie.asoc', 'Entidades guineanas') + '</a></li>' +
                 '<li><a href="contacto.html"' + i18n('pie.adherirse', 'Cómo inscribirse') + '</a></li>' +
               '</ul>' +
@@ -316,9 +316,10 @@
                    notificaciones, y no una oficina: puesto en el pie de todas
                    las páginas parecía una dirección a la que ir. Está solo en
                    la ficha informativa de «El Consejo», con esa etiqueta. */
+                /* Solo el correo. Los dos teléfonos y el domicilio van
+                   únicamente en la ficha informativa de «El Consejo»: en el
+                   pie de las once páginas parecían una centralita. */
                 '<li><a href="mailto:' + SITIO.email + '">' + SITIO.email + '</a></li>' +
-                '<li><a href="tel:' + SITIO.telefonoTel + '">' + SITIO.telefono + '</a></li>' +
-                '<li><a href="tel:' + SITIO.telefono2Tel + '">' + SITIO.telefono2 + '</a></li>' +
               '</ul>' +
             '</div>' +
 

@@ -33,8 +33,8 @@ fr: {
 
 
 /* --- En-tête et pied de page -------------------------------------------- */
-"marca.nombre": "Conseil des Guinéens de l'Extérieur en Espagne",
-"marca.nombre.pie": "Conseil des Guinéens de l'Extérieur en Espagne",
+"marca.nombre": "Conseil des Guinéens de l'Étranger en Espagne",
+"marca.nombre.pie": "Conseil des Guinéens de l'Étranger en Espagne",
 
 "nav.inicio": "Accueil",
 "nav.quienes": "Le Conseil",
@@ -65,7 +65,7 @@ fr: {
 "pie.entidad": "Le Conseil",
 "pie.origen": "Origine et mandat",
 "pie.organos": "Conseil d'administration",
-"pie.acred": "Données d'enregistrement",
+"pie.acred": "Fiche d'information",
 "pie.asoc": "Entités guinéennes",
 "pie.adherirse": "Comment s'inscrire",
 "pie.servicios": "Services",
@@ -81,7 +81,7 @@ fr: {
 "pie.cookies": "Cookies",
 
 /* --- Accueil ------------------------------------------------------------ */
-"meta.home.t": "CGE-ES · Conseil des Guinéens de l'Extérieur en Espagne",
+"meta.home.t": "CGE-ES · Conseil des Guinéens de l'Étranger en Espagne",
 "meta.home.d": "Organe de représentation de la diaspora guinéenne en Espagne. Nous coordonnons les entités guinéennes du territoire espagnol, orientons en matière consulaire et accompagnons auprès des institutions. Compétence nationale.",
 
 "home.hero.h1": "La voix organisée de la <em>diaspora guinéenne</em> en Espagne",
@@ -130,9 +130,9 @@ fr: {
 
 /* --- Le Conseil ---------------------------------------------------------- */
 "meta.about.t": "Le Conseil · CGE-ES",
-"meta.about.d": "Origine, mandat, Conseil d'administration et données d'enregistrement du Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES), inscrit au Registre national des associations sous le numéro 629208.",
+"meta.about.d": "Origine, mandat, Conseil d'administration et données d'enregistrement du Conseil des Guinéens de l'Étranger en Espagne (CGE-ES), inscrit au Registre national des associations sous le numéro 629208.",
 
-"about.h1": "Le Conseil des Guinéens de l'Extérieur en Espagne",
+"about.h1": "Le Conseil des Guinéens de l'Étranger en Espagne",
 "about.sub": "Ce qu'il est, d'où il vient, qui le dirige et avec quel fondement juridique il agit.",
 
 "about.org.eyebrow": "Origine et mandat",
@@ -302,7 +302,7 @@ fr: {
 
 /* --- Actualités ---------------------------------------------------------- */
 "meta.news.t": "Actualités · CGE-ES",
-"meta.news.d": "Appels, communiqués institutionnels et avis pratiques du Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES).",
+"meta.news.d": "Appels, communiqués institutionnels et avis pratiques du Conseil des Guinéens de l'Étranger en Espagne (CGE-ES).",
 "news.h1": "Actualités et avis",
 "news.sub": "Appels à participation, communiqués institutionnels et avis pratiques pour la communauté guinéenne en Espagne. Les appels relatifs à la Fête de l'Indépendance sont également publiés ici.",
 "news.demo.t": "Fiches à compléter",
@@ -316,7 +316,7 @@ fr: {
 
 /* --- Contact ------------------------------------------------------------- */
 "meta.cont.t": "Contact · CGE-ES",
-"meta.cont.d": "Contactez le Conseil des Guinéens de l'Extérieur en Espagne. Accueil en espagnol et en français, par courriel et par téléphone.",
+"meta.cont.d": "Contactez le Conseil des Guinéens de l'Étranger en Espagne. Accueil en espagnol et en français, par courriel et par téléphone.",
 "cont.h1": "Écrire au Conseil",
 "cont.sub": "Vous pouvez nous écrire en espagnol ou en français. Si vous représentez une association guinéenne, indiquez-le dans votre premier message : cela nous aide à mieux orienter la réponse.",
 "cont.form.h2": "Formulaire",
@@ -340,7 +340,7 @@ fr: {
 "cont.f.mensaje.ph": "Expliquez-nous brièvement de quoi il s'agit : ce dont vous avez besoin, depuis quand et ce que vous avez déjà tenté.",
 "cont.f.rgpd": "J'ai lu et j'accepte la politique de confidentialité et je consens au traitement de mes données pour la gestion de cette demande.",
 "cont.f.enviar": "Envoyer le message",
-"cont.f.legal": "Responsable : Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES), NIF G26752907. Finalité : répondre à votre demande. Base légale : votre consentement. Vous pouvez exercer vos droits d'accès, de rectification et de suppression en écrivant à notre adresse électronique.",
+"cont.f.legal": "Responsable : Conseil des Guinéens de l'Étranger en Espagne (CGE-ES), NIF G26752907. Finalité : répondre à votre demande. Base légale : votre consentement. Vous pouvez exercer vos droits d'accès, de rectification et de suppression en écrivant à notre adresse électronique.",
 "cont.banco.titular": "Titulaire",
 
 /* --- Formulaire : messages ------------------------------------------------ */
@@ -357,10 +357,10 @@ fr: {
 
 /* --- Mentions légales ----------------------------------------------------- */
 "meta.legal.t": "Mentions légales · CGE-ES",
-"meta.legal.d": "Mentions légales et conditions d'utilisation du site web du Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES).",
+"meta.legal.d": "Mentions légales et conditions d'utilisation du site web du Conseil des Guinéens de l'Étranger en Espagne (CGE-ES).",
 "legal.migas": "Mentions légales",
 "legal.h1": "Mentions légales",
-"legal.sub": "Conditions d'utilisation du site web du Conseil des Guinéens de l'Extérieur en Espagne.",
+"legal.sub": "Conditions d'utilisation du site web du Conseil des Guinéens de l'Étranger en Espagne.",
 "legal.aviso.t": "Document en attente de révision",
 "legal.aviso.p": "Ce texte est un modèle adapté à la réglementation espagnole (LSSI-CE et RGPD). Avant de publier le site, complétez-le et faites-le relire par une personne ayant une formation juridique.",
 "legal.1.h": "1. Titulaire du site web",
@@ -399,7 +399,7 @@ fr: {
 
 /* --- Confidentialité ------------------------------------------------------ */
 "meta.priv.t": "Politique de confidentialité et cookies · CGE-ES",
-"meta.priv.d": "Politique de confidentialité, traitement des données personnelles et utilisation des cookies du site web du Conseil des Guinéens de l'Extérieur en Espagne (CGE-ES).",
+"meta.priv.d": "Politique de confidentialité, traitement des données personnelles et utilisation des cookies du site web du Conseil des Guinéens de l'Étranger en Espagne (CGE-ES).",
 "priv.migas": "Confidentialité",
 "priv.h1": "Politique de confidentialité",
 "priv.sub": "Comment nous traitons vos données personnelles au CGE-ES et quels droits vous avez sur celles-ci.",

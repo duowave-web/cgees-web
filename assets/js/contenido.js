@@ -176,18 +176,18 @@ window.CGE_CONTENIDO = {
       fotos: [],
       documentos: ['ev-invitacion-embajador', 'ev-memorandum-2024'],
       es: {
-        titulo: "Encuentro con el embajador Framoï Mara",
+        titulo: "Encuentro con S.E. el Sr. Framoï Mara, embajador",
         resumen: "Primer encuentro de la comunidad con el nuevo embajador ante España y Malta, con entrega de un memorándum.",
         cuerpo: [
-          "El 11 de mayo de 2024 la comunidad guineana en España se reunió por primera vez con Framoï Mara, nuevo embajador de la República de Guinea ante el Reino de España y Malta.",
+          "El 11 de mayo de 2024 la comunidad guineana en España se reunió por primera vez con S.E. el Sr. Framoï Mara, nuevo embajador de la República de Guinea ante el Reino de España y Malta.",
           "El Consejo le entregó un memorándum con los asuntos que la comunidad tenía planteados. Ese documento y la convocatoria del encuentro se pueden consultar abajo."
         ]
       },
       fr: {
-        titulo: "Rencontre avec l'ambassadeur Framoï Mara",
+        titulo: "Rencontre avec S.E.M. Framoï Mara, Ambassadeur",
         resumen: "Première rencontre de la communauté avec le nouvel ambassadeur auprès de l'Espagne et de Malte, avec remise d'un mémorandum.",
         cuerpo: [
-          "Le 11 mai 2024, la communauté guinéenne en Espagne a rencontré pour la première fois Framoï Mara, nouvel ambassadeur de la République de Guinée auprès du Royaume d'Espagne et de Malte.",
+          "Le 11 mai 2024, la communauté guinéenne en Espagne a rencontré pour la première fois S.E.M. (Son Excellence Monsieur) Framoï Mara, Ambassadeur de la République de Guinée auprès du Royaume d'Espagne et de Malte.",
           "Le Conseil lui a remis un mémorandum reprenant les questions soulevées par la communauté. Ce document et l'invitation à la rencontre sont consultables ci-dessous."
         ]
       }
@@ -212,7 +212,7 @@ window.CGE_CONTENIDO = {
         titulo: "Forum National de la Diaspora à Conakry",
         resumen: "Participation du CGE-ES au Forum National de la Diaspora convoqué par le Gouvernement guinéen.",
         cuerpo: [
-          "Le Gouvernement guinéen a convoqué à Conakry le Forum National de la Diaspora, auquel le Conseil des Guinéens de l'Extérieur en Espagne a participé. La lettre circulaire de convocation est consultable ci-dessous."
+          "Le Gouvernement guinéen a convoqué à Conakry le Forum National de la Diaspora, auquel le Conseil des Guinéens de l'Étranger en Espagne a participé. La lettre circulaire de convocation est consultable ci-dessous."
         ]
       }
     },
@@ -515,8 +515,8 @@ window.CGE_CONTENIDO = {
       fr: "Communiqué d'invitation à la rencontre avec l'ambassadeur" },
     { id: 'ev-memorandum-2024', fecha: '2024-05-11', paginas: 8,
       fuente: "CGE-ES",
-      es: "Memorándum entregado al embajador Framoï Mara",
-      fr: "Mémorandum remis à l'ambassadeur Framoï Mara" },
+      es: "Memorándum entregado a S.E. el Sr. Framoï Mara, embajador",
+      fr: "Mémorandum remis à S.E.M. Framoï Mara, Ambassadeur" },
     { id: 'ev-nota-105-barcelona', fecha: '2025-12-17', paginas: 1,
       fuente: "Embajada de Guinea en Madrid", fuenteFr: "Ambassade de Guinée à Madrid",
       es: "Nota verbal 105: centro de votación de Barcelona",
