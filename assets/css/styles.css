@@ -2070,6 +2070,36 @@ body.visor-abierto { overflow: hidden; }
 /* --------------------------------------------------------------------------
    23. Impresión
    -------------------------------------------------------------------------- */
+/* Paso de un evento a otro, al pie de la página del evento. Dos cajas que
+   se reparten el ancho; si falta una de las dos —el primero y el último de
+   la serie— el <span> vacío la sustituye y la otra no se descoloca. */
+.ev-paso {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--gris-200);
+}
+.ev-paso__a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--gris-200); border-radius: var(--radio-sm);
+  text-decoration: none; background: #fff;
+  transition: border-color var(--t-rapida), background var(--t-rapida);
+}
+.ev-paso__a:hover { border-color: var(--gris-300); background: var(--gris-50); }
+.ev-paso__a--der { flex-direction: row; justify-content: flex-end; text-align: right; }
+.ev-paso__flecha { font-size: 1.25rem; color: var(--navy); flex-shrink: 0; }
+.ev-paso__texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ev-paso__et {
+  font-size: .72rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--texto-suave);
+}
+.ev-paso__tit { font-weight: 700; color: var(--navy); font-size: .93rem; line-height: 1.35; }
+
+/* Con la foto a pantalla completa no hace falta ni barra ni bordes: la
+   imagen manda y solo se deja el botón de cerrar. */
+.visor--foto { border-radius: 0; }
+.visor--foto .visor__barra { border-bottom: 0; padding-bottom: 0; }
+.visor--foto .visor__hojas { padding-top: 0; }
+
 /* Lista de enlaces a sedes oficiales. Cada uno en su línea y con el icono
    de «se abre fuera», que son todos externos. */
 .lista-enlaces { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
@@ -2122,6 +2152,8 @@ body.visor-abierto { overflow: hidden; }
       radial-gradient(420px 300px at 76% 6%, rgba(0,148,96,.18), transparent 68%),
       radial-gradient(420px 320px at -10% 106%, rgba(206,17,38,.20), transparent 64%);
   }
+
+  .ev-paso { grid-template-columns: 1fr; }
 
   /* ---- Zonas de toque ---- */
   .selector-idioma__btn { min-height: 40px; padding-inline: 13px; }

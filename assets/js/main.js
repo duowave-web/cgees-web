@@ -567,6 +567,7 @@
                ' loading="' + (i === 1 ? 'eager' : 'lazy') + '" draggable="false">' +
                '<figcaption>' + i + ' / ' + doc.paginas + '</figcaption></figure>';
     }
+    d.classList.remove('visor--foto');
     d.querySelector('.visor__hojas').className = 'visor__hojas';
     d.querySelector('.visor__hojas').innerHTML = hojas;
     d.querySelector('.visor__hojas').scrollTop = 0;
@@ -590,10 +591,35 @@
 
   /* El mismo <dialog> se reutiliza para ampliar una foto del carrusel: es
      la misma capa, la misma ✕ y el mismo Escape. */
+  /* Pide pantalla completa de verdad, no solo un modal que ocupa el
+     hueco. Puede fallar —algunos navegadores lo niegan si no viene de un
+     gesto, y en iPhone no existe para elementos que no sean vídeo—, así
+     que si falla no pasa nada: queda el modal, que ya cubre la pantalla. */
+  function aPantallaCompleta(el) {
+    var f = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (!f) return;
+    try {
+      var r = f.call(el);
+      if (r && r.catch) r.catch(function () {});
+    } catch (e) { /* se queda en modal */ }
+  }
+
+  function salirDePantallaCompleta() {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) return;
+    var s = document.exitFullscreen || document.webkitExitFullscreen;
+    if (!s) return;
+    try {
+      var r = s.call(document);
+      if (r && r.catch) r.catch(function () {});
+    } catch (e) { /* nada */ }
+  }
+
   function abrirFoto(src, alt, pos) {
     var d = crearVisor();
-    d.querySelector('.visor__titulo').innerHTML = '<strong>' + (alt || '') + '</strong>' +
-      (pos ? '<span>' + pos + '</span>' : '');
+    /* Una foto se abre LIMPIA: sin título ni pie. El texto descriptivo
+       sigue en el alt de la imagen, que es donde le sirve a quien usa un
+       lector de pantalla, pero no se pinta encima de la foto. */
+    d.querySelector('.visor__titulo').innerHTML = '';
     /* Para una foto suelta la barra no tiene sentido: no hay páginas ni
        columnas, y el navegador ya deja ampliarla. */
     d.querySelector('[data-visor-opciones]').hidden = true;
@@ -603,10 +629,14 @@
     visorFoco = document.activeElement;
     if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
     document.body.classList.add('visor-abierto');
+    d.classList.add('visor--foto');
+    aPantallaCompleta(d);
     d.querySelector('.visor__cerrar').focus();
   }
 
   function cerrarVisor() {
+    salirDePantallaCompleta();
+    if (visorDoc) visorDoc.classList.remove('visor--foto');
     if (!visorDoc) return;
     if (typeof visorDoc.close === 'function') visorDoc.close(); else visorDoc.removeAttribute('open');
     document.body.classList.remove('visor-abierto');
@@ -749,7 +779,7 @@
 
     if (docsEv.length) {
       html += '<section class="ev-docs">' +
-        '<h2 class="ev-subtitulo">' + (traducir('ev.docs') || 'Documentos del evento') + '</h2>' +
+        '<h2 class="ev-subtitulo">' + (traducir('ev.docs') || 'Documentos de referencia') + '</h2>' +
         '<ul class="docs">' + docsEv.map(function (d) {
           var titulo = d[idiomaActual] || d.es;
           var hojas = d.paginas + ' ' + (d.paginas === 1
@@ -768,6 +798,37 @@
       '</section>';
     }
 
+    /* Paso de un evento a otro por orden cronológico. El array de
+       contenido va del más reciente al más antiguo, así que «anterior en
+       el tiempo» es el siguiente del array. Se cuentan solo los visibles:
+       una ficha oculta no puede ser el destino de una flecha. */
+    var serie = ((C && C.noticias) || []).filter(function (x) {
+      return x.tipo === 'evento' && visible(x);
+    }).slice().sort(function (a, b) { return (b.fecha || '').localeCompare(a.fecha || ''); });
+    var pos = serie.map(function (x) { return x.id; }).indexOf(ev.id);
+    var masAntiguo = serie[pos + 1];
+    var masNuevo   = serie[pos - 1];
+
+    html += '<nav class="ev-paso" aria-label="' +
+      (traducir('ev.paso.nav') || 'Navegación entre eventos') + '">';
+    html += masAntiguo
+      ? '<a class="ev-paso__a" href="evento.html?id=' + masAntiguo.id + '">' +
+          '<span class="ev-paso__flecha" aria-hidden="true">&#8592;</span>' +
+          '<span class="ev-paso__texto"><span class="ev-paso__et">' +
+            (traducir('ev.paso.ant') || 'Evento anterior') + '</span>' +
+          '<span class="ev-paso__tit">' +
+            ((masAntiguo[idiomaActual] || masAntiguo.es).titulo) + '</span></span></a>'
+      : '<span></span>';
+    html += masNuevo
+      ? '<a class="ev-paso__a ev-paso__a--der" href="evento.html?id=' + masNuevo.id + '">' +
+          '<span class="ev-paso__texto"><span class="ev-paso__et">' +
+            (traducir('ev.paso.sig') || 'Evento siguiente') + '</span>' +
+          '<span class="ev-paso__tit">' +
+            ((masNuevo[idiomaActual] || masNuevo.es).titulo) + '</span></span>' +
+          '<span class="ev-paso__flecha" aria-hidden="true">&#8594;</span></a>'
+      : '<span></span>';
+    html += '</nav>';
+
     html += '<p class="noticia-detalle__volver"><a class="enlace-flecha" href="actualidad.html">' +
       (traducir('noti.volver') || 'Volver a Actualidad') + '</a></p>';
     html += '</div>';
@@ -783,6 +844,17 @@
   }
 
   function initEvento() {
+    /* Pulsar el vídeo lo pone a pantalla completa y lo arranca. Los
+       controles propios del navegador siguen funcionando: el clic en la
+       barra de controles no llega hasta aquí. */
+    document.addEventListener('click', function (e) {
+      var vid = e.target.closest('.ev-video video');
+      if (vid) {
+        aPantallaCompleta(vid);
+        if (vid.paused) { var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
+      }
+    });
+
     document.addEventListener('click', function (e) {
       var paso = e.target.closest('[data-carrusel-paso]');
       if (paso) { moverCarrusel(parseInt(paso.getAttribute('data-carrusel-paso'), 10)); return; }
