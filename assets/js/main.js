@@ -1329,10 +1329,11 @@
 
       form.querySelectorAll('input, select, textarea').forEach(limpiarError);
 
-      var obligatorios = ['f-nombre', 'f-email', 'f-motivo', 'f-mensaje'];
-      obligatorios.forEach(function (id) {
-        var c = document.getElementById(id);
-        if (!c) return;
+      /* Obligatorio es lo que el HTML marque como `required`, no una lista
+         escrita aquí: así el formulario de inscripción no necesita tocar
+         este archivo. La casilla del RGPD se comprueba aparte, más abajo. */
+      form.querySelectorAll('[required]').forEach(function (c) {
+        if (c.type === 'checkbox') return;
         if (!c.value.trim()) {
           mostrarError(c, msg('form.err.vacio', 'Este campo es obligatorio.'));
           ok = false;
@@ -1371,20 +1372,26 @@
       return s.options[s.selectedIndex] ? s.options[s.selectedIndex].text : s.value;
     }
 
+    /* El cuerpo se arma recorriendo los campos del formulario y usando el
+       texto de su etiqueta. Antes iba una lista fija de ids, y con dos
+       formularios distintos —contacto e inscripción de entidades— eso
+       obligaba a mantener dos listas y a acordarse de las dos. */
     function cuerpoMensaje() {
-      var v = function (id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; };
-      return [
-        'Nombre: '     + v('f-nombre'),
-        'Email: '      + v('f-email'),
-        'Teléfono: '   + (v('f-tel') || '—'),
-        'Provincia: '  + (v('f-provincia') || '—'),
-        'Asociación: ' + (v('f-asociacion') || '—'),
-        'Motivo: '     + textoDelSelect('f-motivo'),
-        'Idioma: '     + textoDelSelect('f-idioma'),
-        '',
-        'Mensaje:',
-        v('f-mensaje')
-      ].join('\n');
+      var lineas = [], largos = [];
+      form.querySelectorAll('input, select, textarea').forEach(function (c) {
+        if (c.type === 'hidden' || c.type === 'checkbox' || c.name === 'website') return;
+        var etiqueta = form.querySelector('label[for="' + c.id + '"]');
+        var nombre = etiqueta
+          ? etiqueta.textContent.replace(/\s*\*\s*$/, '').trim()
+          : (c.name || c.id);
+        var valor = c.tagName === 'SELECT' ? textoDelSelect(c.id) : c.value.trim();
+        if (c.tagName === 'TEXTAREA') {
+          if (valor) largos.push(nombre + ':' + NL + valor);
+        } else {
+          lineas.push(nombre + ': ' + (valor || '\u2014'));
+        }
+      });
+      return lineas.concat(largos.length ? [''].concat(largos) : []).join(NL);
     }
 
     form.addEventListener('submit', function (e) {
@@ -1406,7 +1413,8 @@
       /* --- Sin endpoint configurado: abrir el cliente de correo --- */
       if (!endpoint) {
         var destino  = (window.CGE && window.CGE.SITIO.email) || 'conseil.guineen.espagne@gmail.com';
-        var asunto   = '[Web CGE-ES] ' + textoDelSelect('f-motivo');
+        var asunto   = '[Web CGE-ES] ' +
+          (form.getAttribute('data-asunto') || textoDelSelect('f-motivo'));
         window.location.href = 'mailto:' + destino +
           '?subject=' + encodeURIComponent(asunto) +
           '&body='    + encodeURIComponent(cuerpoMensaje());

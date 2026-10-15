@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title data-i18n="meta.insc.t">Inscribir una entidad · CGE-ES</title>
+<meta name="description" data-i18n-attr="content:meta.insc.d" content="Formulario de inscripción de entidades guineanas en el Consejo de Guineanos del Exterior en España. Requisitos y datos necesarios.">
+
+<link rel="canonical" href="https://www.cge-es.org/inscribir-entidad.html">
+<link rel="alternate" hreflang="es" href="https://www.cge-es.org/inscribir-entidad.html?lang=es">
+<link rel="alternate" hreflang="fr" href="https://www.cge-es.org/inscribir-entidad.html?lang=fr">
+
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<meta name="theme-color" content="#003566">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Inscribir una entidad · CGE-ES">
+<meta property="og:image" content="https://www.cge-es.org/assets/img/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+<a class="saltar" href="#principal" data-i18n="a11y.saltar">Saltar al contenido principal</a>
+
+<div id="site-header">
+  <noscript>
+    <div class="contenedor" style="padding:18px 24px;border-bottom:1px solid #E1E5E9">
+      <strong>CGE-ES</strong> ·
+      <a href="index.html">Inicio</a> · <a href="quienes-somos.html">El Consejo</a> ·
+      <a href="asociaciones.html">Entidades</a> · <a href="servicios.html">Servicios</a> ·
+      <a href="asuntos-consulares.html">Asuntos consulares</a> ·
+      <a href="actualidad.html">Actualidad</a> · <a href="contacto.html">Contacto</a>
+    </div>
+  </noscript>
+</div>
+
+<main id="principal">
+
+  <section class="hero-pagina hero-pagina--foto"
+           style="background-image:url(assets/img/cabeceras/entidades.webp)">
+    <div class="contenedor hero-pagina__inner">
+      <ol class="migas">
+        <li><a href="index.html" data-i18n="migas.inicio">Inicio</a></li>
+        <li><a href="asociaciones.html" data-i18n="migas.asociaciones">Entidades</a></li>
+        <li data-i18n="migas.inscribir">Inscribir una entidad</li>
+      </ol>
+      <h1 data-i18n="insc.h1">Inscribe tu entidad en el Consejo</h1>
+      <p data-i18n="insc.sub">
+        Para entidades guineanas constituidas e inscritas en un registro de asociaciones en
+        España. Rellena los datos de la entidad y te contestamos indicando qué documentos hay
+        que enviar.
+      </p>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="duo">
+
+        <div class="revelar">
+          <h2 data-i18n="insc.form.h2">Datos de la entidad</h2>
+          <p class="entradilla" style="margin-bottom:30px" data-i18n="insc.form.p">
+            Los campos con asterisco son obligatorios. Si algún dato no lo tienes a mano, déjalo
+            en blanco y lo completamos después.
+          </p>
+
+          <!--
+            Este formulario es DISTINTO del de contacto: pide los datos
+            registrales de la entidad, no un mensaje libre. Comparte el
+            motor de main.js, que arma el correo recorriendo los campos y
+            usando el texto de sus etiquetas, así que para añadir o quitar
+            un campo basta con tocar este HTML.
+
+            Para que los mensajes lleguen al buzón en vez de abrir el
+            programa de correo del visitante, pega la dirección de Formspree
+            en data-endpoint, igual que en contacto.html. Ver README,
+            punto 8.
+          -->
+          <form class="formulario" data-formulario data-endpoint=""
+                data-asunto="Inscripción de entidad" novalidate>
+
+            <div class="campo--doble">
+              <div class="campo">
+                <label for="f-entidad"><span data-i18n="insc.f.entidad">Denominación completa de la entidad</span> <span class="req">*</span></label>
+                <input type="text" id="f-entidad" name="entidad" required>
+                <span class="campo__error" data-error-de="f-entidad"></span>
+              </div>
+              <div class="campo">
+                <label for="f-sigla" data-i18n="insc.f.sigla">Siglas, si tiene</label>
+                <input type="text" id="f-sigla" name="sigla">
+              </div>
+            </div>
+
+            <div class="campo--doble">
+              <div class="campo">
+                <label for="f-nif"><span data-i18n="insc.f.nif">NIF</span> <span class="req">*</span></label>
+                <input type="text" id="f-nif" name="nif" required>
+                <span class="campo__error" data-error-de="f-nif"></span>
+              </div>
+              <div class="campo">
+                <label for="f-tipo" data-i18n="insc.f.tipo">Tipo de entidad</label>
+                <select id="f-tipo" name="tipo">
+                  <option value="asociacion" data-i18n="insc.f.tipo.1">Asociación</option>
+                  <option value="federacion" data-i18n="insc.f.tipo.2">Federación</option>
+                  <option value="fundacion" data-i18n="insc.f.tipo.3">Fundación</option>
+                  <option value="religiosa" data-i18n="insc.f.tipo.4">Entidad religiosa</option>
+                  <option value="otra" data-i18n="insc.f.tipo.5">Otra</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="campo--doble">
+              <div class="campo">
+                <label for="f-registro" data-i18n="insc.f.registro">Número de registro</label>
+                <input type="text" id="f-registro" name="registro">
+              </div>
+              <div class="campo">
+                <label for="f-organismo" data-i18n="insc.f.organismo">Registro en el que está inscrita</label>
+                <input type="text" id="f-organismo" name="organismo"
+                       data-i18n-attr="placeholder:insc.f.organismo.ph"
+                       placeholder="Ministerio del Interior, Generalitat…">
+              </div>
+            </div>
+
+            <div class="campo--doble">
+              <div class="campo">
+                <label for="f-municipio"><span data-i18n="insc.f.municipio">Municipio</span> <span class="req">*</span></label>
+                <input type="text" id="f-municipio" name="municipio" required>
+                <span class="campo__error" data-error-de="f-municipio"></span>
+              </div>
+              <div class="campo">
+                <label for="f-provincia"><span data-i18n="insc.f.provincia">Provincia</span> <span class="req">*</span></label>
+                <input type="text" id="f-provincia" name="provincia" required>
+                <span class="campo__error" data-error-de="f-provincia"></span>
+              </div>
+            </div>
+
+            <div class="campo--doble">
+              <div class="campo">
+                <label for="f-creacion" data-i18n="insc.f.creacion">Año de constitución</label>
+                <input type="text" id="f-creacion" name="creacion" inputmode="numeric">
+              </div>
+              <div class="campo">
+                <label for="f-ambito" data-i18n="insc.f.ambito">Ámbito de actuación</label>
+                <input type="text" id="f-ambito" name="ambito"
+                       data-i18n-attr="placeholder:insc.f.ambito.ph"
+                       placeholder="Cultura, solidaridad, mujer, deporte…">
+              </div>
+            </div>
+
+            <div class="campo--doble">
+              <div class="campo">
+                <label for="f-email"><span data-i18n="insc.f.email">Correo de contacto de la entidad</span> <span class="req">*</span></label>
+                <input type="email" id="f-email" name="email" autocomplete="email" required>
+                <span class="campo__error" data-error-de="f-email"></span>
+              </div>
+              <div class="campo">
+                <label for="f-webentidad" data-i18n="insc.f.web">Web o red social, si tiene</label>
+                <input type="text" id="f-webentidad" name="webentidad">
+              </div>
+            </div>
+
+            <h3 style="margin-top:34px" data-i18n="insc.form.h3">Quien firma la solicitud</h3>
+
+            <div class="campo--doble">
+              <div class="campo">
+                <label for="f-nombre"><span data-i18n="insc.f.repre">Nombre y apellidos</span> <span class="req">*</span></label>
+                <input type="text" id="f-nombre" name="nombre" autocomplete="name" required>
+                <span class="campo__error" data-error-de="f-nombre"></span>
+              </div>
+              <div class="campo">
+                <label for="f-cargo" data-i18n="insc.f.cargo">Cargo en la entidad</label>
+                <input type="text" id="f-cargo" name="cargo">
+              </div>
+            </div>
+
+            <div class="campo">
+              <label for="f-tel" data-i18n="insc.f.tel">Teléfono de contacto</label>
+              <input type="tel" id="f-tel" name="telefono" autocomplete="tel">
+            </div>
+
+            <div class="campo">
+              <label for="f-mensaje" data-i18n="insc.f.obs">Observaciones</label>
+              <textarea id="f-mensaje" name="mensaje" rows="4"
+                        data-i18n-attr="placeholder:insc.f.obs.ph"
+                        placeholder="Cualquier cosa que convenga que sepamos."></textarea>
+            </div>
+
+            <!-- Trampa antispam: invisible para las personas, irresistible
+                 para los robots. Si llega rellena, el envío se descarta. -->
+            <div class="campo" aria-hidden="true" style="position:absolute;left:-9999px">
+              <label for="f-web">No rellenar</label>
+              <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <label class="consentimiento">
+              <input type="checkbox" id="f-rgpd" name="consentimiento" required>
+              <span data-i18n="insc.f.rgpd">
+                He leído y acepto la política de privacidad y consiento el tratamiento de estos
+                datos para gestionar la inscripción de la entidad.
+              </span>
+            </label>
+            <span class="campo__error" data-error-de="f-rgpd"></span>
+
+            <div class="aviso-formulario" data-aviso role="status" aria-live="polite"></div>
+
+            <button class="btn btn--primario btn--bloque" type="submit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/></svg>
+              <span data-i18n="insc.f.enviar">Enviar la solicitud</span>
+            </button>
+
+            <p class="formulario__nota" data-i18n="insc.f.nota">
+              Te responderemos indicando qué documentos hay que enviar y a qué dirección. Los
+              datos de esta solicitud se usan solo para tramitar la inscripción.
+            </p>
+          </form>
+        </div>
+
+        <div class="duo__media revelar" data-retardo="1">
+          <div class="tarjeta">
+            <h3 data-i18n="insc.req.t">Qué hay que tener antes</h3>
+            <p style="font-size:.92rem" data-i18n="insc.req.p">
+              La inscripción en el Consejo es para entidades ya constituidas. Hará falta esto,
+              pero no lo adjuntes aquí: te lo pedimos al contestar.
+            </p>
+            <ul class="lista-check">
+              <li data-i18n="asoc.adh.req.1">Resolución de inscripción, con fecha y número de registro</li>
+              <li data-i18n="asoc.adh.req.2">NIF definitivo</li>
+              <li data-i18n="asoc.adh.req.3">Contacto del representante legal o apoderado</li>
+              <li data-i18n="asoc.adh.req.4">Estatutos</li>
+              <li data-i18n="asoc.adh.req.5">Acta de constitución</li>
+            </ul>
+            <div class="tarjeta__pie">
+              <p style="font-size:.86rem;color:var(--texto-suave);margin:0" data-i18n="insc.req.n">
+                ¿Tu entidad todavía no está registrada? Escríbenos igualmente: te explicamos los
+                pasos, aunque el registro hay que hacerlo ante la Administración española.
+              </p>
+            </div>
+          </div>
+
+          <p style="margin-top:18px">
+            <a class="enlace-flecha" href="asociaciones.html">
+              <span data-i18n="insc.ver">Ver las entidades ya inscritas</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/layout.js"></script>
+<script src="assets/js/contenido.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
