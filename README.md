@@ -447,40 +447,55 @@ entidad colaboradora en materia de extranjería, sin detallar el procedimiento i
 
 ## 6. El repertorio de entidades y la protección de datos
 
-Las 10 entidades de tu hoja de cálculo están cargadas en `assets/js/contenido.js`.
-De cada una se publica **solo lo que es dato de la entidad**: nombre, siglas, tipo, localidad,
-provincia, año de constitución, ámbito de actuación y —cuando la dirección es de la entidad y
-no de una persona— el correo.
+Las **54 entidades** publicadas salen del registro consolidado de la Junta
+(`2026-10-01_CGE-ES_Registro-Entidades-Guineanas-Espana-Consolidado_INT.xlsx`), **hoja «Con NIF»**.
+La hoja «Sin NIF» no se publica.
 
-**Tipo de entidad** (`tipo`): texto libre, pensado para `Asociación`, `Federación`, `ONG`,
-`Fundación`, `Consejo`… Si lo dejas vacío no se muestra la etiqueta. Está puesto en las que el
-nombre lo deja claro; **falta confirmar** el de CSDBGE, Femmes Battantes de Barcelone, Fasso
-Balandou de Sabadell y Manding de Mataró.
+Se cargan con:
 
-**Ámbito de actuación** (`ambito`): admite varios valores separados por comas —`Cultura`,
-`Educación`, `Solidaridad`, `Cooperación`, `Deporte`, `Mujer`, `Juventud`…— y cada uno sale
-como una etiqueta independiente.
+```bash
+python dev/importar-entidades.py ruta/al/registro.xlsx
+```
 
-**Se han dejado fuera a propósito**, aunque estén en tu hoja:
+El script reescribe el array `asociaciones` de `contenido.js`. Si se vuelve a recibir el Excel
+actualizado, se ejecuta otra vez y ya está: **no edites las entidades a mano**, se perderían al
+siguiente volcado. Lo único que el script conserva de lo anterior es el **ámbito de actuación**
+(Cultura, Solidaridad…), porque no viene en la hoja y estaba puesto a mano en cinco.
 
-- los **teléfonos móviles** (son personales, no centralitas);
-- las **direcciones postales** de los locales, que en varios casos son domicilios;
-- los **nombres de presidencia, secretaría y tesorería**;
-- el **correo `seboukaba71@gmail.com`**, que es claramente personal.
+### Qué se publica
 
-Publicar esos datos requiere el consentimiento de cada persona. Si lo tienes, dímelo y los
-añado; es cuestión de un rato. Mientras tanto, quien quiera contactar con una asociación sin
-correo publicado puede escribir al Consejo.
+La hoja lo dice ella misma: la fila 2 separa **«INFORMACIÓN PUBLICABLE · ficha web»**
+(columnas A-M) de **«INFORMACIÓN NO PUBLICABLE · uso interno»** (columnas O-Y). El importador
+solo lee las primeras, y aun así **deja fuera una**:
 
-**Datos que faltan en la hoja** y convendría completar: AMD y ASEGORC no tienen correo de
-asociación; Femmes Battantes de Barcelone, Fasso Balandou de Sabadell, Manding de Mataró y
-Association des Femmes Guinéennes à Catalunya no tienen NIF, fecha de constitución ni número
-de registro. Las cuatro últimas aparecen en la web solo con nombre y localidad.
+> **El nombre de la presidencia no se publica**, aunque la hoja lo marque como publicable. Es el
+> nombre de una persona, y publicarlo requiere su consentimiento: son 34 personas. Si la Junta
+> reúne esos consentimientos, se añade quitando una línea del importador.
+>
+> Ojo con esto: **`contenido.js` se sirve entero al navegador**. Lo que se guarda ahí queda
+> publicado aunque no se pinte en pantalla, así que no vale con «cargarlo y no mostrarlo».
 
-> Nota: la web dice «asociaciones registradas», no «federadas». En `contenido.js` el campo
-> `sigla` puede ir vacío: las siglas se generan solas a partir del nombre.
+Lo que sí entra: nombre, sigla, tipo, NIF, año de constitución, número y organismo de registro,
+municipio, provincia, comunidad autónoma y el correo cuando es de la entidad. De los 14 correos
+de la hoja, ninguno es personal: todos llevan el nombre de la asociación.
 
----
+### Las tres sin NIF
+
+`Luz de Koumba`, `Femmes Battantes de Barcelone` y `AMUCAR` están en la hoja «Con NIF» pero sin
+NIF. Por decisión de la Junta se publican igual, **solo con nombre y provincia**: sin NIF no hay
+nada que se pueda dar por comprobado, así que no se les monta ficha. En el código es
+`ficha: false`.
+
+### Lo que hay que arreglar en la hoja
+
+- **El NIF `G72397672` está repetido** en la nº 35 (Associació Alfabet N.Ko, Mataró) y la nº 40
+  (Asociación de Nacionales Guineanos/as y Simpatizantes, Torre Pacheco). Un NIF no puede ser de
+  dos entidades: el importador **no lo publica en ninguna de las dos** hasta que se aclare. Las
+  dos conservan su ficha con el resto de datos.
+- **La nº 52 (Femmes Battantes de Barcelone) tiene «Activo» en la casilla del NIF**, que es un
+  valor de otra columna.
+- Faltan **40 correos de contacto** de 54. Quien quiera escribir a una entidad sin correo
+  publicado puede hacerlo al Consejo.
 
 ## 7. Tareas habituales
 

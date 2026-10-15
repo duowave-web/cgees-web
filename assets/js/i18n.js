@@ -196,6 +196,8 @@ fr: {
 "asoc.dir.nota": "Nous ne publions que des données de l'entité. Celles qui apparaissent atténuées et marquées « données à vérifier » sont en attente de vérification de leur NIF, de leur dénomination officielle et de leur numéro de registre. Pour contacter une entité sans courriel ici, écrivez au Conseil et nous vous mettrons en relation.",
 "asoc.dir.vacio.t": "Répertoire en construction",
 "asoc.dir.vacio.p": "Nous complétons actuellement le recensement des entités guinéennes en Espagne. Si vous en représentez une, écrivez-nous et nous l'ajouterons.",
+"asoc.dir.reg": "Registre",
+"asoc.dir.sinnif": "Sans NIF au registre",
 "asoc.dir.desde": "Depuis",
 "asoc.dir.web": "Site web",
 "asoc.dir.registrada": "Enregistrée",

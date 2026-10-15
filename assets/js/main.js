@@ -1051,6 +1051,22 @@
     }
 
     caja.innerHTML = '<div class="directorio">' + lista.map(function (a) {
+      /* Las tres entidades que el registro trae sin NIF se publican, pero
+         solo con nombre y provincia: sin NIF no hay nada que podamos dar
+         por comprobado, así que no se les monta ficha. */
+      if (a.ficha === false) {
+        return '<div class="directorio__item directorio__item--simple">' +
+          '<span class="directorio__sigla">' +
+            (a.sigla || (a.nombre.trim()[0] || '·').toUpperCase()) + '</span>' +
+          '<span><span class="directorio__nombre">' + a.nombre + '</span>' +
+            (a.provincia ? '<span class="directorio__meta" style="display:block">' +
+              a.provincia + '</span>' : '') +
+          '</span>' +
+          '<span class="etiqueta">' +
+            (traducir('asoc.dir.sinnif') || 'Sin NIF en el registro') + '</span>' +
+        '</div>';
+      }
+
       /* Las siglas NO se inventan: muchas entidades no tienen. Si el campo
          viene vacío se pone la inicial del nombre y ya está. Antes se
          fabricaban juntando iniciales y salían siglas que nadie usa. */
@@ -1062,6 +1078,14 @@
         a.tipo || '',
         lugar.join(' (') + (lugar.length === 2 ? ')' : ''),
         a.desde ? (traducir('asoc.dir.desde') || 'Desde') + ' ' + a.desde : ''
+      ].filter(Boolean).join(' · ');
+
+      /* La segunda línea son los datos registrales, que es lo que permite
+         comprobar la entidad por fuera: NIF y número de registro. Van en
+         una línea aparte para no cargar la primera. */
+      var registral = [
+        a.nif ? 'NIF ' + a.nif : '',
+        a.registro ? (traducir('asoc.dir.reg') || 'Registro') + ' ' + a.registro : ''
       ].filter(Boolean).join(' · ');
 
       /* El ámbito puede llevar varios valores separados por comas */
@@ -1098,6 +1122,7 @@
         '<span class="directorio__sigla">' + sigla + '</span>' +
         '<span><span class="directorio__nombre">' + a.nombre + '</span>' +
           (meta ? '<span class="directorio__meta" style="display:block">' + meta + '</span>' : '') +
+          (registral ? '<span class="directorio__registral">' + registral + '</span>' : '') +
           (ambitos ? '<span class="directorio__ambitos">' + ambitos + '</span>' : '') +
         '</span>' +
         accion +
@@ -1123,7 +1148,8 @@
 
     return lista.filter(function (a) {
       var heno = normalizar([
-        a.sigla, a.nombre, a.tipo, a.ciudad, a.provincia, a.desde, a.ambito
+        a.sigla, a.nombre, a.tipo, a.ciudad, a.provincia, a.ca, a.desde,
+        a.ambito, a.nif, a.registro
       ].filter(Boolean).join(' '));
       return palabras.every(function (w) { return heno.indexOf(w) !== -1; });
     });
