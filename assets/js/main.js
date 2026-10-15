@@ -91,6 +91,8 @@
     pintarNoticiaDetalle();
     pintarEventoDetalle();
     pintarMapaEntidades();
+    pintarMapaPoblacion();
+    pintarArchivoDocumentos();
     pintarDirectorio();
 
     document.dispatchEvent(new CustomEvent('cge:idioma', { detail: { idioma: idiomaActual } }));
@@ -1044,6 +1046,70 @@
 
   var comunidadElegida = '';
 
+  /* Dibuja la rejilla a partir de una función que, dado el nombre de una
+     comunidad, devuelve su número. La usan los dos mapas: el de entidades,
+     que se puede pulsar para filtrar, y el de población del INE, que es
+     solo de lectura.
+
+     Los números del INE llegan a cuatro cifras, así que la cifra se
+     encoge cuando es larga: si no, se sale de su casilla en el móvil. */
+  function rejillaMosaico(cuentaDe, op) {
+    op = op || {};
+    return MOSAICO.map(function (c) {
+      var nombre = c[0], abrev = c[1], fila = c[2], col = c[3];
+      var n = cuentaDe(nombre) || 0;
+      var elegida = op.pulsable && mismaComunidad(comunidadElegida, nombre);
+      var etiqueta = typeof n === 'number' ? n.toLocaleString('es-ES') : n;
+      return '<' + (op.pulsable && n ? 'button type="button"' : 'div') +
+        ' class="mosaico__celda' + (n ? '' : ' mosaico__celda--vacia') +
+          (elegida ? ' es-actual' : '') + (String(etiqueta).length > 3 ? ' mosaico__celda--larga' : '') + '"' +
+        ' style="grid-area:' + fila + '/' + col + '"' +
+        (op.pulsable && n ? ' data-comunidad="' + nombre + '" aria-pressed="' +
+          (elegida ? 'true' : 'false') + '"' : '') +
+        ' title="' + nombre + ': ' + etiqueta + '">' +
+        '<span class="mosaico__abrev">' + abrev + '</span>' +
+        '<span class="mosaico__n">' + etiqueta + '</span>' +
+      '</' + (op.pulsable && n ? 'button' : 'div') + '>';
+    }).join('');
+  }
+
+  /* ── Mapa de población del INE ─────────────────────────────────────
+     Cuántos guineanos viven en cada comunidad, según el INE. Va al lado
+     del de entidades a propósito: puestos uno junto a otro se ve dónde
+     hay comunidad pero todavía no hay entidad que la represente, que es
+     justo lo que el Consejo necesita saber.
+
+     El año va siempre visible: un dato de población sin año no dice
+     nada, y este tarda en actualizarse. */
+  function pintarMapaPoblacion() {
+    var caja = document.querySelector('[data-mapa-poblacion]');
+    if (!caja) return;
+    var p = (window.CGE_CONTENIDO || {}).poblacionINE;
+    if (!p || !p.porCa) { caja.innerHTML = ''; return; }
+
+    caja.innerHTML =
+      '<div class="mosaico">' +
+        '<div class="mosaico__cabecera">' +
+          '<span class="eyebrow">' +
+            (traducir('asoc.ine.t') || 'La comunidad guineana') + '</span>' +
+          '<p>' +
+            (traducir('asoc.ine.p') || 'Personas de nacionalidad guineana empadronadas, por comunidad autónoma.') +
+            ' <strong>' + p.total.toLocaleString('es-ES') + '</strong> ' +
+            (traducir('asoc.ine.total') || 'en toda España') + '.' +
+          '</p>' +
+        '</div>' +
+        '<div class="mosaico__rejilla">' +
+          rejillaMosaico(function (nombre) { return p.porCa[nombre] || 0; }, {}) +
+        '</div>' +
+        '<p class="mosaico__fuente">' +
+          (traducir('asoc.ine.fuente') || 'Fuente') + ': INE, ' +
+          '<a href="' + p.fuente + '" target="_blank" rel="noopener">' +
+            (traducir('asoc.ine.tabla') || 'padrón de población extranjera') + '</a>' +
+          ' · ' + (traducir('asoc.ine.datos') || 'datos de') + ' ' + p.anio +
+        '</p>' +
+      '</div>';
+  }
+
   /* Los nombres de la hoja no siempre coinciden letra a letra con los
      oficiales —«Comunidad Valenciana» y «Comunitat Valenciana», por
      ejemplo—, así que se comparan normalizados y por la raíz. */
@@ -1059,20 +1125,9 @@
     var todas = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.asociaciones) || [];
     if (!todas.length) { caja.innerHTML = ''; return; }
 
-    var celdas = MOSAICO.map(function (c) {
-      var nombre = c[0], abrev = c[1], fila = c[2], col = c[3];
-      var n = todas.filter(function (a) { return mismaComunidad(a.ca, nombre); }).length;
-      var elegida = mismaComunidad(comunidadElegida, nombre);
-      return '<button type="button" class="mosaico__celda' +
-          (n ? '' : ' mosaico__celda--vacia') + (elegida ? ' es-actual' : '') + '"' +
-        ' style="grid-area:' + fila + '/' + col + '"' +
-        (n ? ' data-comunidad="' + nombre + '"' : ' disabled') +
-        ' aria-pressed="' + (elegida ? 'true' : 'false') + '"' +
-        ' title="' + nombre + ': ' + n + '">' +
-        '<span class="mosaico__abrev">' + abrev + '</span>' +
-        '<span class="mosaico__n">' + n + '</span>' +
-      '</button>';
-    }).join('');
+    var celdas = rejillaMosaico(function (nombre) {
+      return todas.filter(function (a) { return mismaComunidad(a.ca, nombre); }).length;
+    }, { pulsable: true });
 
     caja.innerHTML =
       '<div class="mosaico">' +
@@ -1105,6 +1160,110 @@
         pintarMapaEntidades();
         pintarDirectorio();
       }
+    });
+  }
+
+
+  /* ── Archivo de documentos ─────────────────────────────────────────
+     La misma lista mirada de dos maneras: por año, que es la cronología,
+     y por evento, que es qué papeles sostienen cada acto. Los documentos
+     que no cuelgan de ningún evento se agrupan aparte: los diez del
+     origen del Consejo y, si quedara alguno suelto, «otros».
+
+     Se reutiliza el visor de siempre: ningún documento se descarga. */
+  var vistaDocs = 'anio';
+
+  function itemDoc(d) {
+    var titulo = d[idiomaActual] || d.es;
+    var hojas = d.paginas + ' ' + (d.paginas === 1
+      ? (traducir('doc.pagina') || 'página')
+      : (traducir('doc.paginas') || 'páginas'));
+    return '<li><button class="docs__item" type="button" data-abrir-doc="' + d.id + '">' +
+      '<span class="docs__icono" aria-hidden="true">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>' +
+      '</span>' +
+      '<span class="docs__texto">' +
+        '<span class="docs__titulo">' + titulo + '</span>' +
+        '<span class="docs__meta">' + fuenteDe(d) + ' · ' + formatearFechaDoc(d.fecha) +
+          ' · ' + hojas + '</span>' +
+      '</span>' +
+    '</button></li>';
+  }
+
+  function grupoDocs(titulo, docs, enlace, etiquetaEnlace) {
+    if (!docs.length) return '';
+    return '<section class="archivo__grupo">' +
+      '<h2 class="archivo__titulo">' + titulo +
+        '<span class="archivo__cuenta">' + docs.length + '</span>' +
+        (enlace ? '<a class="archivo__ir" href="' + enlace + '">' +
+          (etiquetaEnlace || traducir('docs.ver') || 'Ver el evento') + '</a>' : '') +
+      '</h2>' +
+      '<ul class="docs docs--rejilla">' + docs.map(itemDoc).join('') + '</ul>' +
+    '</section>';
+  }
+
+  function pintarArchivoDocumentos() {
+    var caja = document.querySelector('[data-archivo-docs]');
+    if (!caja) return;
+    var C = window.CGE_CONTENIDO || {};
+    var docs = (C.documentos || []).slice();
+    if (!docs.length) { caja.innerHTML = ''; return; }
+
+    var html = '';
+
+    if (vistaDocs === 'anio') {
+      var anios = {};
+      docs.forEach(function (d) {
+        var a = (d.fecha || '').slice(0, 4) || '—';
+        (anios[a] = anios[a] || []).push(d);
+      });
+      Object.keys(anios).sort().reverse().forEach(function (a) {
+        anios[a].sort(function (x, y) { return (y.fecha || '').localeCompare(x.fecha || ''); });
+        html += grupoDocs(a, anios[a], '');
+      });
+    } else {
+      var usados = {};
+      (C.noticias || []).filter(function (n) {
+        return n.tipo === 'evento' && visible(n) && n.documentos && n.documentos.length;
+      }).sort(function (a, b) {
+        return (b.fecha || '').localeCompare(a.fecha || '');
+      }).forEach(function (ev) {
+        var suyos = ev.documentos.map(function (id) {
+          return docs.filter(function (d) { return d.id === id; })[0];
+        }).filter(Boolean);
+        suyos.forEach(function (d) { usados[d.id] = true; });
+        var txt = ev[idiomaActual] || ev.es;
+        html += grupoDocs(txt.titulo, suyos, 'evento.html?id=' + ev.id);
+      });
+
+      /* Los del origen van juntos y al final: no cuelgan de un evento,
+         son los que amparan la creación del Consejo. */
+      var origen = docs.filter(function (d) { return d.origen && !usados[d.id]; });
+      origen.forEach(function (d) { usados[d.id] = true; });
+      /* Este grupo no es un evento, así que su enlace no dice «ver el
+         evento» sino a dónde va de verdad. */
+      html += grupoDocs(traducir('docs.origen') || 'Origen del Consejo', origen,
+                        'quienes-somos.html#documentos',
+                        traducir('docs.ver.consejo') || 'Ver en El Consejo');
+
+      var sueltos = docs.filter(function (d) { return !usados[d.id]; });
+      html += grupoDocs(traducir('docs.otros') || 'Otros documentos', sueltos, '');
+    }
+
+    caja.innerHTML = html;
+
+    document.querySelectorAll('[data-vista-docs]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-vista-docs') === vistaDocs ? 'true' : 'false');
+    });
+  }
+
+  function initArchivoDocumentos() {
+    if (!document.querySelector('[data-archivo-docs]')) return;
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-vista-docs]');
+      if (!b) return;
+      vistaDocs = b.getAttribute('data-vista-docs');
+      pintarArchivoDocumentos();
     });
   }
 
@@ -1537,6 +1696,7 @@
     initFiltros();
     initBuscadorEntidades();
     initMapaEntidades();
+    initArchivoDocumentos();
     initDocumentos();
     initEvento();
     initFormulario();

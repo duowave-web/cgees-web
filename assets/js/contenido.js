@@ -615,6 +615,37 @@ window.CGE_CONTENIDO = {
      persona. Lo mismo con los correos que son claramente personales.
      ====================================================================== */
 
+  /* Población guineana en España por comunidad autónoma.
+     Fuente: INE, tabla 02005, nacionalidad «Guinea» (Conakry), ambos
+     sexos. Lo trae dev/importar-ine.py: no editar a mano.
+     El año va aquí porque un dato de población sin año no dice nada. */
+  poblacionINE: {
+    anio: '2022',
+    total: 11162,
+    fuente: 'https://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p08/l0/&file=02005.px',
+    porCa: {
+      'Cataluña': 4078,
+      'Andalucía': 1434,
+      'Comunidad de Madrid': 1233,
+      'Aragón': 885,
+      'Comunitat Valenciana': 726,
+      'Región de Murcia': 532,
+      'Canarias': 496,
+      'País Vasco': 481,
+      'Castilla-La Mancha': 345,
+      'Illes Balears': 215,
+      'Castilla y León': 189,
+      'Comunidad Foral de Navarra': 170,
+      'La Rioja': 128,
+      'Galicia': 86,
+      'Principado de Asturias': 74,
+      'Cantabria': 46,
+      'Extremadura': 41,
+      'Melilla': 2,
+      'Ceuta': 1,
+    }
+  },
+
   asociaciones: [
     { nif: 'G19451327', sigla: '', nombre: 'Asociación Africana de Aragón por la Integración', tipo: 'Asociación', ciudad: 'Monzón', provincia: 'Huesca', ca: 'Aragón', desde: '2024', registro: '', email: '', web: '', ambito: '', ficha: true },
     { nif: 'G25658887', sigla: '', nombre: 'Asociación Cultural Diwal Labé', tipo: 'Asociación', ciudad: 'Lleida', provincia: 'Lleida', ca: 'Cataluña', desde: '2005', registro: '579654678 · Ministerio del Interior', email: 'diwallabe@gmail.com', web: '', ambito: '', ficha: true },

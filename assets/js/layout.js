@@ -121,7 +121,15 @@
           dkey: 'nav.sub.comunidad.d',d: 'Fiesta de la Independencia y actos' }
       ]
     },
-    { href: 'actualidad.html', key: 'nav.actualidad', txt: 'Actualidad', ico: 'icoActualidad' },
+    {
+      href: 'actualidad.html', key: 'nav.actualidad', txt: 'Actualidad', ico: 'icoActualidad',
+      sub: [
+        { href: 'actualidad.html', key: 'nav.sub.avisos', txt: 'Avisos y noticias',
+          dkey: 'nav.sub.avisos.d', d: 'Comunicados, eventos y logros' },
+        { href: 'documentos.html', key: 'nav.sub.docs', txt: 'Archivo de documentos',
+          dkey: 'nav.sub.docs.d', d: 'Todo lo oficial, por año o por evento' }
+      ]
+    },
     /* `destacado` pinta este enlace como botón verde en escritorio. En el
        cajón de móvil sigue siendo una fila más del menú, que es donde la
        gente lo busca. */

@@ -2100,6 +2100,33 @@ body.visor-abierto { overflow: hidden; }
 .visor--foto .visor__barra { border-bottom: 0; padding-bottom: 0; }
 .visor--foto .visor__hojas { padding-top: 0; }
 
+/* La llamada a inscribir una entidad, encima del buscador. Texto a la
+   izquierda y botón a la derecha; en móvil, uno debajo del otro. */
+.llamada-inscribir {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 18px; margin-bottom: 22px;
+  border: 1px solid var(--gris-200); border-left: 4px solid var(--oro);
+  border-radius: var(--radio-sm); background: #fff;
+}
+.llamada-inscribir strong { display: block; color: var(--navy); margin-bottom: 2px; }
+.llamada-inscribir span { font-size: .9rem; color: var(--texto-suave); }
+.llamada-inscribir > div { min-width: 240px; flex: 1; }
+
+/* Archivo de documentos: grupos por año o por evento, cada uno con su
+   cuenta y, cuando viene de un evento, el enlace para ir a verlo. */
+.archivo__grupo { margin-bottom: 34px; }
+.archivo__titulo {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  font-size: 1.05rem; margin: 0 0 12px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--gris-200);
+}
+.archivo__cuenta {
+  font-size: .72rem; font-weight: 800; color: var(--texto-suave);
+  background: var(--gris-100); border-radius: var(--radio-full); padding: 2px 9px;
+}
+.archivo__ir { margin-left: auto; font-size: .82rem; font-weight: 700; white-space: nowrap; }
+
 /* ── Mapa de mosaico de entidades ──────────────────────────────────────
    Una casilla por comunidad autónoma en una rejilla de 5 por 5, colocadas
    con la forma aproximada de España. Las casillas se posicionan desde el
@@ -2141,6 +2168,13 @@ body.visor-abierto { overflow: hidden; }
 .mosaico__celda--vacia { background: transparent; border-style: dashed; cursor: default; }
 .mosaico__celda--vacia .mosaico__n { color: var(--gris-300); font-weight: 700; }
 .mosaico__celda--vacia .mosaico__abrev { color: var(--gris-300); }
+/* Los números del INE llegan a cuatro cifras y no caben al mismo cuerpo. */
+.mosaico__celda--larga .mosaico__n { font-size: .74rem; letter-spacing: -.02em; }
+/* Una casilla que no se puede pulsar no debe parecer que se puede. */
+div.mosaico__celda { cursor: default; }
+.mosaico__fuente {
+  margin: 12px 0 0; font-size: .78rem; color: var(--texto-suave);
+}
 
 /* Los datos registrales de una entidad: segunda línea, más apagada que la
    primera, con los números en tabulares para que las columnas no bailen. */
