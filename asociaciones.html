@@ -71,6 +71,16 @@
         </p>
       </div>
 
+      <!-- Mapa de mosaico: una casilla por comunidad autónoma, colocadas
+           en la forma aproximada de España. Es esquemático a propósito y no
+           pretende ser un mapa de fronteras: a este tamaño, y sobre todo en
+           un móvil, los contornos reales no se distinguirían, y dibujarlos
+           a ojo sería inventarse la geografía.
+
+           Lo pinta main.js -> pintarMapaEntidades(). Pulsar una casilla
+           filtra el listado de abajo. -->
+      <div data-mapa-entidades></div>
+
       <!-- El buscador filtra por siglas, nombre, tipo, localidad, provincia,
            año y ámbito. Sin acentos y sin distinguir mayúsculas. -->
       <div class="buscador">

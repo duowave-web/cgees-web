@@ -90,6 +90,7 @@
     pintarDocumentos();
     pintarNoticiaDetalle();
     pintarEventoDetalle();
+    pintarMapaEntidades();
     pintarDirectorio();
 
     document.dispatchEvent(new CustomEvent('cge:idioma', { detail: { idioma: idiomaActual } }));
@@ -1011,11 +1012,110 @@
      5 bis. Repertorio de asociaciones federadas
      ====================================================================== */
 
+
+  /* ── Mapa de mosaico de entidades por comunidad ────────────────────
+     Cada comunidad es una casilla de una rejilla colocada con la forma
+     aproximada de España. No son fronteras: es un esquema. Las dos
+     ciudades autónomas van abajo, al lado de Canarias, como en casi
+     todos los mapas de prensa.
+
+     La posición es `fila / columna` de una rejilla de 5 por 5. */
+  var MOSAICO = [
+    ['Galicia',              'GAL', 1, 1],
+    ['Principado de Asturias','AST', 1, 2],
+    ['Cantabria',            'CNT', 1, 3],
+    ['País Vasco',           'PVA', 1, 4],
+    ['Comunidad Foral de Navarra', 'NAV', 1, 5],
+    ['Castilla y León',      'CYL', 2, 2],
+    ['La Rioja',             'RIO', 2, 3],
+    ['Aragón',               'ARA', 2, 4],
+    ['Cataluña',             'CAT', 2, 5],
+    ['Extremadura',          'EXT', 3, 1],
+    ['Comunidad de Madrid',  'MAD', 3, 2],
+    ['Castilla-La Mancha',   'CLM', 3, 3],
+    ['Comunitat Valenciana', 'CVA', 3, 4],
+    ['Illes Balears',        'BAL', 3, 5],
+    ['Andalucía',            'AND', 4, 2],
+    ['Región de Murcia',     'MUR', 4, 3],
+    ['Canarias',             'CNR', 5, 1],
+    ['Ceuta',                'CEU', 5, 2],
+    ['Melilla',              'MEL', 5, 3]
+  ];
+
+  var comunidadElegida = '';
+
+  /* Los nombres de la hoja no siempre coinciden letra a letra con los
+     oficiales —«Comunidad Valenciana» y «Comunitat Valenciana», por
+     ejemplo—, así que se comparan normalizados y por la raíz. */
+  function mismaComunidad(a, b) {
+    a = normalizar(a || ''); b = normalizar(b || '');
+    if (!a || !b) return false;
+    return a === b || a.indexOf(b) !== -1 || b.indexOf(a) !== -1;
+  }
+
+  function pintarMapaEntidades() {
+    var caja = document.querySelector('[data-mapa-entidades]');
+    if (!caja) return;
+    var todas = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.asociaciones) || [];
+    if (!todas.length) { caja.innerHTML = ''; return; }
+
+    var celdas = MOSAICO.map(function (c) {
+      var nombre = c[0], abrev = c[1], fila = c[2], col = c[3];
+      var n = todas.filter(function (a) { return mismaComunidad(a.ca, nombre); }).length;
+      var elegida = mismaComunidad(comunidadElegida, nombre);
+      return '<button type="button" class="mosaico__celda' +
+          (n ? '' : ' mosaico__celda--vacia') + (elegida ? ' es-actual' : '') + '"' +
+        ' style="grid-area:' + fila + '/' + col + '"' +
+        (n ? ' data-comunidad="' + nombre + '"' : ' disabled') +
+        ' aria-pressed="' + (elegida ? 'true' : 'false') + '"' +
+        ' title="' + nombre + ': ' + n + '">' +
+        '<span class="mosaico__abrev">' + abrev + '</span>' +
+        '<span class="mosaico__n">' + n + '</span>' +
+      '</button>';
+    }).join('');
+
+    caja.innerHTML =
+      '<div class="mosaico">' +
+        '<div class="mosaico__cabecera">' +
+          '<span class="eyebrow">' +
+            (traducir('asoc.mapa.t') || 'Dónde están') + '</span>' +
+          '<p>' + (traducir('asoc.mapa.p') ||
+            'Entidades por comunidad autónoma. Pulsa una para filtrar el listado.') + '</p>' +
+        '</div>' +
+        '<div class="mosaico__rejilla">' + celdas + '</div>' +
+        (comunidadElegida
+          ? '<button type="button" class="btn btn--contorno btn--sm" data-mapa-todas>' +
+              (traducir('asoc.mapa.todas') || 'Ver todas') + '</button>'
+          : '') +
+      '</div>';
+  }
+
+  function initMapaEntidades() {
+    document.addEventListener('click', function (e) {
+      var celda = e.target.closest('[data-comunidad]');
+      if (celda) {
+        var c = celda.getAttribute('data-comunidad');
+        comunidadElegida = mismaComunidad(comunidadElegida, c) ? '' : c;
+        pintarMapaEntidades();
+        pintarDirectorio();
+        return;
+      }
+      if (e.target.closest('[data-mapa-todas]')) {
+        comunidadElegida = '';
+        pintarMapaEntidades();
+        pintarDirectorio();
+      }
+    });
+  }
+
   function pintarDirectorio() {
     var caja = document.querySelector('[data-directorio]');
     if (!caja) return;
 
     var todas = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.asociaciones) || [];
+    if (comunidadElegida) {
+      todas = todas.filter(function (a) { return mismaComunidad(a.ca, comunidadElegida); });
+    }
     var lista = filtrarEntidades(todas, busquedaEntidades);
 
     /* El contador y el aviso de «sin resultados» solo tienen sentido si hay
@@ -1428,6 +1528,7 @@
     initAcordeon();
     initFiltros();
     initBuscadorEntidades();
+    initMapaEntidades();
     initDocumentos();
     initEvento();
     initFormulario();
