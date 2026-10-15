@@ -286,7 +286,15 @@
         </div>
         <div class="ficha__fila">
           <dt data-i18n="about.f.10">Registro de Colaboradores de Extranjería</dt>
-          <dd data-i18n="about.f.10v">RECEX · Inscrito desde el 18 de junio de 2026</dd>
+          <dd>
+            <span data-i18n="about.f.10v">RECEX · Inscrito desde el 18 de junio de 2026</span>
+            <!-- El buscador oficial cambia de idioma: la ruta lleva /es/ o /fr/, y
+                 main.js cambia el href al cambiar de idioma igual que el resto. -->
+            <a class="enlace-externo" style="margin-top:6px"
+               href="https://www.inclusion.gob.es/es/regularizacion/colaboradores"
+               data-href-fr="https://www.inclusion.gob.es/fr/regularizacion/colaboradores"
+               target="_blank" rel="noopener"><span data-i18n="about.f.10b">Comprobar en el buscador oficial</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></a>
+          </dd>
         </div>
         <div class="ficha__fila">
           <dt data-i18n="about.f.7">Domicilio social</dt>

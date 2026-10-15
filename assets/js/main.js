@@ -71,6 +71,14 @@
       });
     });
 
+    /* Enlaces cuya DIRECCIÓN cambia de idioma, no solo el texto: las sedes
+       oficiales que tienen una ruta por idioma, como el buscador del RECEX.
+       Se declara con data-href-fr y el href de serie es el español. */
+    document.querySelectorAll('[data-href-fr]').forEach(function (el) {
+      if (!el.hasAttribute('data-href-es')) el.setAttribute('data-href-es', el.getAttribute('href') || '');
+      el.setAttribute('href', el.getAttribute('data-href-' + idiomaActual) || el.getAttribute('data-href-es'));
+    });
+
     /* Botones del selector */
     document.querySelectorAll('.selector-idioma__btn').forEach(function (b) {
       b.setAttribute('aria-current', b.getAttribute('data-idioma') === idiomaActual ? 'true' : 'false');

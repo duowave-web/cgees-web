@@ -2070,6 +2070,13 @@ body.visor-abierto { overflow: hidden; }
 /* --------------------------------------------------------------------------
    23. Impresión
    -------------------------------------------------------------------------- */
+/* Lista de enlaces a sedes oficiales. Cada uno en su línea y con el icono
+   de «se abre fuera», que son todos externos. */
+.lista-enlaces { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.lista-enlaces li { border-bottom: 1px solid var(--gris-200); }
+.lista-enlaces li:last-child { border-bottom: 0; }
+.lista-enlaces a { display: flex; align-items: center; gap: 9px; padding: 11px 2px; }
+
 /* --------------------------------------------------------------------------
    23. Repaso del móvil
    --------------------------------------------------------------------------

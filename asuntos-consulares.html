@@ -120,8 +120,60 @@
     </div>
   </section>
 
+  <!-- ================= ENLACES OFICIALES =================
+       Las plataformas donde se hace cada cosa de verdad. Van aquí, justo
+       debajo de la Embajada, porque es lo primero que se busca al leer
+       que el Consejo no expide documentos: dónde se expiden entonces.
+
+       Son enlaces a sedes oficiales y pueden cambiar sin avisar: están
+       comprobados a 15 de octubre de 2026. Si alguno deja de responder,
+       quítalo antes de que alguien se pierda detrás de él. -->
+  <section class="seccion" id="enlaces-oficiales">
+    <div class="contenedor">
+      <div class="cabecera-seccion">
+        <span class="eyebrow" data-i18n="cons.ofi.eyebrow">Dónde se hace cada cosa</span>
+        <h2 data-i18n="cons.ofi.h2">Enlaces oficiales</h2>
+        <p class="entradilla" data-i18n="cons.ofi.p">
+          Trámites que se inician por internet, cada uno en la sede que corresponde. El Consejo no
+          interviene en ninguno de ellos: si algo falla, el interlocutor es la sede.
+        </p>
+      </div>
+
+      <div class="rejilla rejilla--2">
+        <div class="tarjeta revelar">
+          <h3 data-i18n="cons.ofi.gn.t">Embajada de la República de Guinea en Madrid</h3>
+          <ul class="lista-enlaces">
+              <li><a class="enlace-externo" href="https://es.ambaguinee.org/" target="_blank" rel="noopener"><span data-i18n="cons.ofi.gn.1">Sitio oficial de la Embajada</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></a></li>
+              <li><a class="enlace-externo" href="https://www.paf.gov.gn/visa/" target="_blank" rel="noopener"><span data-i18n="cons.ofi.gn.2">Visado para entrar en Guinea</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></a></li>
+              <li><a class="enlace-externo" href="https://citoyens.ambaguinee.org/home" target="_blank" rel="noopener"><span data-i18n="cons.ofi.gn.3">Plataforma e-Kaidi: tarjeta consular, título de viaje y otros</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></a></li>
+              <li><a class="enlace-externo" href="https://pass.louba-maeiage.com/Home" target="_blank" rel="noopener"><span data-i18n="cons.ofi.gn.4">Pago de la tasa del pasaporte</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></a></li>
+          </ul>
+        </div>
+
+        <div class="tarjeta revelar" data-retardo="1">
+          <h3 data-i18n="cons.ofi.es.t">Embajada de España en Conakry</h3>
+          <p style="font-size:.9rem;color:var(--texto-suave);margin-bottom:14px"
+             data-i18n="cons.ofi.es.p">
+            Para quien está en Guinea y tiene que tratar con España: legalizaciones, reagrupación
+            familiar, visados de entrada y pruebas de ADN.
+          </p>
+          <ul class="lista-enlaces">
+              <li><a class="enlace-externo" href="https://www.exteriores.gob.es/Embajadas/conakry/es/Paginas/index.aspx" target="_blank" rel="noopener"><span data-i18n="cons.ofi.es.1">Sitio oficial de la Embajada de España</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></a></li>
+          </ul>
+          <ul class="lista-check" style="margin-top:14px">
+            <li data-i18n="cons.ofi.es.2">Legalizaciones</li>
+            <li data-i18n="cons.ofi.es.3">Reagrupación familiar</li>
+            <li data-i18n="cons.ofi.es.4">Visados de entrada a España</li>
+            <li data-i18n="cons.ofi.es.5">Pruebas de ADN
+              <span class="pendiente" data-i18n="cons.ofi.es.5b">falta el enlace</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= TRÁMITES ================= -->
-  <section class="seccion" id="tramites">
+  <section class="seccion seccion--gris" id="tramites">
     <div class="contenedor">
       <div class="cabecera-seccion">
         <span class="eyebrow" data-i18n="cons.tram.eyebrow">Antes de ir</span>
@@ -219,7 +271,7 @@
   </section>
 
   <!-- ================= QUÉ HACEMOS NOSOTROS ================= -->
-  <section class="seccion seccion--gris">
+  <section class="seccion">
     <div class="contenedor">
       <div class="cabecera-seccion">
         <span class="eyebrow" data-i18n="cons.nos.eyebrow">Nuestro papel</span>
