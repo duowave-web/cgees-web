@@ -83,7 +83,9 @@
           <span data-i18n="asoc.insc.cta">Inscribe tu entidad</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <!-- El mapa de entidades por comunidad autónoma. Pulsar una comunidad
+      <!-- El mapa de comunidades autónomas y su tabla, con las entidades
+           inscritas en cada una y la población guineana que vive en ella
+           según el INE. Pulsar una comunidad —en el mapa o en la tabla—
            filtra el listado de abajo; volver a pulsarla lo deshace.
 
            Las fronteras están en assets/js/mapa-ccaa.js, que se genera con
@@ -107,11 +109,6 @@
       </div>
 
       <div data-directorio></div>
-
-      <!-- El mapa de población del INE, detrás del listado: primero las
-           entidades, y después dónde vive la comunidad a la que
-           representan. Lo pinta main.js -> pintarMapaPoblacion(). -->
-      <div data-mapa-poblacion style="margin-top:34px"></div>
 
       <p style="font-size:.85rem;color:var(--texto-suave);margin-top:20px" data-i18n="asoc.dir.nota">
         Publicamos únicamente datos de la entidad. Las que aparecen atenuadas y marcadas como

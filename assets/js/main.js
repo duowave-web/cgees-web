@@ -91,7 +91,6 @@
     pintarNoticiaDetalle();
     pintarEventoDetalle();
     pintarMapaEntidades();
-    pintarMapaPoblacion();
     pintarArchivoDocumentos();
     pintarDirectorio();
 
@@ -1077,11 +1076,8 @@
      el texto alternativo de un mapa queda fatal, y en francés además hay
      que concordar. */
   function cuentaConPalabra(n, clave) {
-    var palabra = traducir(clave + (n === 1 ? '.uno' : '.varios')) ||
-      (clave === 'asoc.mapa.entidad'
-        ? (n === 1 ? 'entidad' : 'entidades')
-        : (n === 1 ? 'persona' : 'personas'));
-    return cifra(n) + ' ' + palabra;
+    return cifra(n) + ' ' + (traducir(clave + (n === 1 ? '.uno' : '.varios')) ||
+      (n === 1 ? 'entidad' : 'entidades'));
   }
 
   /* op.pulsable  cada comunidad es un botón que filtra el listado
@@ -1168,37 +1164,50 @@
     '</svg>';
   }
 
-  /* La lista de comunidades con su cifra, debajo del mapa.
+  /* La tabla de comunidades, debajo del mapa: cuántas entidades hay en cada
+     una y cuánta población guineana vive en ella según el INE.
 
-     No es un adorno ni una repetición: en un móvil el mapa mide unos 330
-     píxeles de ancho, y a esa escala una cifra escrita encima del dibujo
-     se queda en diez píxeles. Por eso en pantalla estrecha las cifras del
-     mapa se ocultan y es esta lista la que lleva el dato. De paso resuelve
-     dos cosas más: se pulsa con el dedo sin tener que acertar en La Rioja,
-     y es la forma en que un lector de pantalla recorre el mapa.
+     Las dos cifras van juntas a propósito. Es la comparación que el Consejo
+     necesita: dónde hay comunidad pero todavía no hay entidad que la
+     represente. En dos tablas separadas había que ir y venir con el dedo
+     para compararlas.
 
-     Cuando `pulsable`, cada línea filtra el listado igual que la comunidad
-     en el mapa: comparten el `data-comunidad`, así que no hace falta más
-     código para que funcionen las dos. */
-  function listaMapa(datos, pulsable, clave) {
+     Y no es un adorno del mapa ni una repetición: en un móvil el dibujo
+     mide unos 330 píxeles de ancho, y a esa escala una cifra escrita encima
+     se queda en diez píxeles de alto. Por eso en pantalla estrecha las
+     cifras del mapa se ocultan y es la tabla la que lleva el dato. De paso
+     resuelve dos cosas más: se pulsa con el dedo sin tener que acertar en
+     La Rioja, y es por donde un lector de pantalla recorre el mapa.
+
+     El nombre de la comunidad es el mismo `data-comunidad` que lleva el
+     mapa, así que filtra igual sin una línea más de código. */
+  function tablaMapa(datos, poblacion) {
     var filas = datos.slice().sort(function (a, b) {
-      return b.n - a.n || a.c.n.localeCompare(b.c.n, 'es');
+      return b.n - a.n ||
+        (poblacion[b.c.n] || 0) - (poblacion[a.c.n] || 0) ||
+        a.c.n.localeCompare(b.c.n, 'es');
     }).map(function (d) {
-      var celda = '<b>' + cifra(d.n) + '</b>';
-      if (!pulsable || !d.n) {
-        return '<li class="mapa-ccaa__lista-item' + (d.n ? '' : ' es-vacia') + '">' +
-          '<span class="mapa-ccaa__lista-fila"><span>' + d.c.n + '</span>' + celda +
-          '</span></li>';
-      }
       var elegida = mismaComunidad(comunidadElegida, d.c.n);
-      return '<li class="mapa-ccaa__lista-item">' +
-        '<button type="button" data-comunidad="' + d.c.n + '"' +
-          ' aria-pressed="' + (elegida ? 'true' : 'false') + '"' +
-          (elegida ? ' class="es-actual"' : '') + '>' +
-          '<span>' + d.c.n + '</span>' + celda +
-        '</button></li>';
+      var nombre = d.n
+        ? '<button type="button" data-comunidad="' + d.c.n + '"' +
+            ' aria-pressed="' + (elegida ? 'true' : 'false') + '"' +
+            (elegida ? ' class="es-actual"' : '') + '>' + d.c.n + '</button>'
+        : '<span>' + d.c.n + '</span>';
+      return '<tr' + (d.n ? '' : ' class="es-vacia"') + '>' +
+        '<th scope="row">' + nombre + '</th>' +
+        '<td>' + cifra(d.n) + '</td>' +
+        '<td>' + (poblacion[d.c.n] === undefined ? '—' : cifra(poblacion[d.c.n])) + '</td>' +
+      '</tr>';
     }).join('');
-    return '<ul class="mapa-ccaa__lista">' + filas + '</ul>';
+
+    return '<table class="mapa-ccaa__tabla">' +
+      '<thead><tr>' +
+        '<th scope="col">' + (traducir('asoc.mapa.col.ca') || 'Comunidad autónoma') + '</th>' +
+        '<th scope="col">' + (traducir('asoc.mapa.col.ent') || 'Entidades') + '</th>' +
+        '<th scope="col">' + (traducir('asoc.mapa.col.pob') || 'Población guineana') + '</th>' +
+      '</tr></thead>' +
+      '<tbody>' + filas + '</tbody>' +
+    '</table>';
   }
 
   /* La leyenda de los cuatro tonos. Un mapa de color sin leyenda obliga a
@@ -1222,54 +1231,6 @@
     return '<div class="mapa-ccaa__leyenda" aria-hidden="true">' + html + '</div>';
   }
 
-  /* ── Mapa de población del INE ─────────────────────────────────────
-     Cuántos guineanos viven en cada comunidad, según el INE. Va debajo
-     del de entidades a propósito: puestos uno bajo otro se ve dónde hay
-     comunidad pero todavía no hay entidad que la represente, que es justo
-     lo que el Consejo necesita saber.
-
-     Este no lleva las cifras encima del mapa: son de cuatro dígitos y no
-     caben dentro de casi ninguna comunidad. Va el color, con su leyenda,
-     y las cifras enteras en la lista de debajo.
-
-     El año va siempre visible: un dato de población sin año no dice
-     nada, y este tarda en actualizarse. */
-  function pintarMapaPoblacion() {
-    var caja = document.querySelector('[data-mapa-poblacion]');
-    if (!caja) return;
-    var p = (window.CGE_CONTENIDO || {}).poblacionINE;
-    if (!p || !p.porCa) { caja.innerHTML = ''; return; }
-
-    var op = {
-      cuenta: 'asoc.ine.persona',
-      alt: traducir('asoc.ine.alt') ||
-        'Mapa de España con la población guineana por comunidad autónoma. Las cifras están en la lista que sigue.'
-    };
-    var svg = dibujarMapa(function (nombre) { return p.porCa[nombre] || 0; }, op);
-
-    caja.innerHTML =
-      '<div class="mapa-ccaa">' +
-        '<div class="mapa-ccaa__cabecera">' +
-          '<span class="eyebrow">' +
-            (traducir('asoc.ine.t') || 'La comunidad guineana') + '</span>' +
-          '<p>' +
-            (traducir('asoc.ine.p') || 'Personas de nacionalidad guineana empadronadas, por comunidad autónoma.') +
-            ' <strong>' + cifra(p.total) + '</strong> ' +
-            (traducir('asoc.ine.total') || 'en toda España') + '.' +
-          '</p>' +
-        '</div>' +
-        svg +
-        leyendaMapa(op.tope) +
-        listaMapa(op.datos, false, 'asoc.ine.persona') +
-        '<p class="mapa-ccaa__fuente">' +
-          (traducir('asoc.ine.fuente') || 'Fuente') + ': INE, ' +
-          '<a href="' + p.fuente + '" target="_blank" rel="noopener">' +
-            (traducir('asoc.ine.tabla') || 'padrón de población extranjera') + '</a>' +
-          ' · ' + (traducir('asoc.ine.datos') || 'datos de') + ' ' + p.anio +
-        '</p>' +
-      '</div>';
-  }
-
   /* Los nombres de la hoja no siempre coinciden letra a letra con los
      oficiales —«Comunidad Valenciana» y «Comunitat Valenciana», por
      ejemplo—, así que se comparan normalizados y por la raíz. */
@@ -1279,18 +1240,28 @@
     return a === b || a.indexOf(b) !== -1 || b.indexOf(a) !== -1;
   }
 
+  /* ── El mapa y la tabla de comunidades ─────────────────────────────
+     Un solo bloque con las dos cifras: las entidades inscritas en cada
+     comunidad —que es lo que se puede filtrar pulsando el mapa— y la
+     población guineana que vive en ella según el INE.
+
+     El año del dato del INE va siempre visible: una cifra de población sin
+     año no dice nada, y esta tarda en actualizarse. */
   function pintarMapaEntidades() {
     var caja = document.querySelector('[data-mapa-entidades]');
     if (!caja) return;
-    var todas = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.asociaciones) || [];
+    var C = window.CGE_CONTENIDO || {};
+    var todas = C.asociaciones || [];
     if (!todas.length) { caja.innerHTML = ''; return; }
+    var ine = C.poblacionINE || {};
+    var porCa = ine.porCa || {};
 
     function cuantas(nombre) {
       return todas.filter(function (a) { return mismaComunidad(a.ca, nombre); }).length;
     }
 
     /* dibujarMapa deja en `op` los datos que ha usado, y con ellos se monta
-       la lista sin volver a contar nada. */
+       la tabla sin volver a contar nada. */
     var op = {
       pulsable: true,
       cifras: true,
@@ -1305,11 +1276,18 @@
           '<span class="eyebrow">' +
             (traducir('asoc.mapa.t') || 'Dónde están') + '</span>' +
           '<p>' + (traducir('asoc.mapa.p') ||
-            'Entidades por comunidad autónoma. Pulsa una para filtrar el listado.') + '</p>' +
+            'Entidades por comunidad autónoma. Pulsa una para filtrar el listado.') +
+            (porCa && ine.total
+              ? ' ' + (traducir('asoc.mapa.ine') ||
+                  'La última columna es la población guineana empadronada en cada una, según el INE:') +
+                ' <strong>' + cifra(ine.total) + '</strong> ' +
+                (traducir('asoc.ine.total') || 'en toda España') + '.'
+              : '') +
+          '</p>' +
         '</div>' +
         dibujarMapa(cuantas, op) +
         leyendaMapa(op.tope) +
-        listaMapa(op.datos, true, 'asoc.mapa.entidad') +
+        tablaMapa(op.datos, porCa) +
         '<p class="mapa-ccaa__pie" aria-live="polite">' +
           (comunidadElegida
             ? '<strong>' + comunidadElegida + '</strong>: ' +
@@ -1319,6 +1297,14 @@
             : (traducir('asoc.mapa.ayuda') ||
                'Las comunidades sin entidad inscrita aparecen en gris.')) +
         '</p>' +
+        (ine.anio
+          ? '<p class="mapa-ccaa__fuente">' +
+              (traducir('asoc.ine.fuente') || 'Fuente de la población') + ': INE, ' +
+              '<a href="' + ine.fuente + '" target="_blank" rel="noopener">' +
+                (traducir('asoc.ine.tabla') || 'padrón de población extranjera') + '</a>' +
+              ' · ' + (traducir('asoc.ine.datos') || 'datos de') + ' ' + ine.anio +
+            '</p>'
+          : '') +
       '</div>';
   }
 

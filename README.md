@@ -493,9 +493,13 @@ nada que se pueda dar por comprobado, así que no se les monta ficha. En el cód
 
 ### El mapa de España
 
-Debajo del listado hay dos mapas de comunidades autónomas: **cuántas entidades** hay en cada una
-—pulsando una comunidad se filtra el listado— y **cuánta población guineana** según el INE. Los
-dos usan el mismo dibujo.
+Debajo del listado hay un mapa de comunidades autónomas y, a continuación, una tabla con las dos
+cifras de cada una: **cuántas entidades** tiene inscritas y **cuánta población guineana** vive
+allí según el INE. Pulsando una comunidad —en el mapa o en la tabla— se filtra el listado.
+
+Las dos cifras van en la misma tabla a propósito: la comparación es el dato que el Consejo
+necesita, **dónde hay comunidad pero todavía no hay entidad que la represente**. Castilla-La
+Mancha, con 345 personas y ninguna entidad, es la primera de esa lista.
 
 **Las fronteras están en `assets/js/mapa-ccaa.js`, que es un archivo generado: no lo edites a
 mano.** Se rehace con:
@@ -519,10 +523,10 @@ Tres cosas que conviene saber antes de tocarlo:
   la une a su sitio. Si cabe o no se calcula de verdad: el script mide, para cada comunidad, el
   punto de dentro más alejado del borde y cuánto hueco hay a su alrededor. Por eso en Ceuta,
   Melilla, Canarias y La Rioja la cifra sale fuera y en Cantabria no.
-- **En el móvil las cifras del dibujo se ocultan** y el dato lo lleva la lista de debajo. A 330
-  píxeles de ancho una cifra escrita sobre el mapa se queda en diez píxeles de alto: no hay
-  manera de leerla. La lista además se pulsa con el dedo sin tener que acertar en La Rioja, y es
-  la forma en que un lector de pantalla recorre el mapa.
+- **En el móvil las cifras del dibujo se ocultan** y el dato lo lleva la tabla. A 330 píxeles de
+  ancho una cifra escrita sobre el mapa se queda en diez píxeles de alto: no hay manera de
+  leerla. La tabla además se pulsa con el dedo sin tener que acertar en La Rioja, y es por donde
+  un lector de pantalla recorre el mapa.
 
 Los nombres de las comunidades del mapa tienen que coincidir con los de la columna «comunidad
 autónoma» del Excel. Si el INE o el registro cambiaran de forma de nombrarlas, se ajusta la
@@ -530,7 +534,7 @@ tabla `NOMBRES` del script, no el archivo generado.
 
 ### La población del INE
 
-La cifra de población guineana sale de la **tabla 02005 del INE**, nacionalidad «Guinea» —que es
+La tercera columna de la tabla sale de la **tabla 02005 del INE**, nacionalidad «Guinea» —que es
 Guinea Conakry, distinta de «Guinea Ecuatorial» y de «Guinea-Bissau»—. Se actualiza con:
 
 ```bash

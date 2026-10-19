@@ -2252,36 +2252,66 @@ body.visor-abierto { overflow: hidden; }
 .mapa-ccaa__leyenda i[data-nivel="3"] { background: #476D91; }
 .mapa-ccaa__leyenda i[data-nivel="4"] { background: var(--navy); }
 
-/* La lista de comunidades con su cifra, debajo del mapa. Ordenada de mayor
-   a menor, que es como se busca «dónde hay más».
+/* La tabla de comunidades, debajo del mapa: las entidades inscritas en cada
+   una y la población guineana que vive en ella. Ordenada por entidades, que
+   es como se busca «dónde hay más».
 
-   En el mapa de entidades cada línea es un botón y filtra igual que pulsar
-   la comunidad; en el del INE son solo datos, porque las cifras de cuatro
-   dígitos no caben escritas encima del dibujo. */
-.mapa-ccaa__lista {
-  list-style: none; margin: 14px 0 0; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(212px, 1fr));
-  gap: 0 18px;
+   Las dos cifras van en la misma tabla a propósito: la comparación —dónde
+   hay comunidad pero todavía no hay entidad que la represente— es el dato
+   que el Consejo necesita, y en dos tablas separadas había que ir y venir
+   con el dedo.
+
+   Las cifras en tabulares para que las columnas no bailen, y alineadas a la
+   derecha para poder compararlas de un vistazo. */
+.mapa-ccaa__tabla {
+  width: 100%; border-collapse: collapse; margin-top: 16px;
+  font-size: .86rem;
 }
-.mapa-ccaa__lista-item { border-bottom: 1px solid var(--gris-100); }
-.mapa-ccaa__lista-fila,
-.mapa-ccaa__lista-item > button {
-  display: flex; justify-content: space-between; align-items: center; gap: 10px;
-  width: 100%; min-height: 34px; padding: 4px 6px 4px 0;
-  font-family: inherit; font-size: .84rem; text-align: left; color: var(--texto);
+.mapa-ccaa__tabla thead th {
+  font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--texto-suave); text-align: right; padding: 0 8px 7px;
+  border-bottom: 1px solid var(--gris-200);
+}
+.mapa-ccaa__tabla thead th:first-child { text-align: left; padding-left: 0; }
+.mapa-ccaa__tabla tbody th {
+  font-weight: 600; text-align: left; padding: 0;
+}
+/* `width: 1%` encoge las dos columnas de cifras a lo que ocupan y deja que
+   el nombre se quede con el resto. Sin eso se repartían el ancho a tercios
+   y las dos cifras acababan tan separadas que no se podían comparar, que es
+   justo para lo que están juntas. */
+.mapa-ccaa__tabla td {
+  width: 1%; white-space: nowrap;
+  text-align: right; padding: 4px 8px;
+  font-variant-numeric: tabular-nums; font-weight: 700; color: var(--navy);
+}
+.mapa-ccaa__tabla tbody tr { border-bottom: 1px solid var(--gris-100); }
+
+/* El nombre es el botón que filtra: ocupa toda la celda para que el objetivo
+   sea cómodo, y no se parte en dos líneas por un guion. */
+.mapa-ccaa__tabla tbody th > button,
+.mapa-ccaa__tabla tbody th > span {
+  display: block; width: 100%; min-height: 34px; padding: 5px 8px 5px 0;
+  font: inherit; text-align: left; color: var(--texto);
   background: none; border: 0;
 }
-.mapa-ccaa__lista-item > button { cursor: pointer; border-radius: var(--radio-xs); }
-.mapa-ccaa__lista-item > button:hover { background: var(--gris-100); padding-left: 6px; }
-.mapa-ccaa__lista-item > button.es-actual {
-  background: var(--navy); color: #fff; padding-left: 6px;
+.mapa-ccaa__tabla tbody th > button {
+  cursor: pointer; border-radius: var(--radio-xs);
 }
-.mapa-ccaa__lista-item > button.es-actual b { color: #fff; }
-/* Sin nada que ver: se enseña el cero, pero apagado y sin prometer un
-   filtro que no existe. */
-.mapa-ccaa__lista-item.es-vacia { color: var(--texto-suave); }
-.mapa-ccaa__lista-item.es-vacia b { color: var(--texto-suave); font-weight: 600; }
-.mapa-ccaa__lista b { font-variant-numeric: tabular-nums; color: var(--navy); font-size: .9rem; }
+.mapa-ccaa__tabla tbody th > button:hover { background: var(--gris-100); padding-left: 8px; }
+.mapa-ccaa__tabla tbody th > button.es-actual {
+  background: var(--navy); color: #fff; padding-left: 8px;
+}
+/* Sin ninguna entidad: se ve el cero, pero apagado y sin prometer un filtro
+   que no existe.
+
+   Se apaga el cero, NO la población: «cero entidades y 345 personas» es
+   precisamente el dato que hay que mirar, y dejarlo en gris claro lo
+   escondía. */
+.mapa-ccaa__tabla tr.es-vacia th > span { color: var(--texto-suave); }
+.mapa-ccaa__tabla tr.es-vacia td:first-of-type {
+  color: var(--texto-suave); font-weight: 600;
+}
 
 /* Por debajo de este ancho el mapa mide unos 330 píxeles y una cifra de 30
    unidades del lienzo se quedaría en diez píxeles de alto. Ahí el dato lo
@@ -2289,6 +2319,18 @@ body.visor-abierto { overflow: hidden; }
    se lee igual. */
 @media (max-width: 700px) {
   .mapa-ccaa__cifras { display: none; }
+}
+
+/* En el móvil la tabla tiene unos 330 píxeles para tres columnas. Las
+   cabeceras se parten en dos líneas —«Población / guineana»— y las cifras
+   se aprietan: sin esto, «Población guineana» en una sola línea empujaba su
+   columna fuera de la tarjeta y la cifra no se veía. */
+@media (max-width: 520px) {
+  .mapa-ccaa__tabla { font-size: .82rem; }
+  .mapa-ccaa__tabla thead th { font-size: .62rem; letter-spacing: .03em; padding: 0 5px 7px; }
+  .mapa-ccaa__tabla td { padding: 4px 5px; }
+  .mapa-ccaa__tabla tbody th > button,
+  .mapa-ccaa__tabla tbody th > span { padding-right: 5px; }
 }
 
 /* Los datos registrales de una entidad: segunda línea, más apagada que la
