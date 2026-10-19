@@ -1015,69 +1015,222 @@
      ====================================================================== */
 
 
-  /* ── Mapa de mosaico de entidades por comunidad ────────────────────
-     Cada comunidad es una casilla de una rejilla colocada con la forma
-     aproximada de España. No son fronteras: es un esquema. Las dos
-     ciudades autónomas van abajo, al lado de Canarias, como en casi
-     todos los mapas de prensa.
+  /* ── El mapa de España ─────────────────────────────────────────────
+     Las fronteras las trae assets/js/mapa-ccaa.js, que genera
+     dev/generar-mapa-ccaa.py a partir de un GeoJSON público. Aquí solo se
+     pinta y se le pone el número encima.
 
-     La posición es `fila / columna` de una rejilla de 5 por 5. */
-  var MOSAICO = [
-    ['Galicia',              'GAL', 1, 1],
-    ['Principado de Asturias','AST', 1, 2],
-    ['Cantabria',            'CNT', 1, 3],
-    ['País Vasco',           'PVA', 1, 4],
-    ['Comunidad Foral de Navarra', 'NAV', 1, 5],
-    ['Castilla y León',      'CYL', 2, 2],
-    ['La Rioja',             'RIO', 2, 3],
-    ['Aragón',               'ARA', 2, 4],
-    ['Cataluña',             'CAT', 2, 5],
-    ['Extremadura',          'EXT', 3, 1],
-    ['Comunidad de Madrid',  'MAD', 3, 2],
-    ['Castilla-La Mancha',   'CLM', 3, 3],
-    ['Comunitat Valenciana', 'CVA', 3, 4],
-    ['Illes Balears',        'BAL', 3, 5],
-    ['Andalucía',            'AND', 4, 2],
-    ['Región de Murcia',     'MUR', 4, 3],
-    ['Canarias',             'CNR', 5, 1],
-    ['Ceuta',                'CEU', 5, 2],
-    ['Melilla',              'MEL', 5, 3]
-  ];
+     Antes esto era un mosaico de casillas cuadradas puestas con la forma
+     aproximada de España. Funcionaba, pero obligaba a leer abreviaturas:
+     con las fronteras de verdad la comunidad se reconoce sin leer nada.
+
+     El mapa lo usan dos sitios:
+       · el de entidades, donde cada comunidad se puede pulsar para
+         filtrar el listado;
+       · el de población del INE, que es solo de lectura.
+
+     Dos decisiones que conviene conocer antes de tocarlo:
+
+     · LA CIFRA. Va dentro de la comunidad cuando cabe, y cuando no cabe
+       sale fuera con una línea que la une a su sitio. Si cabe o no se
+       calcula de verdad: mapa-ccaa.js trae, para cada comunidad, cuánto
+       hueco hay alrededor del punto donde iría, y aquí se compara con lo
+       que ocupa el número. Por eso una cifra de dos dígitos cabe en
+       Cantabria y una de cuatro no.
+
+     · EL COLOR. Cuatro tonos del azul de la carta, del más claro al
+       propio azul, y nada más: así el mapa se lee de un vistazo sin
+       inventar colores nuevos. Los dos claros llevan la cifra en azul y
+       los dos oscuros en blanco; esas cuatro parejas se midieron y todas
+       pasan de 5:1 de contraste. Si se añade un tono hay que volver a
+       medirlo. */
 
   var comunidadElegida = '';
 
-  /* Dibuja la rejilla a partir de una función que, dado el nombre de una
-     comunidad, devuelve su número. La usan los dos mapas: el de entidades,
-     que se puede pulsar para filtrar, y el de población del INE, que es
-     solo de lectura.
+  /* Los miles, separados como toca en cada idioma: en español «11.162» y
+     en francés «11 162». No es un capricho tipográfico: un francés que lee
+     «11.162» entiende once coma ciento sesenta y dos.
 
-     Los números del INE llegan a cuatro cifras, así que la cifra se
-     encoge cuando es larga: si no, se sale de su casilla en el móvil. */
-  function rejillaMosaico(cuentaDe, op) {
+     Y sí, en español 1434 va sin punto: la norma solo agrupa a partir de
+     cinco cifras. Lo hace toLocaleString solo. */
+  function cifra(n) {
+    return Number(n).toLocaleString(idiomaActual === 'fr' ? 'fr-FR' : 'es-ES');
+  }
+
+  /* Cuánto ocupa el número, a ojo de buen cubero pero suficiente: el
+     ancho de un dígito de la Montserrat en negrita ronda el 0,58 del
+     cuerpo. Se devuelve el radio que necesitaría para caber. */
+  function huecoQuePide(texto, cuerpo) {
+    var ancho = String(texto).length * 0.58 * cuerpo;
+    var alto = cuerpo * 0.72;
+    return Math.sqrt(ancho * ancho + alto * alto) / 2 + 3;
+  }
+
+  function nivelDeColor(n, tope) {
+    if (!n) return 0;
+    if (!tope) return 1;
+    var t = n / tope;
+    return t > 0.75 ? 4 : t > 0.5 ? 3 : t > 0.25 ? 2 : 1;
+  }
+
+  /* Cómo se lee en alto «Aragón: 8». Va con su singular: «1 entidades» en
+     el texto alternativo de un mapa queda fatal, y en francés además hay
+     que concordar. */
+  function cuentaConPalabra(n, clave) {
+    var palabra = traducir(clave + (n === 1 ? '.uno' : '.varios')) ||
+      (clave === 'asoc.mapa.entidad'
+        ? (n === 1 ? 'entidad' : 'entidades')
+        : (n === 1 ? 'persona' : 'personas'));
+    return cifra(n) + ' ' + palabra;
+  }
+
+  /* op.pulsable  cada comunidad es un botón que filtra el listado
+     op.cifras    escribe el número encima del mapa
+     op.cuenta    clave de i18n con la que se nombra el dato en voz alta */
+  function dibujarMapa(cuentaDe, op) {
     op = op || {};
-    return MOSAICO.map(function (c) {
-      var nombre = c[0], abrev = c[1], fila = c[2], col = c[3];
-      var n = cuentaDe(nombre) || 0;
-      var elegida = op.pulsable && mismaComunidad(comunidadElegida, nombre);
-      var etiqueta = typeof n === 'number' ? n.toLocaleString('es-ES') : n;
-      return '<' + (op.pulsable && n ? 'button type="button"' : 'div') +
-        ' class="mosaico__celda' + (n ? '' : ' mosaico__celda--vacia') +
-          (elegida ? ' es-actual' : '') + (String(etiqueta).length > 3 ? ' mosaico__celda--larga' : '') + '"' +
-        ' style="grid-area:' + fila + '/' + col + '"' +
-        (op.pulsable && n ? ' data-comunidad="' + nombre + '" aria-pressed="' +
-          (elegida ? 'true' : 'false') + '"' : '') +
-        ' title="' + nombre + ': ' + etiqueta + '">' +
-        '<span class="mosaico__abrev">' + abrev + '</span>' +
-        '<span class="mosaico__n">' + etiqueta + '</span>' +
-      '</' + (op.pulsable && n ? 'button' : 'div') + '>';
+    var M = window.CGE_MAPA;
+    if (!M) return '';
+
+    var datos = M.ccaa.map(function (c) {
+      return { c: c, n: cuentaDe(c.n) || 0 };
+    });
+    var tope = datos.reduce(function (m, d) { return Math.max(m, d.n); }, 0);
+
+    var CUERPO = 30;
+    var zonas = '', cifras = '';
+
+    datos.forEach(function (d) {
+      var c = d.c, n = d.n;
+      var nivel = nivelDeColor(n, tope);
+      var etiqueta = cifra(n);
+      var elegida = op.pulsable && mismaComunidad(comunidadElegida, c.n);
+      var pulsable = op.pulsable && n > 0;
+      var nombrado = c.n + ': ' + cuentaConPalabra(n, op.cuenta);
+
+      /* Ceuta y Melilla son dos manchas de un píxel: se dibujan como un
+         punto, y encima lleva un círculo invisible bastante más grande
+         para que se puedan pulsar con el dedo. */
+      var minuscula = c.r < 4;
+      var mando = (pulsable
+        ? ' data-comunidad="' + c.n + '" role="button" tabindex="0"' +
+          ' aria-pressed="' + (elegida ? 'true' : 'false') + '"'
+        : '');
+
+      if (minuscula) {
+        /* El círculo grande solo recoge el dedo y va sin `data-nivel`: con
+           él puesto gana la regla del color —misma especificidad, pero va
+           antes— y en vez de ser invisible se pintaba como un pegote del
+           tamaño de media provincia. */
+        zonas += '<circle class="mapa-ccaa__punto" data-nivel="' + nivel + '"' +
+                 ' cx="' + c.x + '" cy="' + c.y + '" r="9"></circle>' +
+                 '<circle class="mapa-ccaa__zona mapa-ccaa__zona--punto' +
+                 (elegida ? ' es-actual' : '') + '"' + mando +
+                 ' cx="' + c.x + '" cy="' + c.y + '" r="26">' +
+                 '<title>' + nombrado + '</title></circle>';
+      } else {
+        zonas += '<path class="mapa-ccaa__zona' + (elegida ? ' es-actual' : '') + '"' +
+                 ' data-nivel="' + nivel + '"' + mando + ' d="' + c.d + '">' +
+                 '<title>' + nombrado + '</title></path>';
+      }
+
+      if (!op.cifras) return;
+
+      /* Dentro si cabe; si no, fuera con su línea. Las minúsculas van
+         siempre fuera, y las de fuera llevan la abreviatura delante:
+         una cifra suelta en mitad del mar no dice de quién es. */
+      if (!minuscula && huecoQuePide(etiqueta, CUERPO) <= c.r) {
+        cifras += '<text class="mapa-ccaa__cifra' + (elegida ? ' es-actual' : '') +
+          '" data-nivel="' + nivel + '"' +
+          ' x="' + c.x + '" y="' + c.y + '">' + etiqueta + '</text>';
+      } else {
+        var texto = c.a + ' ' + etiqueta;
+        var ancho = texto.length * 0.58 * 24 + 16;
+        cifras +=
+          '<line class="mapa-ccaa__hilo" x1="' + c.x + '" y1="' + c.y +
+            '" x2="' + c.fx + '" y2="' + c.fy + '"></line>' +
+          '<rect class="mapa-ccaa__globo" x="' + (c.fx - ancho / 2) + '" y="' + (c.fy - 17) +
+            '" width="' + ancho + '" height="34" rx="17"></rect>' +
+          '<text class="mapa-ccaa__cifra mapa-ccaa__cifra--fuera" x="' + c.fx + '" y="' + c.fy + '">' +
+            texto + '</text>';
+      }
+    });
+
+    var r = M.recuadroCanarias;
+    op.datos = datos;      /* se los queda quien llama, para la lista */
+    op.tope = tope;
+    return '<svg class="mapa-ccaa__svg" viewBox="' + M.viewBox + '" role="img"' +
+      ' aria-label="' + (op.alt || '') + '">' +
+      '<g class="mapa-ccaa__zonas">' + zonas + '</g>' +
+      '<rect class="mapa-ccaa__inset" x="' + r.x + '" y="' + r.y +
+        '" width="' + r.ancho + '" height="' + r.alto + '" rx="4"></rect>' +
+      '<g class="mapa-ccaa__cifras">' + cifras + '</g>' +
+    '</svg>';
+  }
+
+  /* La lista de comunidades con su cifra, debajo del mapa.
+
+     No es un adorno ni una repetición: en un móvil el mapa mide unos 330
+     píxeles de ancho, y a esa escala una cifra escrita encima del dibujo
+     se queda en diez píxeles. Por eso en pantalla estrecha las cifras del
+     mapa se ocultan y es esta lista la que lleva el dato. De paso resuelve
+     dos cosas más: se pulsa con el dedo sin tener que acertar en La Rioja,
+     y es la forma en que un lector de pantalla recorre el mapa.
+
+     Cuando `pulsable`, cada línea filtra el listado igual que la comunidad
+     en el mapa: comparten el `data-comunidad`, así que no hace falta más
+     código para que funcionen las dos. */
+  function listaMapa(datos, pulsable, clave) {
+    var filas = datos.slice().sort(function (a, b) {
+      return b.n - a.n || a.c.n.localeCompare(b.c.n, 'es');
+    }).map(function (d) {
+      var celda = '<b>' + cifra(d.n) + '</b>';
+      if (!pulsable || !d.n) {
+        return '<li class="mapa-ccaa__lista-item' + (d.n ? '' : ' es-vacia') + '">' +
+          '<span class="mapa-ccaa__lista-fila"><span>' + d.c.n + '</span>' + celda +
+          '</span></li>';
+      }
+      var elegida = mismaComunidad(comunidadElegida, d.c.n);
+      return '<li class="mapa-ccaa__lista-item">' +
+        '<button type="button" data-comunidad="' + d.c.n + '"' +
+          ' aria-pressed="' + (elegida ? 'true' : 'false') + '"' +
+          (elegida ? ' class="es-actual"' : '') + '>' +
+          '<span>' + d.c.n + '</span>' + celda +
+        '</button></li>';
     }).join('');
+    return '<ul class="mapa-ccaa__lista">' + filas + '</ul>';
+  }
+
+  /* La leyenda de los cuatro tonos. Un mapa de color sin leyenda obliga a
+     adivinar, y los tramos salen del dato, no de un número redondo. */
+  function leyendaMapa(tope) {
+    if (!tope) return '';
+    /* Los cortes tienen que ser los mismos que usa nivelDeColor, que
+       sube de tono cuando la proporción PASA del cuarto, de la mitad o de
+       tres cuartos. Con `ceil` la leyenda decía que el segundo tono
+       empezaba en 1021 cuando en el mapa empezaba en 1020. */
+    var cortes = [1, Math.floor(tope * 0.25) + 1, Math.floor(tope * 0.5) + 1,
+                  Math.floor(tope * 0.75) + 1];
+    var html = '<span class="mapa-ccaa__leyenda-cero"><i data-nivel="0"></i>0</span>';
+    for (var i = 0; i < 4; i++) {
+      var hasta = i < 3 ? cortes[i + 1] - 1 : tope;
+      if (cortes[i] > hasta) continue;   /* con pocos datos hay tramos vacíos */
+      html += '<span><i data-nivel="' + (i + 1) + '"></i>' +
+        (cortes[i] === hasta ? cifra(cortes[i]) : cifra(cortes[i]) + '–' + cifra(hasta)) +
+        '</span>';
+    }
+    return '<div class="mapa-ccaa__leyenda" aria-hidden="true">' + html + '</div>';
   }
 
   /* ── Mapa de población del INE ─────────────────────────────────────
-     Cuántos guineanos viven en cada comunidad, según el INE. Va al lado
-     del de entidades a propósito: puestos uno junto a otro se ve dónde
-     hay comunidad pero todavía no hay entidad que la represente, que es
-     justo lo que el Consejo necesita saber.
+     Cuántos guineanos viven en cada comunidad, según el INE. Va debajo
+     del de entidades a propósito: puestos uno bajo otro se ve dónde hay
+     comunidad pero todavía no hay entidad que la represente, que es justo
+     lo que el Consejo necesita saber.
+
+     Este no lleva las cifras encima del mapa: son de cuatro dígitos y no
+     caben dentro de casi ninguna comunidad. Va el color, con su leyenda,
+     y las cifras enteras en la lista de debajo.
 
      El año va siempre visible: un dato de población sin año no dice
      nada, y este tarda en actualizarse. */
@@ -1087,21 +1240,28 @@
     var p = (window.CGE_CONTENIDO || {}).poblacionINE;
     if (!p || !p.porCa) { caja.innerHTML = ''; return; }
 
+    var op = {
+      cuenta: 'asoc.ine.persona',
+      alt: traducir('asoc.ine.alt') ||
+        'Mapa de España con la población guineana por comunidad autónoma. Las cifras están en la lista que sigue.'
+    };
+    var svg = dibujarMapa(function (nombre) { return p.porCa[nombre] || 0; }, op);
+
     caja.innerHTML =
-      '<div class="mosaico">' +
-        '<div class="mosaico__cabecera">' +
+      '<div class="mapa-ccaa">' +
+        '<div class="mapa-ccaa__cabecera">' +
           '<span class="eyebrow">' +
             (traducir('asoc.ine.t') || 'La comunidad guineana') + '</span>' +
           '<p>' +
             (traducir('asoc.ine.p') || 'Personas de nacionalidad guineana empadronadas, por comunidad autónoma.') +
-            ' <strong>' + p.total.toLocaleString('es-ES') + '</strong> ' +
+            ' <strong>' + cifra(p.total) + '</strong> ' +
             (traducir('asoc.ine.total') || 'en toda España') + '.' +
           '</p>' +
         '</div>' +
-        '<div class="mosaico__rejilla">' +
-          rejillaMosaico(function (nombre) { return p.porCa[nombre] || 0; }, {}) +
-        '</div>' +
-        '<p class="mosaico__fuente">' +
+        svg +
+        leyendaMapa(op.tope) +
+        listaMapa(op.datos, false, 'asoc.ine.persona') +
+        '<p class="mapa-ccaa__fuente">' +
           (traducir('asoc.ine.fuente') || 'Fuente') + ': INE, ' +
           '<a href="' + p.fuente + '" target="_blank" rel="noopener">' +
             (traducir('asoc.ine.tabla') || 'padrón de población extranjera') + '</a>' +
@@ -1125,29 +1285,57 @@
     var todas = (window.CGE_CONTENIDO && window.CGE_CONTENIDO.asociaciones) || [];
     if (!todas.length) { caja.innerHTML = ''; return; }
 
-    var celdas = rejillaMosaico(function (nombre) {
+    function cuantas(nombre) {
       return todas.filter(function (a) { return mismaComunidad(a.ca, nombre); }).length;
-    }, { pulsable: true });
+    }
+
+    /* dibujarMapa deja en `op` los datos que ha usado, y con ellos se monta
+       la lista sin volver a contar nada. */
+    var op = {
+      pulsable: true,
+      cifras: true,
+      cuenta: 'asoc.mapa.entidad',
+      alt: traducir('asoc.mapa.alt') ||
+        'Mapa de España con el número de entidades inscritas en cada comunidad autónoma.'
+    };
 
     caja.innerHTML =
-      '<div class="mosaico">' +
-        '<div class="mosaico__cabecera">' +
+      '<div class="mapa-ccaa">' +
+        '<div class="mapa-ccaa__cabecera">' +
           '<span class="eyebrow">' +
             (traducir('asoc.mapa.t') || 'Dónde están') + '</span>' +
           '<p>' + (traducir('asoc.mapa.p') ||
             'Entidades por comunidad autónoma. Pulsa una para filtrar el listado.') + '</p>' +
         '</div>' +
-        '<div class="mosaico__rejilla">' + celdas + '</div>' +
-        (comunidadElegida
-          ? '<button type="button" class="btn btn--contorno btn--sm" data-mapa-todas>' +
-              (traducir('asoc.mapa.todas') || 'Ver todas') + '</button>'
-          : '') +
+        dibujarMapa(cuantas, op) +
+        leyendaMapa(op.tope) +
+        listaMapa(op.datos, true, 'asoc.mapa.entidad') +
+        '<p class="mapa-ccaa__pie" aria-live="polite">' +
+          (comunidadElegida
+            ? '<strong>' + comunidadElegida + '</strong>: ' +
+              cuentaConPalabra(cuantas(comunidadElegida), 'asoc.mapa.entidad') +
+              ' <button type="button" class="btn btn--contorno btn--sm" data-mapa-todas>' +
+                (traducir('asoc.mapa.todas') || 'Ver todas') + '</button>'
+            : (traducir('asoc.mapa.ayuda') ||
+               'Las comunidades sin entidad inscrita aparecen en gris.')) +
+        '</p>' +
       '</div>';
   }
 
   function initMapaEntidades() {
+    /* Las zonas del mapa son botones de verdad —role y tabindex—, pero un
+       elemento de SVG no responde solo al teclado: hay que traducir Intro
+       y la barra a una pulsación. */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var z = e.target.closest && e.target.closest('.mapa-ccaa__zona[data-comunidad]');
+      if (!z) return;
+      e.preventDefault();
+      z.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
     document.addEventListener('click', function (e) {
-      var celda = e.target.closest('[data-comunidad]');
+      var celda = e.target.closest && e.target.closest('[data-comunidad]');
       if (celda) {
         var c = celda.getAttribute('data-comunidad');
         comunidadElegida = mismaComunidad(comunidadElegida, c) ? '' : c;

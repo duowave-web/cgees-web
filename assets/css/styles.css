@@ -1042,6 +1042,15 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: .92rem; min-wid
 .dato-contacto__valor a { color: var(--navy); text-decoration: none; }
 .dato-contacto__valor a:hover { color: var(--navy); }
 
+/* El envoltorio de un mapa incrustado en iframe. Hoy no lo usa ninguna
+   página —la de contacto acabó sin mapa—, pero se deja porque es lo que
+   hace falta el día que se ponga: borde, esquinas y `line-height: 0`, que
+   es lo que le quita al iframe el hueco de debajo.
+
+   El `line-height: 0` se hereda, así que OJO con reutilizar esta clase
+   para algo con texto: el mapa de comunidades autónomas se llamó así al
+   principio y le salieron todas las líneas montadas unas sobre otras. Ese
+   vive en `.mapa-ccaa`. */
 .mapa {
   border: 1px solid var(--gris-200);
   border-radius: var(--radio);
@@ -2127,53 +2136,159 @@ body.visor-abierto { overflow: hidden; }
 }
 .archivo__ir { margin-left: auto; font-size: .82rem; font-weight: 700; white-space: nowrap; }
 
-/* ── Mapa de mosaico de entidades ──────────────────────────────────────
-   Una casilla por comunidad autónoma en una rejilla de 5 por 5, colocadas
-   con la forma aproximada de España. Las casillas se posicionan desde el
-   JS con `grid-area: fila/columna`, así que aquí solo va el aspecto.
+/* ── El mapa de España ─────────────────────────────────────────────────
+   Las fronteras vienen de assets/js/mapa-ccaa.js y las pinta main.js ->
+   dibujarMapa(). Aquí solo va el aspecto.
 
-   Las columnas van en `minmax(0, 1fr)` para que la rejilla pueda encoger
-   por debajo del ancho de su contenido: con `1fr` a secas, en un móvil se
-   desbordaba por la derecha. */
-.mosaico {
+   EL COLOR. Cuatro tonos del azul de la carta, del más claro al propio
+   azul. No son colores nuevos: es el mismo `--navy` aclarado sobre
+   blanco, así que el mapa no puede desafinar con el resto de la web. Los
+   dos tonos claros llevan la cifra en azul y los dos oscuros en blanco.
+   Las cuatro parejas están medidas:
+
+       nivel 1  azul sobre #B9C9D8    7,3 : 1
+       nivel 2  azul sobre #8AA4BF    4,8 : 1
+       nivel 3  blanco sobre #476D91  5,5 : 1
+       nivel 4  blanco sobre #003566 12,3 : 1
+       sin nada #55657A sobre #E9EDF1  5,0 : 1
+
+   Si se añade o se cambia un tono hay que volver a medirlo: la cifra es
+   el dato de la sección y tiene que poder leerse.
+
+   LAS COMUNIDADES SIN NADA van en gris neutro y claro, no en azul
+   clarísimo: con un azul pálido no se distinguirían del nivel 1 y
+   entonces «ninguna entidad» y «una entidad» parecerían lo mismo. Por eso
+   el nivel 1 tampoco puede ser más claro de lo que es.
+
+   AL PASAR POR ENCIMA no se cambia el relleno, se dibuja el borde. Si el
+   relleno cambiara a dorado, la cifra blanca de una comunidad oscura se
+   quedaría en 2,4:1 mientras dura el gesto. El rojo del seleccionado sí
+   cambia el relleno, y por eso ahí la cifra se fuerza a blanco. */
+/* `mapa-ccaa` y no `mapa` a secas: `.mapa` es el envoltorio del iframe
+   de la página de contacto y lleva `line-height: 0` para quitarle el
+   hueco de debajo. Heredar ese cero dejaba todas las líneas de texto de
+   aquí montadas unas encima de otras. */
+.mapa-ccaa {
   border: 1px solid var(--gris-200); border-radius: var(--radio);
   padding: 18px; margin-bottom: 22px; background: var(--gris-50);
 }
-.mosaico__cabecera { margin-bottom: 14px; }
-.mosaico__cabecera p { margin: 2px 0 0; font-size: .88rem; color: var(--texto-suave); }
-.mosaico__rejilla {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  grid-template-rows: repeat(5, auto);
-  gap: 6px;
-  max-width: 460px;
+.mapa-ccaa__cabecera { margin-bottom: 10px; }
+.mapa-ccaa__cabecera p { margin: 2px 0 0; font-size: .88rem; color: var(--texto-suave); }
+
+.mapa-ccaa__svg { display: block; width: 100%; height: auto; max-width: 620px; margin: 0 auto; }
+
+.mapa-ccaa__zona {
+  fill: #E9EDF1; stroke: var(--gris-50); stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill var(--t-rapida);
 }
-.mosaico__celda {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 1px; aspect-ratio: 1; padding: 2px;
-  border: 1px solid var(--gris-200); border-radius: var(--radio-xs);
-  background: #fff; cursor: pointer; font-family: inherit;
-  transition: border-color var(--t-rapida), background var(--t-rapida);
+.mapa-ccaa__zona[data-nivel="1"] { fill: #B9C9D8; }
+.mapa-ccaa__zona[data-nivel="2"] { fill: #8AA4BF; }
+.mapa-ccaa__zona[data-nivel="3"] { fill: #476D91; }
+.mapa-ccaa__zona[data-nivel="4"] { fill: var(--navy); }
+
+/* Solo las que se pueden pulsar cambian al pasar por encima: si cambiaran
+   todas, el gris prometería un filtro que no existe. */
+.mapa-ccaa__zona[data-comunidad] { cursor: pointer; }
+.mapa-ccaa__zona[data-comunidad]:hover { stroke: var(--navy); stroke-width: 3; }
+.mapa-ccaa__zona.es-actual { fill: var(--rojo); stroke: var(--rojo); }
+.mapa-ccaa__zona:focus-visible { outline: none; stroke: var(--navy); stroke-width: 3.5; }
+
+/* Ceuta y Melilla son dos manchas de un píxel: se dibujan como un punto y
+   encima llevan un círculo invisible de 26 unidades del lienzo —unos 26
+   píxeles reales en el móvil— para que se puedan pulsar con el dedo. */
+/* Contorno gris y no del color del fondo: sin entidades el relleno es
+   casi blanco y el punto desaparecía, con su línea apuntando a nada. */
+.mapa-ccaa__punto { stroke: var(--gris-mapa); stroke-width: 1.4; fill: #E9EDF1; }
+.mapa-ccaa__punto[data-nivel="1"] { fill: #B9C9D8; }
+.mapa-ccaa__punto[data-nivel="2"] { fill: #8AA4BF; }
+.mapa-ccaa__punto[data-nivel="3"] { fill: #476D91; }
+.mapa-ccaa__punto[data-nivel="4"] { fill: var(--navy); }
+.mapa-ccaa__zona.mapa-ccaa__zona--punto { fill: transparent; stroke: none; }
+.mapa-ccaa__zona.mapa-ccaa__zona--punto:hover { stroke: var(--navy); stroke-width: 2; }
+
+/* El recuadro de Canarias: una línea fina, lo justo para que se entienda
+   que ese trozo no está donde lo pone. */
+.mapa-ccaa__inset { fill: none; stroke: var(--gris-300); stroke-width: 1.4; }
+
+/* Las cifras no se seleccionan ni se pulsan: el clic tiene que llegar a
+   la comunidad que hay debajo. */
+.mapa-ccaa__cifras { pointer-events: none; }
+.mapa-ccaa__cifra {
+  font-family: inherit; font-size: 30px; font-weight: 800;
+  text-anchor: middle; dominant-baseline: central;
+  fill: var(--navy);
 }
-.mosaico__celda:hover:not(:disabled) { border-color: var(--navy); background: #fff; }
-.mosaico__celda.es-actual { background: var(--navy); border-color: var(--navy); }
-.mosaico__celda.es-actual .mosaico__abrev,
-.mosaico__celda.es-actual .mosaico__n { color: #fff; }
-.mosaico__abrev {
-  font-size: .58rem; font-weight: 800; letter-spacing: .04em;
-  color: var(--texto-suave); text-transform: uppercase;
+.mapa-ccaa__cifra[data-nivel="3"], .mapa-ccaa__cifra[data-nivel="4"] { fill: #fff; }
+.mapa-ccaa__cifra[data-nivel="0"] { fill: var(--texto-suave); }
+/* Al final del todo: sobre el rojo del seleccionado la cifra va blanca
+   pase lo que pase. Si esta regla subiera por encima de la del nivel 0,
+   ganaría el gris y la cifra se quedaría en 1,04:1 sobre el rojo. */
+.mapa-ccaa__cifra.es-actual { fill: #fff; }
+/* La que no cabe dentro sale fuera, con un hilo hasta su comunidad y un
+   globo blanco detrás por si cae sobre la vecina. */
+.mapa-ccaa__cifra--fuera { font-size: 24px; fill: var(--navy); }
+.mapa-ccaa__hilo { stroke: var(--gris-mapa); stroke-width: 1.4; }
+.mapa-ccaa__globo { fill: #fff; stroke: var(--gris-200); stroke-width: 1.2; }
+
+.mapa-ccaa__pie {
+  margin: 10px 0 0; font-size: .85rem; color: var(--texto-suave);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  min-height: 34px;
 }
-.mosaico__n { font-size: .95rem; font-weight: 800; color: var(--navy); line-height: 1; }
-/* Sin entidades: se ve, pero apagada y sin invitar a pulsarla. */
-.mosaico__celda--vacia { background: transparent; border-style: dashed; cursor: default; }
-.mosaico__celda--vacia .mosaico__n { color: var(--gris-300); font-weight: 700; }
-.mosaico__celda--vacia .mosaico__abrev { color: var(--gris-300); }
-/* Los números del INE llegan a cuatro cifras y no caben al mismo cuerpo. */
-.mosaico__celda--larga .mosaico__n { font-size: .74rem; letter-spacing: -.02em; }
-/* Una casilla que no se puede pulsar no debe parecer que se puede. */
-div.mosaico__celda { cursor: default; }
-.mosaico__fuente {
-  margin: 12px 0 0; font-size: .78rem; color: var(--texto-suave);
+.mapa-ccaa__fuente { margin: 12px 0 0; font-size: .78rem; color: var(--texto-suave); }
+
+/* La leyenda de los tramos de color. */
+.mapa-ccaa__leyenda {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: 4px 14px; margin: 12px 0 0; font-size: .76rem; color: var(--texto-suave);
+}
+.mapa-ccaa__leyenda span { display: inline-flex; align-items: center; gap: 5px; }
+.mapa-ccaa__leyenda i {
+  width: 16px; height: 10px; border-radius: 2px; background: #E9EDF1;
+}
+.mapa-ccaa__leyenda i[data-nivel="1"] { background: #B9C9D8; }
+.mapa-ccaa__leyenda i[data-nivel="2"] { background: #8AA4BF; }
+.mapa-ccaa__leyenda i[data-nivel="3"] { background: #476D91; }
+.mapa-ccaa__leyenda i[data-nivel="4"] { background: var(--navy); }
+
+/* La lista de comunidades con su cifra, debajo del mapa. Ordenada de mayor
+   a menor, que es como se busca «dónde hay más».
+
+   En el mapa de entidades cada línea es un botón y filtra igual que pulsar
+   la comunidad; en el del INE son solo datos, porque las cifras de cuatro
+   dígitos no caben escritas encima del dibujo. */
+.mapa-ccaa__lista {
+  list-style: none; margin: 14px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(212px, 1fr));
+  gap: 0 18px;
+}
+.mapa-ccaa__lista-item { border-bottom: 1px solid var(--gris-100); }
+.mapa-ccaa__lista-fila,
+.mapa-ccaa__lista-item > button {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  width: 100%; min-height: 34px; padding: 4px 6px 4px 0;
+  font-family: inherit; font-size: .84rem; text-align: left; color: var(--texto);
+  background: none; border: 0;
+}
+.mapa-ccaa__lista-item > button { cursor: pointer; border-radius: var(--radio-xs); }
+.mapa-ccaa__lista-item > button:hover { background: var(--gris-100); padding-left: 6px; }
+.mapa-ccaa__lista-item > button.es-actual {
+  background: var(--navy); color: #fff; padding-left: 6px;
+}
+.mapa-ccaa__lista-item > button.es-actual b { color: #fff; }
+/* Sin nada que ver: se enseña el cero, pero apagado y sin prometer un
+   filtro que no existe. */
+.mapa-ccaa__lista-item.es-vacia { color: var(--texto-suave); }
+.mapa-ccaa__lista-item.es-vacia b { color: var(--texto-suave); font-weight: 600; }
+.mapa-ccaa__lista b { font-variant-numeric: tabular-nums; color: var(--navy); font-size: .9rem; }
+
+/* Por debajo de este ancho el mapa mide unos 330 píxeles y una cifra de 30
+   unidades del lienzo se quedaría en diez píxeles de alto. Ahí el dato lo
+   lleva la lista, y el mapa se queda con el color, que a cualquier tamaño
+   se lee igual. */
+@media (max-width: 700px) {
+  .mapa-ccaa__cifras { display: none; }
 }
 
 /* Los datos registrales de una entidad: segunda línea, más apagada que la

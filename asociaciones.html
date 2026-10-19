@@ -83,14 +83,12 @@
           <span data-i18n="asoc.insc.cta">Inscribe tu entidad</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <!-- Mapa de mosaico: una casilla por comunidad autónoma, colocadas
-           en la forma aproximada de España. Es esquemático a propósito y no
-           pretende ser un mapa de fronteras: a este tamaño, y sobre todo en
-           un móvil, los contornos reales no se distinguirían, y dibujarlos
-           a ojo sería inventarse la geografía.
+      <!-- El mapa de entidades por comunidad autónoma. Pulsar una comunidad
+           filtra el listado de abajo; volver a pulsarla lo deshace.
 
-           Lo pinta main.js -> pintarMapaEntidades(). Pulsar una casilla
-           filtra el listado de abajo. -->
+           Las fronteras están en assets/js/mapa-ccaa.js, que se genera con
+           dev/generar-mapa-ccaa.py a partir de un GeoJSON público. Lo pinta
+           main.js -> pintarMapaEntidades(). -->
       <div data-mapa-entidades></div>
 
       <!-- El buscador filtra por siglas, nombre, tipo, localidad, provincia,
@@ -146,6 +144,9 @@
 
 <script src="assets/js/layout.js"></script>
 <script src="assets/js/contenido.js"></script>
+<!-- Las fronteras de las comunidades autónomas. Solo hace falta aquí:
+     el resto de páginas no dibuja el mapa. -->
+<script src="assets/js/mapa-ccaa.js"></script>
 <script src="assets/js/i18n.js"></script>
 <script src="assets/js/main.js"></script>
 </body>

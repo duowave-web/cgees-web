@@ -21,10 +21,15 @@ Idiomas: **español** (base) y **francés**.
 ## 1. Ver la web en tu ordenador
 
 ```bash
-python -m http.server 5173
+python dev/servidor.py
 ```
 
 Abre `http://localhost:5173`. Para pararlo, `Ctrl + C`.
+
+Es `python -m http.server` con una diferencia que ahorra disgustos: manda
+`Cache-Control: no-store`, así que el navegador no se queda con la copia vieja de `main.js` o de
+`styles.css`. Sin eso uno cambia algo, recarga, no ve el cambio y se pasa media hora buscando un
+error que no existe.
 
 ---
 
@@ -485,6 +490,55 @@ de la hoja, ninguno es personal: todos llevan el nombre de la asociación.
 NIF. Por decisión de la Junta se publican igual, **solo con nombre y provincia**: sin NIF no hay
 nada que se pueda dar por comprobado, así que no se les monta ficha. En el código es
 `ficha: false`.
+
+### El mapa de España
+
+Debajo del listado hay dos mapas de comunidades autónomas: **cuántas entidades** hay en cada una
+—pulsando una comunidad se filtra el listado— y **cuánta población guineana** según el INE. Los
+dos usan el mismo dibujo.
+
+**Las fronteras están en `assets/js/mapa-ccaa.js`, que es un archivo generado: no lo edites a
+mano.** Se rehace con:
+
+```bash
+python dev/generar-mapa-ccaa.py
+```
+
+El script baja un GeoJSON público de las comunidades (proyecto Click That Hood, licencia MIT),
+lo proyecta a coordenadas de pantalla, lo simplifica y escribe un trazo por comunidad. El
+original pesa 1,3 MB y se lee en memoria —no se guarda en el repositorio—; lo que queda son
+47 KB, que es lo que descarga quien visita la página.
+
+Tres cosas que conviene saber antes de tocarlo:
+
+- **Canarias va en un recuadro aparte**, abajo a la derecha. Con su posición real el mapa sería
+  tres cuartas partes de océano. El recuadro va a la derecha y no a la izquierda, que es lo
+  habitual en prensa, porque a la izquierda el hueco es de Portugal y Andalucía llega hasta el
+  borde. Si se cambia de sitio, el propio script avisa si el recuadro pisa tierra.
+- **La cifra va dentro de la comunidad cuando cabe, y cuando no, sale fuera** con una línea que
+  la une a su sitio. Si cabe o no se calcula de verdad: el script mide, para cada comunidad, el
+  punto de dentro más alejado del borde y cuánto hueco hay a su alrededor. Por eso en Ceuta,
+  Melilla, Canarias y La Rioja la cifra sale fuera y en Cantabria no.
+- **En el móvil las cifras del dibujo se ocultan** y el dato lo lleva la lista de debajo. A 330
+  píxeles de ancho una cifra escrita sobre el mapa se queda en diez píxeles de alto: no hay
+  manera de leerla. La lista además se pulsa con el dedo sin tener que acertar en La Rioja, y es
+  la forma en que un lector de pantalla recorre el mapa.
+
+Los nombres de las comunidades del mapa tienen que coincidir con los de la columna «comunidad
+autónoma» del Excel. Si el INE o el registro cambiaran de forma de nombrarlas, se ajusta la
+tabla `NOMBRES` del script, no el archivo generado.
+
+### La población del INE
+
+La cifra de población guineana sale de la **tabla 02005 del INE**, nacionalidad «Guinea» —que es
+Guinea Conakry, distinta de «Guinea Ecuatorial» y de «Guinea-Bissau»—. Se actualiza con:
+
+```bash
+python dev/importar-ine.py
+```
+
+Coge siempre el año más reciente de la tabla y lo deja anotado junto al dato, porque **una cifra
+de población sin año no dice nada**. Ahora mismo son datos de 2022.
 
 ### Lo que hay que arreglar en la hoja
 
