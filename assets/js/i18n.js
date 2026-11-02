@@ -540,7 +540,7 @@ fr: {
 "docs.ver": "Voir l'événement",
 "docs.origen": "Origine du Conseil",
 "docs.otros": "Autres documents",
-"docs.nota": "Les documents s'affichent à l'écran et ne peuvent pas être téléchargés d'ici. Si vous avez besoin d'une copie pour une démarche, écrivez-nous et nous vous l'envoyons.",
+"docs.nota": "Les documents sont consultables ici. Si vous avez besoin d'une copie certifiée pour une démarche, écrivez-nous et nous vous l'envoyons.",
 "nav.sub.avisos": "Avis et actualités",
 "nav.sub.avisos.d": "Communiqués, événements et réalisations",
 "nav.sub.docs": "Archives documentaires",
